@@ -3,4 +3,4 @@ class AtributoEspecial:
         pass
 
     def __str__(self) -> str:
-        return "AtributoEspecial"
+        return "Jo"
