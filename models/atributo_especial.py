@@ -6,4 +6,8 @@ class AtributoEspecial:
         return "Jo"
 
     def jo(self):
-        return "Jo"
+        return "Jonathan"
+
+    def leo(self):
+        return "Leonardo"
+
