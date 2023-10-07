@@ -5,3 +5,5 @@ class AtributoEspecial:
     def __str__(self) -> str:
         return "Jo"
 
+    def jo(self):
+        return "Jo"
