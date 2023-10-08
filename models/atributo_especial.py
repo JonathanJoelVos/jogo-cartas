@@ -1,13 +1,12 @@
 class AtributoEspecial:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, efeito: str):
+        self.__efeito = efeito
 
-    def __str__(self) -> str:
-        return "Jo"
+    @property
+    def efeito(self):
+        return self.__efeito
 
-    def jo(self):
-        return "Jonathan"
-
-    def leo(self):
-        return "Leonardo"
+    @efeito.setter
+    def efeito(self, efeito):
+        self.__efeito = efeito
 
