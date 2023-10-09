@@ -30,7 +30,7 @@ class Baralho():
                 raise CartaJaExiste()
         self.__cartas.append(carta)
 
-    def remove_carta(self, codigo: int):
+    def del_carta(self, codigo: int):
         for c in self.__cartas:
             if c.codigo == codigo:
                 self.__cartas.remove(c)
