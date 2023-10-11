@@ -65,7 +65,7 @@ class Tabuleiro:
         self.__cartas_na_mao.remove(monstro)
 
     def jogar_feitico(self, feitico, tabuleiro_aplicado, posicao_em_batalha):
-        if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1] == None:
+        if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1] is None:
             raise AlvoInvalido
         self.__cartas_na_mao.remove(feitico)
         if feitico.modificacao == 'aumentar':
@@ -124,8 +124,8 @@ class Tabuleiro:
         for monstro in monstros:
             self.__monstros.remove(monstro)
 
-    def definir_bloqueador(self,
-                           posicao):  # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
+    # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
+    def definir_bloqueador(self, posicao):
         if posicao == 0:
             self.__monstros_em_batalha.append(None)
         else:
