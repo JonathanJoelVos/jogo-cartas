@@ -1,5 +1,5 @@
-from carta import Carta
-from atributo_especial import AtributoEspecial
+from models.carta import Carta
+from models.atributo_especial import AtributoEspecial
 
 
 class Mostro(Carta):
