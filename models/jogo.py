@@ -1,7 +1,12 @@
 from random import choice
 
+from errors.ataque_sem_monstros import AtaqueSemMonstros
+from errors.mana_insuficiente import ManaInsuficiente
 from errors.monstro_sem_voar import MonstroSemVoar
+from errors.nao_condiz import NaoCondiz
+from errors.tabuleiro_cheio import TabuleiroCheio
 from models.tabuleiro import Tabuleiro
+from models.monstro import Monstro
 
 
 class Jogo:
@@ -15,6 +20,7 @@ class Jogo:
         self.__ambos_vivos = True
         self.__vencedor = None
         self.__perdedor = None
+        self.__empate = False
         self.__baralho_vencedor = None
         self.__baralho_perdedor = None
         self.__rodada = 1
@@ -39,7 +45,19 @@ class Jogo:
     @property
     def t2(self):
         return self.__t2
-    
+
+    @property
+    def tabuleiros(self):
+        return self.__tabuleiros
+
+    @property
+    def empate(self):
+        return self.__empate
+
+    @empate.setter
+    def empate(self, valor):
+        self.__empate = valor
+
     @property
     def jogadores(self):
         return self.__jogadores
@@ -200,24 +218,36 @@ class Jogo:
                 self.realizar_batalha()
 
     def jogar_monstro(self, tabuleiro, monstro):
+        if monstro.custo_mana > tabuleiro.mana_atual:
+            raise ManaInsuficiente
+        if len(tabuleiro.monstros) > 5:
+            raise TabuleiroCheio
+        tabuleiro.mana_atual -= monstro.custo_mana
         tabuleiro.jogar_monstro(monstro)
         self.__contador_de_passes = 0
         self.mudar_turno()
 
-    def iniciar_ataque(self, tabuleiro, monstros):
-        tabuleiro.atacar(monstros)
+    def iniciar_ataque(self, monstros):
+        if not monstros:
+            raise AtaqueSemMonstros
+        for tabuleiro in self.__tabuleiros:
+            if tabuleiro is not self.__atacante_rodada:
+                tabuleiro.monstros_em_batalha = [None, None, None, None, None]
+        self.__tabuleiro_do_turno.atacar(monstros)
         self.__contador_de_passes = 0
         self.__em_batalha = True
         self.__ataque_ja_realizado = True
 
     def realizar_bloqueio(self, tabuleiro, posicao, monstro):
+        if tabuleiro is not self.__tabuleiro_do_turno:
+            raise NaoCondiz
         voar = False
         atacante_com_voar = False
         for atributo in monstro.atributos:
             if atributo.efeito == 'voar':
                 voar = True
         if voar:
-            tabuleiro.monstros_em_batalha.append(monstro)
+            tabuleiro.monstros_em_batalha[posicao-1] = monstro
         else:
             for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
                 if atributo == voar:
@@ -226,9 +256,15 @@ class Jogo:
                 raise MonstroSemVoar
 
             else:
-                tabuleiro.monstros_em_batalha.append(monstro)
+                tabuleiro.monstros_em_batalha[posicao-1] = monstro
 
     def jogar_feitico(self, tabuleiro, feitico, tabuleiro_aplicado, posicao_em_batalha):
+        if feitico.custo_mana > (tabuleiro.mana_atual + tabuleiro.spellmana):
+            raise ManaInsuficiente
+        custoinicial = feitico.custo_mana
+        feitico.custo_mana -= tabuleiro.spellmana
+        tabuleiro.spellmana -= min(custoinicial, 3)
+        tabuleiro.mana_atual -= feitico.custo_mana
         tabuleiro.jogar_feitico(feitico, tabuleiro_aplicado, posicao_em_batalha)
         self.__contador_de_passes = 0
         self.mudar_turno()

@@ -8,6 +8,7 @@ class Feitico(Carta):
 
     def __init__(
         self,
+        nome: str,
         custo_mana: int,
         codigo: str,
         modificacao: str,
@@ -18,10 +19,19 @@ class Feitico(Carta):
         self.__modificacao = modificacao
         self.__atributo_modificado = atributo_modificado
         self.__valor = valor
+        self.__nome = nome
 
     @property
     def modificacao(self):
         return self.__modificacao
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
     @modificacao.setter
     def modificacao(self, modificacao):

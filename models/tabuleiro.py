@@ -71,13 +71,13 @@ class Tabuleiro:
         if feitico.modificacao == 'aumentar':
             if feitico.atributo == 'ataque':
                 tabuleiro_aplicado.monstros_em_batalha[
-                    posicao_em_batalha - 1].ataque += feitico.valor  # ver se pode ser dessa forma o setter
+                    posicao_em_batalha - 1].ataque += feitico.valor
             else:
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida += feitico.valor
         else:
             if feitico.atributo == 'ataque':
-                tabuleiro_aplicado.monstros_em_batalha[
-                    posicao_em_batalha - 1].ataque -= feitico.valor  # ver se pode ser dessa forma o setter
+                tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque =\
+                    max(0, (tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque - feitico.valor))
             else:
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida -= feitico.valor
                 if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida <= 0:

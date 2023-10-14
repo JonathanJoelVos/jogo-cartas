@@ -2,10 +2,11 @@ from carta import Carta
 from atributo_especial import AtributoEspecial
 
 
-class Mostro(Carta):
+class Monstro(Carta):
 
     def __init__(
         self,
+        nome: str,
         custo_mana: int,
         codigo: str,
         ataque: int,
@@ -16,6 +17,7 @@ class Mostro(Carta):
         self.__ataque = ataque
         self.__vida = vida
         self.__atributos = atributos
+        self.__nome = nome
 
     @property
     def ataque(self):
@@ -36,6 +38,14 @@ class Mostro(Carta):
     @property
     def atributos(self):
         return self.__atributos
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
     @atributos.setter
     def atributos(self, atributos):
