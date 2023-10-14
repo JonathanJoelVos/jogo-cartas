@@ -1,4 +1,4 @@
-from carta import Carta
+from models.carta import Carta
 
 
 class Feitico(Carta):
