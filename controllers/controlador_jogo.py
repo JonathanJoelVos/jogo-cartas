@@ -174,6 +174,13 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg(f'POSICAO: {posicao}')
                     self.__controlador_sistema.controlador_carta.lista_carta(
                         carta)
+
+                self.__tela_jogo.mostra_dados_do_turno({
+                    'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
+                    'mana': jogo.tabuleiro_do_turno.mana_atual,
+                    'spellmana': jogo.tabuleiro_do_turno.spellmana,
+                })
+
                 posicao_escolhida = self.__tela_jogo \
                     .pega_posicao_carta_em_lista(
                         len(jogo.tabuleiro_do_turno.cartas_na_mao))
@@ -201,11 +208,6 @@ class ControladorJogo:
                 monstros = []
                 confirmar_ataque = False
                 while not confirmar_ataque:
-                    self.__tela_jogo.mostra_msg('Monstros no seu tabuleiro:')
-                    self.__tela_jogo.mostra_msg(
-                        'Selecione o monstro que vai entrar na batalha')
-                    self.__tela_jogo.mostra_dados_em_lista_de_cartas(
-                        jogo.tabuleiro_do_turno.monstros)
                     carta = jogo.tabuleiro_do_turno.monstros[self.__tela_jogo.pega_posicao_carta_em_lista
                                                              (len(jogo.tabuleiro_do_turno.monstros)) - 1]
                     # escolheu o monstro que vai entrar na batalha
@@ -215,7 +217,7 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg(
                         'Monstro movido para o campo de batalha')
                     self.__tela_jogo.mostra_msg(
-                        'Digite 1 para confirmar ou 0 para desfazer a ação.')
+                        'Digite 1 para confirmar ou outra tecla para desfazer a ação.')
                     desfazer = self.__tela_jogo.pega_inteiro()
                     if not desfazer == 1:
                         monstros.remove(carta)
@@ -226,7 +228,7 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg('Digite 1 para iniciar o ataque ou 0 para selecionar mais'
                                                 ' monstros')
 
-                    if self.__tela_jogo.pega_inteiro() == 1:
+                    if desfazer == 1:
                         confirmar_ataque = True
                         jogo.iniciar_ataque(monstros)
 

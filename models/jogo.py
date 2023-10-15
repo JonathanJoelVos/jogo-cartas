@@ -226,7 +226,7 @@ class Jogo:
     def jogar_monstro(self, tabuleiro, monstro):
         if monstro.custo_mana > tabuleiro.mana_atual:
             raise ManaInsuficiente
-        if len(tabuleiro.monstros) > 5:
+        if len(tabuleiro.monstros) > 4:
             raise TabuleiroCheio
         tabuleiro.mana_atual -= monstro.custo_mana
         tabuleiro.jogar_monstro(monstro)

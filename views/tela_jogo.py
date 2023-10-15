@@ -30,9 +30,23 @@ class TelaJogo:
         print(f'MANA: {dados_jogador["mana"]}')
         print(f'MANA DE FEITICO:{dados_jogador["spellmana"]}')
         print('MONSTROS NO TABULEIRO: ', end='')
+        posicao = 0
+        #for monstro in dados_jogador['monstros_tabuleiro']:
+            #posicao += 1
+            #print(
+                #f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {" || ".join([atributo.efeito for atributo in monstro.atributos])}', end=' || ')
         for monstro in dados_jogador['monstros_tabuleiro']:
-            print(
-                f'{monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida}', end=' || ')
+            posicao += 1
+            atributos = [atributo.efeito for atributo in monstro.atributos]
+
+            if atributos:
+                atributos_str = ", ".join(atributos)
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+            else:
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
+
+            print(mensagem, end=' ')
+
         print('\nMONSTROS EM BATALHA: ', end='')
         for monstro in dados_jogador['monstros_em_batalha']:
             if (monstro is not None):
