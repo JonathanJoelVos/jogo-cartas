@@ -10,9 +10,37 @@ class TelaJogo:
     def mostra_msg(self, mensagem):
         print(mensagem)
 
+    def mostra_dados_jogo(self, jogo):
+        print(f'Codigo do jogo: {jogo.codigo}')
+        print()
+        print('Jogadores:')
+        for tabuleiro in jogo.tabuleiros:
+            print(f'{tabuleiro.jogador.nome}. Baralho utilizado: {tabuleiro.baralho.nome}')
+        print()
+        if jogo.empate:
+            print('Jogo empatado.')
+        else:
+            print(f'Vencedor: {jogo.vencedor.nome}')
+            print(f'Perdedor: {jogo.perdedor.nome}')
+
+    def opcoes_tela(self):
+        print('Tela de jogo.')
+        valores = [0, 1, 2]
+        while True:
+            print('Digite 0 para voltar, 1 para iniciar um jogo ou 2 para ver o historico de um jogador')
+            try:
+                opcao = int(input())
+                if opcao not in valores:
+                    raise ValueError
+                break
+            except ValueError:
+                print('Digite uma opção válida!')
+        return opcao
+
     def opcoes_turno(self, em_batalha: bool):
-        opcoes_validas = [0, 1, 2]
+        opcoes_validas = [0, 1, 2, -1]
         print('Escolha uma opção:')
+        print('Desistir da partida: digite "-1" ')
         print('Passar a vez: digite "0"')
         if not em_batalha:
             print('Jogar monstro: digite "1"')
