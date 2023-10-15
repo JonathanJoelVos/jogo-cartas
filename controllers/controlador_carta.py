@@ -1,6 +1,6 @@
 from views.tela_carta import TelaCarta
 from models.carta import Carta
-from models.mostro import Mostro
+from models.monstro import Monstro
 from models.feitico import Feitico
 from models.atributo_especial import AtributoEspecial
 
@@ -10,13 +10,13 @@ class ControladorCarta():
         self.__controlador_sistema = controlador_sistema
         self.__tela_carta = TelaCarta()
         self.__cartas: list[Carta] = [
-            Mostro(1, 'Darius', 1, 10, [AtributoEspecial('ataque')]),
-            Mostro(2, 'Poppy', 2, 10, [AtributoEspecial('ataque')]),
-            Mostro(3, '3', 3, 10, [AtributoEspecial('ataque')]),
-            Feitico(4, '4', 'aumentar', 'vida', 1),
-            Feitico(5, '5', 'aumentar', 'ataque', 1),
-            Feitico(6, '6', 'diminuir', 'vida', 1),
-            Feitico(7, '7', 'diminuir', 'ataque', 1),
+            Monstro('Teemo', 1, 'Teemo', 1, 10, [AtributoEspecial('ataque')]),
+            Monstro('Poppy', 2, 'Poppy', 2, 10, [AtributoEspecial('ataque')]),
+            Monstro('Fiora', 2, 'Fiora', 10, 10, [AtributoEspecial('ataque')]),
+            Feitico('teste', 4, '4', 'aumentar', 'vida', 1),
+            Feitico('teste', 5, '5', 'aumentar', 'ataque', 1),
+            Feitico('teste', 6, '6', 'diminuir', 'vida', 1),
+            Feitico('teste', 7, '7', 'diminuir', 'ataque', 1),
         ]
 
     @property
@@ -29,13 +29,25 @@ class ControladorCarta():
                 return carta
         return None
 
+    def seleciona_carta(self):
+        codigo = self.__tela_carta.seleciona_carta()
+        carta = self.pegar_carta_pelo_codigo(codigo)
+        if (carta is not None):
+            return carta
+        else:
+            self.__tela_carta.mostra_msg('Carta não encontrada')
+            return None
+
     def incluir_carta(self):
         dados_carta = self.__tela_carta.pega_dados_carta()
+        if (dados_carta['codigo'] == 0):
+            self.__tela_carta.mostra_msg('Código inválido')
+            return
         carta = self.pegar_carta_pelo_codigo(dados_carta['codigo'])
         if (carta is None):
             if (dados_carta['tipo'] == 'Monstro'):
                 self.__cartas.append(
-                    Mostro(
+                    Monstro(
                         dados_carta['custo_mana'],
                         dados_carta['codigo'],
                         dados_carta['ataque'],
@@ -56,40 +68,39 @@ class ControladorCarta():
         else:
             self.__tela_carta.mostra_msg('Carta já existente')
 
+    def lista_carta(self, carta: Carta):
+        if (isinstance(carta, Monstro)):
+            self.__tela_carta.mostra_monstro({
+                'custo_mana': carta.custo_mana,
+                'codigo': carta.codigo,
+                'ataque': carta.ataque,
+                'vida': carta.vida,
+                'atributos': carta.atributos
+            })
+        else:
+            self.__tela_carta.mostra_feitico({
+                'custo_mana': carta.custo_mana,
+                'codigo': carta.codigo,
+                'modificacao': carta.modificacao,
+                'atributo_modificado': carta.atributo_modificado,
+                'valor': carta.valor
+            })
+
     def lista_cartas(self):
         for carta in self.__cartas:
-            if (isinstance(carta, Mostro)):
-                self.__tela_carta.mostra_monstro({
-                    'custo_mana': carta.custo_mana,
-                    'codigo': carta.codigo,
-                    'ataque': carta.ataque,
-                    'vida': carta.vida,
-                    'atributos': carta.atributos
-                })
-            else:
-                self.__tela_carta.mostra_feitico({
-                    'custo_mana': carta.custo_mana,
-                    'codigo': carta.codigo,
-                    'modificacao': carta.modificacao,
-                    'atributo_modificado': carta.atributo_modificado,
-                    'valor': carta.valor
-                })
+            self.lista_carta(carta)
 
     def exclui_carta(self):
         self.lista_cartas()
-        codigo = self.__tela_carta.seleciona_carta()
-        carta = self.pegar_carta_pelo_codigo(codigo)
+        carta = self.seleciona_carta()
         if (carta is not None):
             self.__cartas.remove(carta)
-        else:
-            self.__tela_carta.mostra_msg('Carta não encontrada')
 
     def altera_carta(self):
         self.lista_cartas()
-        codigo = self.__tela_carta.seleciona_carta()
-        carta = self.pegar_carta_pelo_codigo(codigo)
+        carta = self.seleciona_carta()
         if (carta is not None):
-            carta_eh_mostro = isinstance(carta, Mostro)
+            carta_eh_mostro = isinstance(carta, Monstro)
             carta_eh_feitico = isinstance(carta, Feitico)
             if (carta_eh_mostro):
                 dados_monstro = self.__tela_carta.pega_dados_monstro()
@@ -105,9 +116,6 @@ class ControladorCarta():
                     dados_feitico['atributo_modificado']
                 carta.modificacao = dados_feitico['modificacao']
                 carta.valor = dados_feitico['valor']
-
-        else:
-            self.__tela_carta.mostra_msg('Carta não encontrada')
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
