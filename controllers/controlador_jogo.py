@@ -1,6 +1,7 @@
 from errors.alvo_invalido import AlvoInvalido
 from errors.ataque_ja_realizado import AtaqueJaRealizado
 from errors.ataque_sem_monstros import AtaqueSemMonstros
+from errors.baralho_incompleto import BaralhoIncompleto
 from errors.baralho_nao_existe import BaralhoNaoExiste
 from errors.jogador_nao_existe import JogadorNaoExiste
 from errors.mana_insuficiente import ManaInsuficiente
@@ -59,6 +60,8 @@ class ControladorJogo:
                         self.__tela_jogo.mostra_msg("O jogador não existe. Tente novamente.")
                     except BaralhoNaoExiste:
                         self.__tela_jogo.mostra_msg("O baralho não existe. Tente novamente.")
+                    except BaralhoIncompleto:
+                        self.__tela_jogo.mostra_msg('Baralho incompleto. Tente novamente.')
 
             else:
                 while True:
@@ -86,6 +89,8 @@ class ControladorJogo:
         b1 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j1)
         if b1 is None:
             raise BaralhoNaoExiste
+        if len(b1) < 20:
+            raise BaralhoIncompleto
 
         self.__tela_jogo.mostra_msg('Selecione o segundo jogador:')
         self.__controlador_sistema.controlador_jogador.lista_jogadores()
@@ -98,6 +103,8 @@ class ControladorJogo:
         b2 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j2)
         if b2 is None:
             raise BaralhoNaoExiste
+        if len(b2) < 20:
+            raise BaralhoIncompleto
 
         self.jogar(j1, j2, b1, b2)
 
