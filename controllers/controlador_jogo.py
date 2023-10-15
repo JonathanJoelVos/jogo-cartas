@@ -1,5 +1,11 @@
+from errors.alvo_invalido import AlvoInvalido
 from errors.ataque_ja_realizado import AtaqueJaRealizado
+from errors.ataque_sem_monstros import AtaqueSemMonstros
+from errors.baralho_incompleto import BaralhoIncompleto
+from errors.baralho_nao_existe import BaralhoNaoExiste
+from errors.jogador_nao_existe import JogadorNaoExiste
 from errors.mana_insuficiente import ManaInsuficiente
+from errors.monstro_sem_voar import MonstroSemVoar
 from errors.nao_condiz import NaoCondiz
 from errors.tabuleiro_cheio import TabuleiroCheio
 from errors.tipo_de_carta_errado import TipoDeCartaErrado
@@ -29,6 +35,92 @@ class ControladorJogo:
     def codigo_atual(self):
         return self.__codigo_atual
 
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
+
+    def opcoes_tela_de_jogo(self):
+        while True:
+            opcao = self.__tela_jogo.opcoes_tela()
+
+            if opcao == 0:
+                break
+
+            elif opcao == 1:
+                while True:
+                    self.__tela_jogo.mostra_msg("Digite '1' para voltar para a tela inicial ou outra tecla para"
+                                                " continuar.")
+
+                    escolha = self.__tela_jogo.pega_inteiro()
+                    if escolha.lower() == 1:
+                        break
+                    try:
+                        self.seleciona_dados_para_jogar()
+                        break
+                    except JogadorNaoExiste:
+                        self.__tela_jogo.mostra_msg("O jogador não existe. Tente novamente.")
+                    except BaralhoNaoExiste:
+                        self.__tela_jogo.mostra_msg("O baralho não existe. Tente novamente.")
+                    except BaralhoIncompleto:
+                        self.__tela_jogo.mostra_msg('Baralho incompleto. Tente novamente.')
+
+            else:
+                while True:
+                    self.__tela_jogo.mostra_msg("Digite '1' para voltar para a tela inicial ou outra tecla para"
+                                                " continuar.")
+                    escolha = self.__tela_jogo.pega_inteiro()
+                    if escolha == 1:
+                        break
+                    try:
+                        self.tela_de_historico()
+                        break
+                    except JogadorNaoExiste:
+                        self.__tela_jogo.mostra_msg("O jogador não existe. Tente novamente.")
+        self.retornar()
+
+    def seleciona_dados_para_jogar(self):
+        self.__tela_jogo.mostra_msg('Selecione o primeiro jogador:')
+        self.__controlador_sistema.controlador_jogador.lista_jogadores()
+        j1 = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
+        if j1 is None:
+            raise JogadorNaoExiste
+
+        self.__tela_jogo.mostra_msg('Selecione o baralho do primeiro jogador:')
+        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(j1)
+        b1 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j1)
+        if b1 is None:
+            raise BaralhoNaoExiste
+        if len(b1) < 20:
+            raise BaralhoIncompleto
+
+        self.__tela_jogo.mostra_msg('Selecione o segundo jogador:')
+        self.__controlador_sistema.controlador_jogador.lista_jogadores()
+        j2 = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
+        if j2 is None:
+            raise JogadorNaoExiste
+
+        self.__tela_jogo.mostra_msg('Selecione o baralho do segundo jogador')
+        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(j1)
+        b2 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j2)
+        if b2 is None:
+            raise BaralhoNaoExiste
+        if len(b2) < 20:
+            raise BaralhoIncompleto
+
+        self.jogar(j1, j2, b1, b2)
+
+    def tela_de_historico(self):
+        self.__tela_jogo.mostra_msg('Tela de históricos')
+        self.__tela_jogo.mostra_msg('Digite o nome de um jogador para ver o historico')
+        jogador_selecionado = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
+
+        if jogador_selecionado is None:
+            raise JogadorNaoExiste
+
+        for jogo in self.__jogos:
+            for jogador in jogo.jogadores:
+                if jogador is jogador_selecionado:
+                    self.__tela_jogo.mostra_dados_jogo(jogo)
+
     def realizar_turno(self, jogo: Jogo):
         em_batalha = jogo.em_batalha
         self.__tela_jogo.mostra_msg('')
@@ -39,6 +131,11 @@ class ControladorJogo:
                 break  # Sai do loop se a entrada for válida
             except ValueError:
                 self.__tela_jogo.mostra_msg('Digite um número válido')
+
+        if opcao == -1:
+            jogo.tabuleiro_do_turno.vida_torre -= 100
+            jogo.ambos_vivos = False
+            return
 
         if opcao == 0:
             self.__tela_jogo.mostra_msg(f'Jogador(a) {jogo.tabuleiro_do_turno.jogador.nome} passou a vez.')
@@ -61,7 +158,7 @@ class ControladorJogo:
                     jogo.jogar_monstro(jogo.tabuleiro_do_turno, monstro)
                 except TabuleiroCheio:
                     self.__tela_jogo.mostra_msg('Tabuleiro cheio. Digite "v" para voltar para a tela de opções ou '
-                                                'qualquer outra coisa para escolher um monstro aliado para ser'
+                                                'outra tecla para escolher um monstro aliado para ser'
                                                 ' eliminado.')
 
                     self.__tela_jogo.pega_string()
@@ -148,17 +245,19 @@ class ControladorJogo:
                 posicao_defesa = self.__tela_jogo.pega_string()
                 jogo.realizar_bloqueio(jogo.tabuleiro_do_turno, posicao_defesa, monstro)
 
-    def jogar(self):
+    def jogar(self, j1, j2, b1, b2):
         self.__codigo_atual += 1
-        j1 = self.__controlador_sistema.controlador_jogador.tela_jogador.pega_jogador_por_nome()
-        j2 = self.__controlador_sistema.controlador_jogador.tela_jogador.pega_jogador_por_nome()
-        b1 = self.__controlador_sistema.controlador_baralho.tela_baralho.pega_baralho_por_nome()
-        b2 = self.__controlador_sistema.controlador_baralho.tela_baralho.pega_baralho_por_nome()
+
         jogo = Jogo(self.__codigo_atual, j1, j2, b1, b2)
         self.__jogos.append(jogo)
 
+        j1.partidas_jogadas += 1
+        j2.partidas_jogadas += 1
+
         while True:
+            self.__tela_jogo.mostra_msg(f'Rodada {jogo.rodada}:')
             for tabuleiro in jogo.tabuleiros:
+                self.__tela_jogo.mostra_msg('')
                 self.__tela_jogo.mostra_msg(f'Jogador {tabuleiro.jogador.nome}:')
                 self.__tela_jogo.mostra_msg(f'Vida da torre: {tabuleiro.vida_torre}')
                 self.__tela_jogo.mostra_msg(f'Monstros no tabuleiro: {tabuleiro.monstros}')
@@ -183,19 +282,73 @@ class ControladorJogo:
             except NaoCondiz:
                 self.__tela_jogo.mostra_msg('Jogador não condiz com o atacante/defensor da rodada')
 
+            except AtaqueSemMonstros:
+                self.__tela_jogo.mostra_msg('Não pode iniciar um ataque sem monstros.')
+
+            except AlvoInvalido:
+                self.__tela_jogo.mostra_msg('Alvo inválido!')
+
+            except MonstroSemVoar:
+                self.__tela_jogo.mostra_msg("Esse monstro não pode bloquear um monstro voador!")
+
             if jogo.rodada == 16:
                 self.__tela_jogo.mostra_msg('')
-                self.__tela_jogo.mostra_msg('Jogo Encerrado em empate!')
+                self.__tela_jogo.mostra_msg('Rodada 16: Fim de jogo!')
                 self.__tela_jogo.mostra_msg('')
-                jogo.empate = True
+                i = 1
+                for tabuleiro in jogo.tabuleiros:
+                    if i == 1:
+                        v1 = tabuleiro.vida
+                        t1 = tabuleiro
+                    if i == 1:
+                        v2 = tabuleiro.vida
+                        t2 = tabuleiro
+                    i += 1
+
+                if v1 == v2:
+                    jogo.empate = True
+                    self.__tela_jogo.mostra_msg('Jogo empatado! Ambos os jogadores serão registrados como vencedores!')
+                    j1.vitorias += 1
+                    j2.vitorias += 1
+                    j1.pontos += 3
+                    j2.pontos += 3
+
+                elif v1 > v2:
+                    jogo.vencedor = t1.jogador
+                    jogo.vencedor.vitorias += 1
+                    jogo.vencedor.pontos += 3
+
+                    jogo.perdedor = t2.jogador
+                    jogo.perdedor.derrotas += 1
+                    jogo.perdedor.pontos -= 1
+
+                    self.__tela_jogo.mostra_msg(f'Vitória do(a) {jogo.vencedor} ')
+                    self.__tela_jogo.mostra_msg('')
+
+                else:
+                    jogo.vencedor = t2.jogador
+                    jogo.vencedor.vitorias += 1
+                    jogo.vencedor.pontos += 3
+
+                    jogo.perdedor = t1.jogador
+                    jogo.perdedor.derrotas += 1
+                    jogo.perdedor.pontos -= 1
+
+                    self.__tela_jogo.mostra_msg(f'Vitória do(a) {jogo.vencedor} ')
+                    self.__tela_jogo.mostra_msg('')
+
                 break
 
             if not jogo.ambos_vivos:
                 for tabuleiro in jogo.tabuleiros:
                     if tabuleiro.vida_torre <= 0:
                         jogo.perdedor = tabuleiro.jogador
+                        jogo.perdedor.derrotas += 1
+                        jogo.perdedor.pontos -= 1
                     elif tabuleiro.vida_torre > 0:
                         jogo.vencedor = tabuleiro.jogador
+                        jogo.vencedor.vitorias += 1
+                        jogo.vencedor.pontos += 3
                 self.__tela_jogo.mostra_msg('Jogo Encerrado.')
                 self.__tela_jogo.mostra_msg(f'Vitória do(a) {jogo.vencedor} ')
                 self.__tela_jogo.mostra_msg('')
