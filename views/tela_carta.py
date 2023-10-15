@@ -14,17 +14,20 @@ class TelaCarta():
     def mostra_carta(self, dados_carta):
         print('CUSTO MANA:', dados_carta['custo_mana'])
         print('CÓDIGO:', dados_carta['codigo'])
+        print('NOME:', dados_carta['nome'])
 
     def mostra_monstro(self, dados_carta):
-        print('-----MONSTRO-----')
+        print('TIPO: Monstro')
         self.mostra_carta(dados_carta)
         print('ATAQUE:', dados_carta['ataque'])
         print('VIDA:', dados_carta['vida'])
-        print('ATRIBUTOS:', dados_carta['atributos'])
+        print('ATRIBUTOS:', end=' ')
+        for atributo in dados_carta['atributos']:
+            print(atributo.efeito, end=' ')
         print("\n")
 
     def mostra_feitico(self, dados_carta):
-        print('-----FEITIÇO-----')
+        print('TIPO: Feitiço')
         self.mostra_carta(dados_carta)
         print('MODIFICAÇÃO:', dados_carta['modificacao'])
         print('ATRIBUTO MODIFICADO:', dados_carta['atributo_modificado'])
