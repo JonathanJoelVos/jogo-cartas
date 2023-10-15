@@ -1,6 +1,7 @@
-from baralho import Baralho
+from models.baralho import Baralho
 from errors.baralho_nao_existe import BaralhoNaoExiste
-from carta import Carta
+from models.carta import Carta
+import copy
 
 
 class Jogador():
@@ -74,10 +75,18 @@ class Jogador():
                 return
         raise BaralhoNaoExiste()
 
+    def altera_baralho(self, nome_baralho: str, novo_nome_baralho: str):
+        for b in self.__baralhos:
+            if b.nome == nome_baralho:
+                b.nome = novo_nome_baralho
+                return
+        raise BaralhoNaoExiste()
+
     def add_carta_ao_baralho(self, nome_baralho, carta: Carta):
         for b in self.__baralhos:
             if b.nome == nome_baralho:
-                b.add_carta(carta)
+                copia_carta = copy.deepcopy(carta)
+                b.add_carta(copia_carta)
                 return
         raise BaralhoNaoExiste()
 
@@ -86,4 +95,10 @@ class Jogador():
             if b.nome == nome_baralho:
                 b.del_carta(codigo_carta)
                 return
+        raise BaralhoNaoExiste()
+
+    def lista_cartas_do_baralho(self, nome_baralho):
+        for b in self.__baralhos:
+            if b.nome == nome_baralho:
+                return b.lista_cartas()
         raise BaralhoNaoExiste()

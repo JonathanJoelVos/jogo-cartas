@@ -16,6 +16,7 @@ class TelaCarta():
         print('CÓDIGO:', dados_carta['codigo'])
 
     def mostra_monstro(self, dados_carta):
+        print('-----MONSTRO-----')
         self.mostra_carta(dados_carta)
         print('ATAQUE:', dados_carta['ataque'])
         print('VIDA:', dados_carta['vida'])
@@ -23,6 +24,7 @@ class TelaCarta():
         print("\n")
 
     def mostra_feitico(self, dados_carta):
+        print('-----FEITIÇO-----')
         self.mostra_carta(dados_carta)
         print('MODIFICAÇÃO:', dados_carta['modificacao'])
         print('ATRIBUTO MODIFICADO:', dados_carta['atributo_modificado'])

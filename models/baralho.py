@@ -1,6 +1,6 @@
-from carta import Carta
-from errors.carta_ja_existe import CartaJaExiste
+from models.carta import Carta
 from errors.carta_nao_existe import CartaNaoExiste
+from errors.numero_de_copias_excedidos import NumeroDeCopiasExcedidas
 
 
 class Baralho():
@@ -25,9 +25,14 @@ class Baralho():
         self.__nome = nome
 
     def add_carta(self, carta: Carta):
+        if (len(self.__cartas) == 20):
+            raise NumeroDeCopiasExcedidas()
+        count_copias = 0
         for c in self.__cartas:
             if c.codigo == carta.codigo:
-                raise CartaJaExiste()
+                count_copias += 1
+                if count_copias == 3:
+                    raise NumeroDeCopiasExcedidas()
         self.__cartas.append(carta)
 
     def del_carta(self, codigo: int):
