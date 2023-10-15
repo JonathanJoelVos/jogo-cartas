@@ -104,15 +104,15 @@ class ControladorJogo:
 
         self.__tela_jogo.mostra_msg('Selecione o segundo jogador:')
         j2 = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
+        print(j2.nome)
         if j2 is None:
-            raise JogadorNaoExiste
+            raise JogadorNaoExiste()
 
         self.__tela_jogo.mostra_msg('Selecione o baralho do segundo jogador')
         self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(
-            j1)
+            j2)
         b2 = self.__controlador_sistema.controlador_jogador \
-            .seleciona_baralho_do_jogador(
-                j2)
+            .seleciona_baralho_do_jogador(j2)
         if b2 is None:
             raise BaralhoNaoExiste
         if len(b2.cartas) < 20:

@@ -1,14 +1,134 @@
 from views.tela_jogador import TelaJogador
 from models.jogador import Jogador
+from models.baralho import Baralho
+from models.monstro import Monstro
+from models.feitico import Feitico
+from models.atributo_especial import AtributoEspecial
 
 
 class ControladorJogador():
     def __init__(self, controlador_sistema):
+        # excluir jogadores
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
-        self.__jogadores: list[Jogador] = []
+        self.__jogadores: list[Jogador] = [
+            Jogador('Leo', [
+                Baralho([
+                    Monstro('Poppy', 10, '1', 2, 10, []),
+                    Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
+                    Feitico("Chama do Guerreiro", 3, "2",
+                            "aumentar", "ataque", 3),
+                    Feitico("Raiva Implacável", 4, "3",
+                            "aumentar", "ataque", 4),
+                    Feitico("Fúria Divina", 5, "4", "aumentar", "ataque", 5),
+                    Feitico("Vitalidade Fortificada", 2,
+                            "5", "aumentar", "vida", 2),
+                    Feitico("Cura Abençoada", 3, "6", "aumentar", "vida", 3),
+                    Feitico("Escudo Celestial", 4, "7", "aumentar", "vida", 4),
+                    Feitico("Resistência Infinita", 5,
+                            "8", "aumentar", "vida", 5),
 
-    @property
+                    Feitico("Maldição das Sombras", 2,
+                            "9", "diminuir", "ataque", 2),
+                    Feitico("Veneno Traiçoeiro", 3, "10",
+                            "diminuir", "ataque", 3),
+                    Monstro("Lendário Grifo", 8, "4", 7, 8, [
+                            AtributoEspecial("Sobrepujar"),
+                            AtributoEspecial("Voar")]),
+
+
+                    Monstro("Gigante Sombrio", 5, "5", 6, 6, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Touro Selvagem", 4, "6", 5, 7, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Colosso Furioso", 8, "7", 7, 9, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Campeão de Ferro", 3, "8", 3, 4,
+                            [AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Wyvern Veloz", 3, "9", 2, 4,
+                            [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Sombra Celestial", 4, "10", 3,
+                            5, [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Gavião de Aço", 2, "11", 2,
+                            3, [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Dragão das Tempestades", 5, "12",
+                            4, 6, [AtributoEspecial("Voar")]),
+                ], 'Baralho 1'),
+            ]),
+            Jogador('Jony', [
+                Baralho([
+                    Monstro('Poppy', 10, '1', 2, 10, []),
+                    Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
+                    Feitico("Chama do Guerreiro", 3, "2",
+                            "aumentar", "ataque", 3),
+                    Feitico("Raiva Implacável", 4, "3",
+                            "aumentar", "ataque", 4),
+                    Feitico("Fúria Divina", 5, "4", "aumentar", "ataque", 5),
+                    Feitico("Vitalidade Fortificada", 2,
+                            "5", "aumentar", "vida", 2),
+                    Feitico("Cura Abençoada", 3, "6", "aumentar", "vida", 3),
+                    Feitico("Escudo Celestial", 4, "7", "aumentar", "vida", 4),
+                    Feitico("Resistência Infinita", 5,
+                            "8", "aumentar", "vida", 5),
+
+                    Feitico("Maldição das Sombras", 2,
+                            "9", "diminuir", "ataque", 2),
+                    Feitico("Veneno Traiçoeiro", 3, "10",
+                            "diminuir", "ataque", 3),
+                    Monstro("Lendário Grifo", 8, "4", 7, 8, [
+                            AtributoEspecial("Sobrepujar"),
+                            AtributoEspecial("Voar")]),
+
+
+                    Monstro("Gigante Sombrio", 5, "5", 6, 6, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Touro Selvagem", 4, "6", 5, 7, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Colosso Furioso", 8, "7", 7, 9, [
+                            AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Campeão de Ferro", 3, "8", 3, 4,
+                            [AtributoEspecial("Sobrepujar")]),
+
+
+                    Monstro("Wyvern Veloz", 3, "9", 2, 4,
+                            [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Sombra Celestial", 4, "10", 3,
+                            5, [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Gavião de Aço", 2, "11", 2,
+                            3, [AtributoEspecial("Voar")]),
+
+
+                    Monstro("Dragão das Tempestades", 5, "12",
+                            4, 6, [AtributoEspecial("Voar")]),
+                ], 'Baralho 2'),
+            ]),
+        ]
+
+    @ property
     def jogadores(self):
         return self.__jogadores
 

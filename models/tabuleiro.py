@@ -54,7 +54,7 @@ class Tabuleiro:
         return self.__cartas_na_mao
 
     def comprar_carta(self):
-        self.__cartas_na_mao.append(self.__baralho.pop(0))
+        self.__cartas_na_mao.append(self.__baralho.cartas.pop(0))
 
     @property
     def monstros(self):
@@ -73,15 +73,19 @@ class Tabuleiro:
                 tabuleiro_aplicado.monstros_em_batalha[
                     posicao_em_batalha - 1].ataque += feitico.valor
             else:
-                tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida += feitico.valor
+                tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha -
+                                                       1].vida += feitico.valor
         else:
             if feitico.atributo == 'ataque':
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque =\
-                    max(0, (tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque - feitico.valor))
+                    max(0, (
+                        tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque - feitico.valor))
             else:
-                tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida -= feitico.valor
+                tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha -
+                                                       1].vida -= feitico.valor
                 if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida <= 0:
-                    tabuleiro_aplicado.monstros.remove(tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1])
+                    tabuleiro_aplicado.monstros.remove(
+                        tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1])
                     tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1] = None
 
     def eliminar_monstro(self, monstro):
