@@ -116,6 +116,7 @@ class Jogo:
             if tabuleiro is not self.__atacante_rodada:
                 self.__atacante_rodada = tabuleiro
                 self.__tabuleiro_do_turno = tabuleiro
+                break
 
         sobra_de_manat1 = max(self.__t1.mana_atual, 3)
         sobra_de_manat2 = max(self.__t2.mana_atual, 3)

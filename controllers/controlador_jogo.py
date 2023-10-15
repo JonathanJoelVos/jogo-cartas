@@ -248,7 +248,9 @@ class ControladorJogo:
         j2.partidas_jogadas += 1
 
         while True:
+            self.__tela_jogo.mostra_msg(f'Rodada {jogo.rodada}:')
             for tabuleiro in jogo.tabuleiros:
+                self.__tela_jogo.mostra_msg('')
                 self.__tela_jogo.mostra_msg(f'Jogador {tabuleiro.jogador.nome}:')
                 self.__tela_jogo.mostra_msg(f'Vida da torre: {tabuleiro.vida_torre}')
                 self.__tela_jogo.mostra_msg(f'Monstros no tabuleiro: {tabuleiro.monstros}')
