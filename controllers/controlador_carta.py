@@ -71,14 +71,16 @@ class ControladorCarta():
     def lista_carta(self, carta: Carta):
         if (isinstance(carta, Monstro)):
             self.__tela_carta.mostra_monstro({
+                'nome': carta.nome,
                 'custo_mana': carta.custo_mana,
                 'codigo': carta.codigo,
                 'ataque': carta.ataque,
                 'vida': carta.vida,
                 'atributos': carta.atributos
             })
-        else:
+        elif (isinstance(carta, Feitico)):
             self.__tela_carta.mostra_feitico({
+                'nome': carta.nome,
                 'custo_mana': carta.custo_mana,
                 'codigo': carta.codigo,
                 'modificacao': carta.modificacao,

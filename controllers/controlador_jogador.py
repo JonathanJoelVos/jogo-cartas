@@ -12,7 +12,7 @@ class ControladorJogador():
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
         self.__jogadores: list[Jogador] = [
-            Jogador('Leo', [
+            Jogador('LEONARDO', [
                 Baralho([
                     Monstro('Poppy', 10, '1', 2, 10, []),
                     Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
@@ -67,9 +67,9 @@ class ControladorJogador():
 
                     Monstro("Dragão das Tempestades", 5, "12",
                             4, 6, [AtributoEspecial("Voar")]),
-                ], 'Baralho 1'),
+                ], 'b1'),
             ]),
-            Jogador('Jony', [
+            Jogador('JONATHAN', [
                 Baralho([
                     Monstro('Poppy', 10, '1', 2, 10, []),
                     Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
@@ -124,7 +124,7 @@ class ControladorJogador():
 
                     Monstro("Dragão das Tempestades", 5, "12",
                             4, 6, [AtributoEspecial("Voar")]),
-                ], 'Baralho 2'),
+                ], 'b2'),
             ]),
         ]
 

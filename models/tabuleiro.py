@@ -69,14 +69,14 @@ class Tabuleiro:
             raise AlvoInvalido
         self.__cartas_na_mao.remove(feitico)
         if feitico.modificacao == 'aumentar':
-            if feitico.atributo == 'ataque':
+            if feitico.atributo_modificado == 'ataque':
                 tabuleiro_aplicado.monstros_em_batalha[
                     posicao_em_batalha - 1].ataque += feitico.valor
             else:
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha -
                                                        1].vida += feitico.valor
         else:
-            if feitico.atributo == 'ataque':
+            if feitico.atributo_modificado == 'ataque':
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque =\
                     max(0, (
                         tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].ataque - feitico.valor))
@@ -124,8 +124,8 @@ class Tabuleiro:
         self.__monstros_em_batalha = monstros
 
     def atacar(self, monstros):
-        self.__monstros_em_batalha.append(monstros)
         for monstro in monstros:
+            self.__monstros_em_batalha.append(monstro)
             self.__monstros.remove(monstro)
 
     # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
