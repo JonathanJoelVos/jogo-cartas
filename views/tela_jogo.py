@@ -47,6 +47,9 @@ class TelaJogo:
             '-------------------------------')
         print(
             f'ATACANTE DA RODADA: {dados_rodada["atacante_rodada"].jogador.nome}')
+        print(f'ATAQUE JÁ REALIZADO: {dados_rodada["ataque_realizado"]}')
+        print(f'Está acontecendo uma batalha? {dados_rodada["em_batalha"]}')
+        print(f'Contador de passes: {dados_rodada["contador_de_passes"]}')
         print("\n")
 
     def mostra_dados_do_turno(self, dados_turno):
@@ -74,7 +77,7 @@ class TelaJogo:
                 print('Digite uma opção válida!')
         return opcao
 
-    def opcoes_turno(self, em_batalha: bool):
+    def opcoes_turno(self, em_batalha: bool, nome_jogador):
         print('\n')
         print('-------- OPÇÕES --------')
         opcoes_validas = [0, 1, 2, -1]
@@ -92,30 +95,50 @@ class TelaJogo:
         if opcao not in opcoes_validas:
             raise ValueError
 
+        if not em_batalha:
+            if opcao == 0:
+                print(f'{nome_jogador} passou a vez!')
+            elif opcao == 1:
+                print(f'{nome_jogador} escolheu JOGAR MONSTRO')
+            elif opcao == 2:
+                print(f'{nome_jogador} escolheu INICIAR ATAQUE')
+        else:
+            if opcao == 0:
+                print(f'{nome_jogador} passou a vez!')
+            elif opcao == 1:
+                print(f'{nome_jogador} escolheu JOGAR FEITIÇO')
+            else:
+                print(f'{nome_jogador} escolheu REALIZAR BLOQUEIO')
+
         return opcao
 
     def mostra_dados_em_lista_de_cartas(self, lista_cartas):
         posicao = 0
         for carta in lista_cartas:
-            posicao += 1
-            print(f'Carta {posicao}: ')
-            print(carta.codigo)
-            print(carta.custo_mana)
-            if isinstance(carta, Monstro):
-                print('Tipo: Monstro')
-                print(f'Ataque: {carta.ataque}')
-                print(f'Vida: {carta.vida}')
-                if carta.atributos:
-                    print('Atributos:', end=' ')
-                    for atributo in carta.atributos:
-                        print(atributo.efeito, end=' ')
-                    print('', end='\n')
-            else:
-                print('Tipo: Feitiço')
-                print(f'Modificação: {carta.modificacao}')
-                print(f'Atributo: {carta.atributo_modificado}')
-                print(f'Valor: {carta.valor}')
-            print()
+            if carta is not None:
+                posicao += 1
+                print(f'POSIÇÃO: {posicao}: ')
+                if isinstance(carta, Monstro):
+                    print('TIPO: Monstro')
+                    print(f'CUSTO MANA: {carta.custo_mana}')
+                    print(f'CÓDIGO: {carta.codigo}')
+                    print(f'NOME: {carta.nome}')
+                    print(f'ATAQUE: {carta.ataque}')
+                    print(f'VIDA: {carta.vida}')
+                    if carta.atributos:
+                        print('ATRIBUTOS:', end=' ')
+                        for atributo in carta.atributos:
+                            print(atributo.efeito, end=' ')
+                        print('', end='\n')
+                else:
+                    print('TIPO: Feitiço')
+                    print(f'CUSTO MANA: {carta.custo_mana}')
+                    print(f'CÓDIGO: {carta.codigo}')
+                    print(f'NOME: {carta.nome}')
+                    print(f'MODIFICAÇÃO: {carta.modificacao}')
+                    print(f'ATRIBUTO: {carta.atributo_modificado}')
+                    print(f'VALOR: {carta.valor}')
+                print()
 
     def pega_posicao_carta_em_lista(self, posicoes_disponiveis):
         while True:
@@ -137,6 +160,39 @@ class TelaJogo:
 
     def pega_inteiro(self):
         return int(input())
+
+    def tela_escolhe_tabuleiro_feitico(self):
+        print()
+        print('O feitiço será aplicado em um monstro aliado ou um inimigo?')
+
+        print('Digite "a" para aliado, "i" para inimigo ou "v" para voltar para'
+                                    ' a tela de opções')
+        string = input()
+        while string != 'a' and string != 'i':
+            if string.lower() == 'v':
+                raise Voltar
+            print('Escolha uma opção válida')
+            print('Digite "a" para aliado, "i" para inimigo ou "v" para voltar para'
+                  ' a tela de opções')
+            string = input()
+
+        return string.lower()
+
+
+
+    def tela_tabuleiro_cheio(self,monstros):
+        print('Tabuleiro cheio. Digite "v" para voltar para a tela de opções ou '
+              'outra tecla para escolher um monstro aliado para ser'
+              ' eliminado.')
+
+        string = input()
+        if string.lower() == 'v':
+            raise Voltar
+
+        print('Selecione um monstro aliado para ser substituido'
+                                    ' pela carta escolhida:')
+
+        self.mostra_dados_em_lista_de_cartas(monstros)
 
     def pega_string(self):
         string = input()

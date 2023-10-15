@@ -126,7 +126,6 @@ class Tabuleiro:
     def atacar(self, monstros):
         for monstro in monstros:
             self.__monstros_em_batalha.append(monstro)
-            self.__monstros.remove(monstro)
 
     # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
     def definir_bloqueador(self, posicao):

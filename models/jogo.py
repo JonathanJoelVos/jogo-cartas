@@ -237,7 +237,7 @@ class Jogo:
         if not monstros:
             raise AtaqueSemMonstros
         for tabuleiro in self.__tabuleiros:
-            if tabuleiro is not self.__atacante_rodada:
+            if tabuleiro.codigo != self.__atacante_rodada.codigo:
                 tabuleiro.monstros_em_batalha = [None, None, None, None, None]
         self.__tabuleiro_do_turno.atacar(monstros)
         self.__contador_de_passes = 0
@@ -245,8 +245,7 @@ class Jogo:
         self.__ataque_ja_realizado = True
 
     def realizar_bloqueio(self, tabuleiro, posicao, monstro):
-        if tabuleiro is not self.__tabuleiro_do_turno:
-            raise NaoCondiz
+
         voar = False
         atacante_com_voar = False
         for atributo in monstro.atributos:
