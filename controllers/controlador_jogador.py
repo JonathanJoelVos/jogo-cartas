@@ -54,7 +54,7 @@ class ControladorJogador():
         jogador = self.seleciona_jogador()
         if (jogador is not None):
             self.__jogadores.remove(jogador)
-            self.__tela_jogador.monstra_msg('Jogador removido com sucesso')
+            self.__tela_jogador.mostra_msg('Jogador removido com sucesso')
 
     def altera_jogador(self):
         jogador = self.seleciona_jogador()
@@ -103,8 +103,8 @@ class ControladorJogador():
         if (jogador is not None):
             self.lista_baralhos_jogador(jogador)
             baralho = self.seleciona_baralho_do_jogador(jogador)
-            dados_baralho = self.__tela_jogador.pega_dados_baralho()
             if (baralho is not None):
+                dados_baralho = self.__tela_jogador.pega_dados_baralho()
                 jogador.altera_baralho(baralho.nome, dados_baralho['nome'])
                 self.__tela_jogador.mostra_msg('Baralho alterado com sucesso')
 
@@ -150,7 +150,7 @@ class ControladorJogador():
             carta = self.__controlador_sistema.controlador_carta \
                 .seleciona_carta()
             if (carta is not None):
-                jogador.remove_carta_do_baralho(baralho.nome, carta.codigo)
+                jogador.remover_carta_do_baralho(baralho.nome, carta.codigo)
                 self.__tela_jogador.mostra_msg('Carta removida com sucesso')
 
     def listar_cartas_do_baralho_jogador(self, jogador: Jogador):

@@ -1,4 +1,3 @@
-from errors.tipo_de_carta_errado import TipoDeCartaErrado
 from errors.voltar import Voltar
 from models.monstro import Monstro
 
@@ -15,7 +14,8 @@ class TelaJogo:
         print()
         print('Jogadores:')
         for tabuleiro in jogo.tabuleiros:
-            print(f'{tabuleiro.jogador.nome}. Baralho utilizado: {tabuleiro.baralho.nome}')
+            print(
+                f'{tabuleiro.jogador.nome}. Baralho utilizado: {tabuleiro.baralho.nome}')
         print()
         if jogo.empate:
             print('Jogo empatado.')
@@ -24,12 +24,15 @@ class TelaJogo:
             print(f'Perdedor: {jogo.perdedor.nome}')
 
     def opcoes_tela(self):
-        print('Tela de jogo.')
+        print('\n')
+        print('-------- OPÇÕES DE JOGO --------')
         valores = [0, 1, 2]
         while True:
-            print('Digite 0 para voltar, 1 para iniciar um jogo ou 2 para ver o historico de um jogador')
+            print('1 - Iniciar partida')
+            print('2 - Histórico de partidas jogadas')
+            print('0 - Voltar')
             try:
-                opcao = int(input())
+                opcao = int(input('Escolha a opção: '))
                 if opcao not in valores:
                     raise ValueError
                 break

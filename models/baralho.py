@@ -31,7 +31,7 @@ class Baralho():
         for c in self.__cartas:
             if c.codigo == carta.codigo:
                 count_copias += 1
-                if count_copias == 3:
+                if count_copias == 4:
                     raise NumeroDeCopiasExcedidas()
         self.__cartas.append(carta)
 
