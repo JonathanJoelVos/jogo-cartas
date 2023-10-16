@@ -7,6 +7,7 @@ from errors.nao_condiz import NaoCondiz
 from errors.tabuleiro_cheio import TabuleiroCheio
 from models.tabuleiro import Tabuleiro
 from models.monstro import Monstro
+from errors.posicao_ocupada import PosicaoOcupada
 
 
 class Jogo:
@@ -118,8 +119,10 @@ class Jogo:
                 self.__tabuleiro_do_turno = tabuleiro
                 break
 
-        self.__t1.spellmana = min(self.__t1.spellmana + self.__t1.mana_atual, 3)
-        self.__t2.spellmana = min(self.__t2.spellmana + self.__t2.mana_atual, 3)
+        self.__t1.spellmana = min(
+            self.__t1.spellmana + self.__t1.mana_atual, 3)
+        self.__t2.spellmana = min(
+            self.__t2.spellmana + self.__t2.mana_atual, 3)
 
         self.__t1.comprar_carta()
         self.__t2.comprar_carta()
@@ -171,9 +174,7 @@ class Jogo:
         for i in range(len(atacante.monstros_em_batalha)):
             sobrepujar = False
             if atacante.monstros_em_batalha[i] is not None:
-
                 if defensor.monstros_em_batalha[i] is not None:
-
                     for atributo in atacante.monstros_em_batalha[i].atributos:
                         if atributo.efeito == 'Sobrepujar':
                             sobrepujar = True
@@ -187,19 +188,16 @@ class Jogo:
                     atacante.monstros_em_batalha[i].vida -= defensor.monstros_em_batalha[i].ataque
                     defensor.monstros_em_batalha[i].vida -= atacante.monstros_em_batalha[i].ataque
                     if atacante.monstros_em_batalha[i].vida <= 0:
-                        atacante.monstros_em_batalha.remove(
-                            atacante.monstros_em_batalha[i])
+                        atacante.monstros_em_batalha[i] = None
                     else:
                         atacante.monstros.append(
                             atacante.monstros_em_batalha[i])
 
                     if defensor.monstros_em_batalha[i].vida <= 0:
-                        defensor.monstros_em_batalha.remove(
-                            defensor.monstros_em_batalha[i])
+                        defensor.monstros_em_batalha[i] = None
                     else:
                         defensor.monstros.append(
                             defensor.monstros_em_batalha[i])
-
                 else:
                     defensor.vida_torre -= atacante.monstros_em_batalha[i].ataque
                     atacante.monstros.append(atacante.monstros_em_batalha[i])
@@ -225,7 +223,7 @@ class Jogo:
     def jogar_monstro(self, tabuleiro, monstro):
         if monstro.custo_mana > tabuleiro.mana_atual:
             raise ManaInsuficiente
-        if len(tabuleiro.monstros) > 4:
+        if len(tabuleiro.monstros) > 2:
             raise TabuleiroCheio
         tabuleiro.mana_atual -= monstro.custo_mana
         tabuleiro.jogar_monstro(monstro)
@@ -237,33 +235,32 @@ class Jogo:
             raise AtaqueSemMonstros
         for tabuleiro in self.__tabuleiros:
             if tabuleiro.codigo != self.__atacante_rodada.codigo:
-                tabuleiro.monstros_em_batalha = [None, None, None, None, None]
+                tabuleiro.monstros_em_batalha = [None, None, None]
         self.__tabuleiro_do_turno.atacar(monstros)
         self.__contador_de_passes = 0
         self.__em_batalha = True
         self.__ataque_ja_realizado = True
 
     def realizar_bloqueio(self, tabuleiro, posicao, monstro):
-
-        voar = False
-        atacante_com_voar = False
-        for atributo in monstro.atributos:
-            if atributo.efeito == 'Voar':
-                voar = True
-        if voar:
-            tabuleiro.monstros.remove(monstro)
-            tabuleiro.monstros_em_batalha[posicao-1] = monstro
-        else:
-            for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
+        if (tabuleiro.monstros_em_batalha[posicao-1] is None):
+            voar = False
+            atacante_com_voar = False
+            for atributo in monstro.atributos:
                 if atributo.efeito == 'Voar':
-                    atacante_com_voar = True
-            if atacante_com_voar:
-                raise MonstroSemVoar
-
-            else:
+                    voar = True
+            if voar:
                 tabuleiro.monstros.remove(monstro)
                 tabuleiro.monstros_em_batalha[posicao-1] = monstro
-
+            else:
+                for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
+                    if atributo.efeito == 'Voar':
+                        atacante_com_voar = True
+                if atacante_com_voar:
+                    raise MonstroSemVoar
+                tabuleiro.monstros.remove(monstro)
+                tabuleiro.monstros_em_batalha[posicao-1] = monstro
+        else:
+            raise PosicaoOcupada
         self.__contador_de_passes = 0
         self.mudar_turno()
 
