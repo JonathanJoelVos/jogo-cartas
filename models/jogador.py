@@ -8,14 +8,13 @@ class Jogador():
     def __init__(
         self,
         nome: str,
-        pontos: int = 0,
     ):
         self.__nome = nome
         self.__baralhos: list[Baralho] = []
         self.__partidas_jogadas = 0
         self.__vitorias = 0
         self.__derrotas = 0
-        self.__pontos = pontos
+        self.__pontos = 0
 
     @property
     def nome(self):
