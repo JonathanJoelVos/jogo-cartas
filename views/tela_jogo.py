@@ -25,7 +25,8 @@ class TelaJogo:
 
     def mostrar_tabuleiros(self, dados_tabuleiro):
         print('-----------------------------------------------------------------')
-        print(f'{dados_tabuleiro["jogador_1"]} - VIDA DA TORRE: {dados_tabuleiro["vida_torre_t1"]}')
+        print(
+            f'{dados_tabuleiro["jogador_1"]} - VIDA DA TORRE: {dados_tabuleiro["vida_torre_t1"]}')
         print()
         print('MONSTROS NO TABULEIRO: ', end='')
         posicao = 0
@@ -33,8 +34,8 @@ class TelaJogo:
             posicao += 1
             atributos = [atributo.efeito for atributo in monstro.atributos]
 
-            if atributos:
-                atributos_str = ", ".join(atributos)
+            if atributos[0]:
+                atributos_str = ", ".join(atributos[0])
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
             else:
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
@@ -50,8 +51,8 @@ class TelaJogo:
             if monstro is not None:
                 atributos = [atributo.efeito for atributo in monstro.atributos]
 
-                if atributos:
-                    atributos_str = ", ".join(atributos)
+                if atributos[0]:
+                    atributos_str = ", ".join(atributos[0])
                 else:
                     atributos_str = "||"
 
@@ -66,8 +67,8 @@ class TelaJogo:
             if monstro is not None:
                 atributos = [atributo.efeito for atributo in monstro.atributos]
 
-                if atributos:
-                    atributos_str = ", ".join(atributos)
+                if atributos[0]:
+                    atributos_str = ", ".join(atributos[0])
                 else:
                     atributos_str = "||"
 
@@ -80,8 +81,8 @@ class TelaJogo:
             posicao += 1
             atributos = [atributo.efeito for atributo in monstro.atributos]
 
-            if atributos:
-                atributos_str = ", ".join(atributos)
+            if atributos[0]:
+                atributos_str = ", ".join(atributos[0])
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
             else:
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
@@ -89,9 +90,9 @@ class TelaJogo:
             print(mensagem, end=' ')
             print()
         print()
-        print(f'{dados_tabuleiro["jogador_2"]} - VIDA DA TORRE:{dados_tabuleiro["vida_torre_t2"]} ')
+        print(
+            f'{dados_tabuleiro["jogador_2"]} - VIDA DA TORRE:{dados_tabuleiro["vida_torre_t2"]} ')
         print('\n-----------------------------------------------------------------')
-
 
     def mostrar_dados_jogador_rodada(self, dados_jogador):
         print('\n---')
@@ -105,8 +106,8 @@ class TelaJogo:
             posicao += 1
             atributos = [atributo.efeito for atributo in monstro.atributos]
 
-            if atributos:
-                atributos_str = ", ".join(atributos)
+            if len(atributos[0]) > 0:
+                atributos_str = ", ".join(atributos[0])
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
             else:
                 mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
@@ -115,19 +116,19 @@ class TelaJogo:
 
         print('\nMONSTROS EM BATALHA: ', end='')
         posicao = 0
-        #for monstro in dados_jogador['monstros_em_batalha']:
-            #posicao += 1
-            #if (monstro is not None):
-                #print(
-                    #f'{monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida}', end=' || ')
+        # for monstro in dados_jogador['monstros_em_batalha']:
+        # posicao += 1
+        # if (monstro is not None):
+        # print(
+        # f'{monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida}', end=' || ')
 
         for monstro in dados_jogador['monstros_em_batalha']:
             posicao += 1
             if monstro is not None:
                 atributos = [atributo.efeito for atributo in monstro.atributos]
 
-                if atributos:
-                    atributos_str = ", ".join(atributos)
+                if atributos[0]:
+                    atributos_str = ", ".join(atributos[0])
                 else:
                     atributos_str = "||"
 
@@ -262,7 +263,7 @@ class TelaJogo:
         print('O feitiço será aplicado em um monstro aliado ou um inimigo?')
 
         print('Digite "a" para aliado, "i" para inimigo ou "v" para voltar para'
-                                    ' a tela de opções')
+              ' a tela de opções')
         string = input()
         while string != 'a' and string != 'i':
             if string.lower() == 'v':
