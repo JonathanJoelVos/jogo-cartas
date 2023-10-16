@@ -72,6 +72,16 @@ class TelaJogador():
             'cartas': []
         }
 
+    def mostra_ranking(self, dados_jogador, posicao):
+        print('\n')
+        print(f'----- Posiçao {posicao} ------')
+        print('NOME: ', dados_jogador["nome"])
+        print('PARTIDAS JOGADAS: ', dados_jogador["partidas_jogadas"])
+        print('VITÓRIAS: ', dados_jogador["vitorias"])
+        print('DERROTAS: ', dados_jogador["derrotas"])
+        print('PONTOS: ', dados_jogador["pontos"])
+        print('\n')
+
     def mostra_msg(self, msg):
         print('\n')
         print(msg)

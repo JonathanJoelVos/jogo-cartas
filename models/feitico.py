@@ -2,10 +2,6 @@ from models.carta import Carta
 
 
 class Feitico(Carta):
-    # - modificacao: "aumentar" | "diminuir"
-    # - atributo_modificado: "vida" | "ataque"
-    # - valor: int
-
     def __init__(
         self,
         nome: str,

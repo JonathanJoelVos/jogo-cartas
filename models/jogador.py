@@ -8,15 +8,14 @@ class Jogador():
     def __init__(
         self,
         nome: str,
-        baralhos: list[Baralho],
+        pontos: int = 0,
     ):
-        # tirar baralhos do init, começar com lista vazia
         self.__nome = nome
-        self.__baralhos: list[Baralho] = baralhos
+        self.__baralhos: list[Baralho] = []
         self.__partidas_jogadas = 0
         self.__vitorias = 0
         self.__derrotas = 0
-        self.__pontos = 0
+        self.__pontos = pontos
 
     @property
     def nome(self):

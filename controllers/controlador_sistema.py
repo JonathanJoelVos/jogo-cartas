@@ -36,13 +36,14 @@ class ControladorSistema():
         self.__controlador_jogo.abre_tela()
 
     def rank_jogadores(self):
-        pass
+        self.__controlador_jogador.rank_jogadores()
 
     def abre_tela(self):
         lista_opcoes = {
             1: self.opcoes_jogadores,
             2: self.opcoes_jogo,
             3: self.rank_jogadores,
+            4: self.opcoes_cartas,
         }
 
         while True:

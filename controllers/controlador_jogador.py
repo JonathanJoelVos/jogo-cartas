@@ -1,132 +1,19 @@
 from views.tela_jogador import TelaJogador
 from models.jogador import Jogador
-from models.baralho import Baralho
-from models.monstro import Monstro
-from models.feitico import Feitico
-from models.atributo_especial import AtributoEspecial
+from errors.opcao_invalida import OpcaoInvalida
+from errors.jogador_nao_encontrado import JogadorNaoEncontrado
+from errors.baralho_nao_existe import BaralhoNaoExiste
+from errors.baralho_ja_cadastrado import BaralhoJaCadastrado
+from errors.jogador_ja_cadastrado import JogadorJaCadastrado
+from errors.numero_de_copias_excedidos import NumeroDeCopiasExcedidas
+from errors.carta_nao_encontrada import CartaNaoEncontrada
 
 
 class ControladorJogador():
     def __init__(self, controlador_sistema):
-        # excluir jogadores
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
-        self.__jogadores: list[Jogador] = [
-            Jogador('LEONARDO', [
-                Baralho([
-                    Monstro('Poppy', 10, '1', 2, 10, []),
-                    Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
-                    Feitico("Chama do Guerreiro", 3, "2",
-                            "aumentar", "ataque", 3),
-                    Feitico("Raiva Implacável", 4, "3",
-                            "aumentar", "ataque", 4),
-                    Feitico("Fúria Divina", 5, "4", "aumentar", "ataque", 5),
-                    Feitico("Vitalidade Fortificada", 2,
-                            "5", "aumentar", "vida", 2),
-                    Feitico("Cura Abençoada", 3, "6", "aumentar", "vida", 3),
-                    Feitico("Escudo Celestial", 4, "7", "aumentar", "vida", 4),
-                    Feitico("Resistência Infinita", 5,
-                            "8", "aumentar", "vida", 5),
-
-                    Feitico("Maldição das Sombras", 2,
-                            "9", "diminuir", "ataque", 2),
-                    Feitico("Veneno Traiçoeiro", 3, "10",
-                            "diminuir", "ataque", 3),
-                    Monstro("Lendário Grifo", 8, "4", 7, 8, [
-                            AtributoEspecial("Sobrepujar"),
-                            AtributoEspecial("Voar")]),
-
-
-                    Monstro("Gigante Sombrio", 5, "5", 6, 6, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Touro Selvagem", 4, "6", 5, 7, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Colosso Furioso", 8, "7", 7, 9, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Campeão de Ferro", 3, "8", 3, 4,
-                            [AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Wyvern Veloz", 3, "9", 2, 4,
-                            [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Sombra Celestial", 4, "10", 3,
-                            5, [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Gavião de Aço", 2, "11", 2,
-                            3, [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Dragão das Tempestades", 5, "12",
-                            4, 6, [AtributoEspecial("Voar")]),
-                ], 'b1'),
-            ]),
-            Jogador('JONATHAN', [
-                Baralho([
-                    Monstro('Poppy', 10, '1', 2, 10, []),
-                    Feitico('Bola de Fogo', 10, '1', 'diminuir', 'vida', 10),
-                    Feitico("Chama do Guerreiro", 3, "2",
-                            "aumentar", "ataque", 3),
-                    Feitico("Raiva Implacável", 4, "3",
-                            "aumentar", "ataque", 4),
-                    Feitico("Fúria Divina", 5, "4", "aumentar", "ataque", 5),
-                    Feitico("Vitalidade Fortificada", 2,
-                            "5", "aumentar", "vida", 2),
-                    Feitico("Cura Abençoada", 3, "6", "aumentar", "vida", 3),
-                    Feitico("Escudo Celestial", 4, "7", "aumentar", "vida", 4),
-                    Feitico("Resistência Infinita", 5,
-                            "8", "aumentar", "vida", 5),
-
-                    Feitico("Maldição das Sombras", 2,
-                            "9", "diminuir", "ataque", 2),
-                    Feitico("Veneno Traiçoeiro", 4, "10",
-                            "diminuir", "vida", 4),
-                    Monstro("Lendário Grifo", 8, "4", 7, 8, [
-                            AtributoEspecial("Sobrepujar"),
-                            AtributoEspecial("Voar")]),
-
-
-                    Monstro("Gigante Sombrio", 5, "5", 6, 6, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Touro Selvagem", 4, "6", 5, 7, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Colosso Furioso", 8, "7", 7, 9, [
-                            AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Campeão de Ferro", 3, "8", 3, 4,
-                            [AtributoEspecial("Sobrepujar")]),
-
-
-                    Monstro("Wyvern Veloz", 3, "9", 2, 4,
-                            [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Sombra Celestial", 4, "10", 3,
-                            5, [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Gavião de Aço", 2, "11", 2,
-                            3, [AtributoEspecial("Voar")]),
-
-
-                    Monstro("Dragão das Tempestades", 5, "12",
-                            4, 6, [AtributoEspecial("Voar")]),
-                ], 'b2'),
-            ]),
-        ]
+        self.__jogadores: list[Jogador] = []
 
     @ property
     def jogadores(self):
@@ -145,8 +32,7 @@ class ControladorJogador():
         if (jogador is not None):
             return jogador
         else:
-            self.__tela_jogador.mostra_msg('Jogador não encontrado')
-            return None
+            raise JogadorNaoEncontrado()
 
     def lista_jogadores(self):
         for jogador in self.__jogadores:
@@ -163,25 +49,38 @@ class ControladorJogador():
         jogador = self.pega_jogador_pelo_nome(dados_jogador['nome'])
         if (jogador is None):
             jogador = Jogador(
-                nome=dados_jogador['nome']
+                dados_jogador['nome']
             )
             self.__jogadores.append(jogador)
-            self.__tela_jogador.mostra_msg('Jogador cadastrado com sucesso')
+            self.__tela_jogador.mostra_msg('✅ Jogador cadastrado com sucesso')
         else:
-            self.__tela_jogador.mostra_msg('Jogador já cadastrado')
+            raise JogadorJaCadastrado()
 
     def exclui_jogador(self):
         jogador = self.seleciona_jogador()
         if (jogador is not None):
             self.__jogadores.remove(jogador)
-            self.__tela_jogador.mostra_msg('Jogador removido com sucesso')
+            self.__tela_jogador.mostra_msg('✅ Jogador removido com sucesso')
 
     def altera_jogador(self):
         jogador = self.seleciona_jogador()
         if (jogador is not None):
             dados_jogador = self.__tela_jogador.pega_dados_jogador()
             jogador.nome = dados_jogador['nome']
-            self.__tela_jogador.mostra_msg('Jogador alterado com sucesso')
+            self.__tela_jogador.mostra_msg('✅ Jogador alterado com sucesso')
+
+    def rank_jogadores(self):
+        self.__jogadores.sort(key=lambda jogador: jogador.pontos, reverse=True)
+        posicao = 1
+        for jogador in self.__jogadores:
+            self.__tela_jogador.mostra_ranking({
+                'nome': jogador.nome,
+                'partidas_jogadas': jogador.partidas_jogadas,
+                'vitorias': jogador.vitorias,
+                'derrotas': jogador.derrotas,
+                'pontos': jogador.pontos
+            }, posicao)
+            posicao += 1
 
     def pega_baralho_jogador_pelo_nome(self, jogador: Jogador, nome):
         for baralho in jogador.baralhos:
@@ -195,8 +94,7 @@ class ControladorJogador():
         if (baralho is not None):
             return baralho
         else:
-            self.__tela_jogador.mostra_msg('Baralho não encontrado')
-            return None
+            raise BaralhoNaoExiste()
 
     def lista_baralhos_jogador(self, jogador: Jogador):
         if (jogador is not None):
@@ -215,9 +113,9 @@ class ControladorJogador():
                     is None):
                 jogador.cria_baralho(dados_baralho['nome'])
                 self.__tela_jogador.mostra_msg(
-                    'Baralho cadastrado com sucesso')
+                    '✅ Baralho cadastrado com sucesso')
             else:
-                self.__tela_jogador.mostra_msg('Baralho já cadastrado')
+                raise BaralhoJaCadastrado()
 
     def alterar_baralho_jogador(self, jogador: Jogador):
         if (jogador is not None):
@@ -226,7 +124,8 @@ class ControladorJogador():
             if (baralho is not None):
                 dados_baralho = self.__tela_jogador.pega_dados_baralho()
                 jogador.altera_baralho(baralho.nome, dados_baralho['nome'])
-                self.__tela_jogador.mostra_msg('Baralho alterado com sucesso')
+                self.__tela_jogador.mostra_msg(
+                    '✅ Baralho alterado com sucesso')
 
     def exclui_baralho_jogador(self, jogador: Jogador):
         if (jogador is not None):
@@ -234,27 +133,25 @@ class ControladorJogador():
             baralho = self.seleciona_baralho_do_jogador(jogador)
             if (baralho is not None):
                 jogador.remove_baralho(baralho.nome)
-                self.__tela_jogador.mostra_msg('Baralho removido com sucesso')
+                self.__tela_jogador.mostra_msg(
+                    '✅ Baralho removido com sucesso')
 
     def add_carta_ao_baralho_jogador(self, jogador: Jogador):
-        try:
-            self.lista_baralhos_jogador(jogador)
-            baralho = self.seleciona_baralho_do_jogador(jogador)
-            if (jogador is not None and baralho is not None):
-                self.__tela_jogador.mostra_msg(
-                    'Selecione a carta (0 para sair):')
-                while (True):
-                    self.__controlador_sistema.controlador_carta.lista_cartas()
-                    carta = self.__controlador_sistema.controlador_carta \
-                        .seleciona_carta()
-                    if (carta is not None):
-                        jogador.add_carta_ao_baralho(baralho.nome, carta)
-                        self.__tela_jogador.mostra_msg(
-                            'Carta adicionada com sucesso')
-                    else:
-                        break
-        except Exception:
-            self.__tela_jogador.mostra_msg('Erro ao adicionar carta')
+        self.lista_baralhos_jogador(jogador)
+        baralho = self.seleciona_baralho_do_jogador(jogador)
+        if (jogador is not None and baralho is not None):
+            self.__tela_jogador.mostra_msg(
+                'Selecione a carta (0 para sair):')
+            while (True):
+                self.__controlador_sistema.controlador_carta.lista_cartas()
+                carta = self.__controlador_sistema.controlador_carta \
+                    .seleciona_carta()
+                if (carta is not None):
+                    jogador.add_carta_ao_baralho(baralho.nome, carta)
+                    self.__tela_jogador.mostra_msg(
+                        '✅ Carta adicionada com sucesso')
+                else:
+                    break
 
     def lista_cartas_do_baralho(self, baralho):
         if (len(baralho.cartas) == 0):
@@ -269,9 +166,8 @@ class ControladorJogador():
             self.lista_cartas_do_baralho(baralho)
             carta = self.__controlador_sistema.controlador_carta \
                 .seleciona_carta()
-            if (carta is not None):
-                jogador.remover_carta_do_baralho(baralho.nome, carta.codigo)
-                self.__tela_jogador.mostra_msg('Carta removida com sucesso')
+            jogador.remover_carta_do_baralho(baralho.nome, carta.codigo)
+            self.__tela_jogador.mostra_msg('✅ Carta removida com sucesso')
 
     def listar_cartas_do_baralho_jogador(self, jogador: Jogador):
         self.lista_baralhos_jogador(jogador)
@@ -311,6 +207,7 @@ class ControladorJogador():
             lista_opcoes[opcao](jogador)
 
     def abre_tela(self):
+        opcoes_validas = [0, 1, 2, 3, 4, 5]
         lista_opcoes = {
             0: self.retornar,
             1: self.incluir_jogador,
@@ -322,4 +219,22 @@ class ControladorJogador():
 
         continua = True
         while (continua):
-            lista_opcoes[self.__tela_jogador.tela_opcoes()]()
+            try:
+                opcao_escolhida = self.__tela_jogador.tela_opcoes()
+                if (opcao_escolhida not in opcoes_validas):
+                    raise OpcaoInvalida()
+                lista_opcoes[opcao_escolhida]()
+            except OpcaoInvalida as e:
+                self.__tela_jogador.mostra_msg(e)
+            except JogadorNaoEncontrado as e:
+                self.__tela_jogador.mostra_msg(e)
+            except BaralhoNaoExiste as e:
+                self.__tela_jogador.mostra_msg(e)
+            except BaralhoJaCadastrado as e:
+                self.__tela_jogador.mostra_msg(e)
+            except JogadorJaCadastrado as e:
+                self.__tela_jogador.mostra_msg(e)
+            except NumeroDeCopiasExcedidas as e:
+                self.__tela_jogador.mostra_msg(e)
+            except CartaNaoEncontrada as e:
+                self.__tela_jogador.mostra_msg(e)
