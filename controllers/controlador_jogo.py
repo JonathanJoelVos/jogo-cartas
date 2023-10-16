@@ -5,6 +5,7 @@ from errors.baralho_incompleto import BaralhoIncompleto
 from errors.baralho_nao_existe import BaralhoNaoExiste
 from errors.jogador_nao_existe import JogadorNaoExiste
 from errors.mana_insuficiente import ManaInsuficiente
+from errors.mesmo_jogador import MesmoJogador
 from errors.monstro_sem_voar import MonstroSemVoar
 from errors.nao_condiz import NaoCondiz
 from errors.tabuleiro_cheio import TabuleiroCheio
@@ -44,47 +45,48 @@ class ControladorJogo:
         while True:
             opcao = self.__tela_jogo.opcoes_tela()
 
-            if opcao == 0:
+            if opcao == '0':
                 break
 
-            elif opcao == 1:
+            elif opcao == '1':
                 while True:
-                    self.__tela_jogo.mostra_msg("Digite '1' para voltar"
-                                                " para a tela"
-                                                " inicial ou 0 para"
-                                                " continuar.")
 
-                    escolha = self.__tela_jogo.pega_inteiro()
-                    if escolha == 1:
-                        break
                     try:
                         self.seleciona_dados_para_jogar()
                         break
-                    except JogadorNaoExiste:
-                        self.__tela_jogo.mostra_msg(
-                            "O jogador não existe. Tente novamente.")
-                    except BaralhoNaoExiste:
-                        self.__tela_jogo.mostra_msg(
-                            "O baralho não existe. Tente novamente.")
-                    except BaralhoIncompleto:
-                        self.__tela_jogo.mostra_msg(
-                            'Baralho incompleto. Tente novamente.')
+                    except JogadorNaoExiste as e:
+                        self.__tela_jogo.mostra_msg(e)
+                    except BaralhoNaoExiste as e:
+                        self.__tela_jogo.mostra_msg(e)
+                    except BaralhoIncompleto as e:
+                        self.__tela_jogo.mostra_msg(e)
+                    except MesmoJogador as e:
+                        self.__tela_jogo.mostra_msg(e)
+
+                    self.__tela_jogo.mostra_msg("Digite '-1' para voltar"
+                                                " para a tela"
+                                                " inicial outra tecla para"
+                                                " tentar novamente.")
+
+                    escolha = self.__tela_jogo.pega_string()
+                    if escolha.strip() == '-1':
+                        break
 
             else:
                 while True:
-                    self.__tela_jogo.mostra_msg("Digite '1' para voltar para a"
-                                                " tela inicial ou 0"
-                                                " para"
-                                                " continuar.")
-                    escolha = self.__tela_jogo.pega_inteiro()
-                    if escolha == 1:
-                        break
                     try:
                         self.tela_de_historico()
                         break
-                    except JogadorNaoExiste:
-                        self.__tela_jogo.mostra_msg(
-                            "O jogador não existe. Tente novamente.")
+                    except JogadorNaoExiste as e:
+                        self.__tela_jogo.mostra_msg(e)
+
+                    self.__tela_jogo.mostra_msg("Digite '-1' para voltar para a"
+                                                " tela inicial ou 0"
+                                                " para"
+                                                " tentar novamente.")
+                    escolha = self.__tela_jogo.pega_string()
+                    if escolha.strip() == '-1':
+                        break
         self.retornar()
 
     def seleciona_dados_para_jogar(self):
@@ -100,14 +102,16 @@ class ControladorJogo:
             .seleciona_baralho_do_jogador(
                 j1)
         if b1 is None:
-            raise BaralhoNaoExiste()
+            raise BaralhoNaoExiste
         if len(b1.cartas) < 20:
-            raise BaralhoIncompleto()
+            raise BaralhoIncompleto
 
         self.__tela_jogo.mostra_msg('Selecione o segundo jogador:')
         j2 = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
         if j2 is None:
-            raise JogadorNaoExiste()
+            raise JogadorNaoExiste
+        if j1.nome == j2.nome:
+            raise MesmoJogador
 
         self.__tela_jogo.mostra_msg('Selecione o baralho do segundo jogador')
         self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(
@@ -247,15 +251,16 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg(
                         f'{carta.nome.upper()} será movido para o campo de batalha ao iniciar ataque')
                     if (len(jogo.tabuleiro_do_turno.monstros) == 0):
-                        self.__tela_jogo.mostra_msg(
-                            'Digite 1 para iniciar o ataque')
+                        self.__tela_jogo.mostra_msg('Tabuleiro vazio. O ataque será iniciado')
+                        jogo.iniciar_ataque(monstros)
+                        confirmar_ataque = True
                     else:
                         self.__tela_jogo.mostra_msg('Digite 1 para iniciar o ataque ou 0 para selecionar mais'
                                                     ' monstros')
-                    confirmar = self.__tela_jogo.pega_inteiro()
-                    if confirmar == 1:
-                        confirmar_ataque = True
-                        jogo.iniciar_ataque(monstros)
+                        confirmar = self.__tela_jogo.pega_string()
+                        if confirmar == '1':
+                            confirmar_ataque = True
+                            jogo.iniciar_ataque(monstros)
 
         else:
             if opcao == 1:
