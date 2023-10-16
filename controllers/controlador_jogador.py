@@ -15,7 +15,7 @@ class ControladorJogador():
             Jogador('LEONARDO', [
                 Baralho([
                     Monstro('Poppy', 10, '1', 2, 10, []),
-                    Feitico('Bola de Fogo', 10, '1', 'aumentar', 'ataque', 10),
+                    Feitico('Bola de Fogo', 10, '1', 'diminuir', 'vida', 10),
                     Feitico("Chama do Guerreiro", 3, "2",
                             "aumentar", "ataque", 3),
                     Feitico("Raiva Implacável", 4, "3",
@@ -31,7 +31,7 @@ class ControladorJogador():
                     Feitico("Maldição das Sombras", 2,
                             "9", "diminuir", "ataque", 2),
                     Feitico("Veneno Traiçoeiro", 3, "10",
-                            "diminuir", "ataque", 3),
+                            "diminuir", "vida", 3),
                     Monstro("Lendário Grifo", 8, "4", 7, 8, [
                             AtributoEspecial("Sobrepujar"),
                             AtributoEspecial("Voar")]),

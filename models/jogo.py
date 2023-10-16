@@ -22,12 +22,9 @@ class Jogo:
         self.__vencedor = None
         self.__perdedor = None
         self.__empate = False
-        self.__baralho_vencedor = None
-        self.__baralho_perdedor = None
         self.__rodada = 1
         self.__atacante_rodada = self.__tabuleiro_inicial
         self.__ataque_ja_realizado = False
-        self.__bloqueio_ja_realizado = False
         self.__tabuleiro_do_turno = self.__tabuleiro_inicial
         self.__contador_de_passes = 0
         self.__em_batalha = False
@@ -90,22 +87,6 @@ class Jogo:
     @perdedor.setter
     def perdedor(self, perdedor):
         self.__perdedor = perdedor
-
-    @property
-    def baralho_vencedor(self):
-        return self.__baralho_vencedor
-
-    @baralho_vencedor.setter
-    def baralho_vencedor(self, baralho):
-        self.__baralho_vencedor = baralho
-
-    @property
-    def baralho_perdedor(self):
-        return self.__baralho_perdedor
-
-    @baralho_perdedor.setter
-    def baralho_perdedor(self, baralho):
-        self.__baralho_perdedor = baralho
 
     @property
     def rodada(self):
@@ -202,6 +183,9 @@ class Jogo:
                     defensor.vida_torre -= atacante.monstros_em_batalha[i].ataque
                     atacante.monstros.append(atacante.monstros_em_batalha[i])
 
+            elif defensor.monstros_em_batalha[i] is not None:
+                defensor.monstros.append(defensor.monstros_em_batalha[i])
+
         atacante.monstros_em_batalha = []
         defensor.monstros_em_batalha = []
         self.__em_batalha = False
@@ -253,8 +237,9 @@ class Jogo:
                 tabuleiro.monstros_em_batalha[posicao-1] = monstro
             else:
                 for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
-                    if atributo.efeito == 'Voar':
-                        atacante_com_voar = True
+                    if atributo is not None:
+                        if atributo.efeito == 'Voar':
+                            atacante_com_voar = True
                 if atacante_com_voar:
                     raise MonstroSemVoar
                 tabuleiro.monstros.remove(monstro)
