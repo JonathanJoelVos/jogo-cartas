@@ -17,7 +17,7 @@ class TelaCarta():
         print('NOME:', dados_carta['nome'])
 
     def mostra_monstro(self, dados_carta):
-        print('TIPO: Monstro')
+        print('TIPO: Monstro 🐶')
         self.mostra_carta(dados_carta)
         print('ATAQUE:', dados_carta['ataque'])
         print('VIDA:', dados_carta['vida'])
@@ -27,7 +27,7 @@ class TelaCarta():
         print("\n")
 
     def mostra_feitico(self, dados_carta):
-        print('TIPO: Feitiço')
+        print('TIPO: Feitiço 🧪')
         self.mostra_carta(dados_carta)
         print('MODIFICAÇÃO:', dados_carta['modificacao'])
         print('ATRIBUTO MODIFICADO:', dados_carta['atributo_modificado'])
@@ -41,15 +41,25 @@ class TelaCarta():
     def mostra_msg(self, msg):
         print(msg)
 
-    def pega_dados_monstro(self):
+    def pega_dados_carta(self):
+        nome = str(input('Nome: '))
         custo_mana = int(input('Custo de mana: '))
         codigo = str(input('Código: '))
+        return {
+            'nome': nome,
+            'custo_mana': custo_mana,
+            'codigo': codigo
+        }
+
+    def pega_dados_monstro(self):
+        dados_carta = self.pega_dados_carta()
         ataque = int(input('Ataque: '))
         vida = int(input('Vida: '))
         atributos = str(input('Atributos: '))
         return {
-            'custo_mana': custo_mana,
-            'codigo': codigo,
+            'nome': dados_carta['nome'],
+            'custo_mana': dados_carta['custo_mana'],
+            'codigo': dados_carta['codigo'],
             'ataque': ataque,
             'vida': vida,
             'atributos': atributos,
@@ -57,21 +67,21 @@ class TelaCarta():
         }
 
     def pega_dados_feitico(self):
-        custo_mana = int(input('Custo de mana: '))
-        codigo = str(input('Código: '))
+        dados_carta = self.pega_dados_carta()
         modificacao = str(input('Modificação: '))
         atributo_modificado = str(input('Atributo modificado: '))
         valor = int(input('Valor: '))
         return {
-            'custo_mana': custo_mana,
-            'codigo': codigo,
+            'nome': dados_carta['nome'],
+            'custo_mana': dados_carta['custo_mana'],
+            'codigo': dados_carta['codigo'],
             'modificacao': modificacao,
             'atributo_modificado': atributo_modificado,
             'valor': valor,
             'tipo': 'Feitiço'
         }
 
-    def pega_dados_carta(self):
+    def pega_dados_iniciais_carta(self):
         print('Escolha o tipo da carta:')
         print('1 - Mostro')
         print('2 - Feitiço')
