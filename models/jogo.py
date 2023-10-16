@@ -165,16 +165,17 @@ class Jogo:
 
     def realizar_batalha(self):
         for tabuleiro in self.__tabuleiros:
-            if tabuleiro == self.__atacante_rodada:
+            if tabuleiro.codigo == self.__atacante_rodada.codigo:
                 atacante = tabuleiro
             else:
                 defensor = tabuleiro
 
         for i in range(len(atacante.monstros_em_batalha)):
+            sobrepujar = False
             if atacante.monstros_em_batalha[i] is not None:
 
                 if defensor.monstros_em_batalha[i] is not None:
-                    sobrepujar = False
+
                     for atributo in atacante.monstros_em_batalha[i].atributos:
                         if atributo.efeito == 'sobrepujar':
                             sobrepujar = True

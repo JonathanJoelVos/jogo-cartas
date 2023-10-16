@@ -84,8 +84,6 @@ class Tabuleiro:
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha -
                                                        1].vida -= feitico.valor
                 if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida <= 0:
-                    tabuleiro_aplicado.monstros.remove(
-                        tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1])
                     tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1] = None
 
     def eliminar_monstro(self, monstro):

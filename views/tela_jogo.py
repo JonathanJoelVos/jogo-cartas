@@ -23,6 +23,76 @@ class TelaJogo:
             print(f'Vencedor: {jogo.vencedor.nome}')
             print(f'Perdedor: {jogo.perdedor.nome}')
 
+    def mostrar_tabuleiros(self, dados_tabuleiro):
+        print('-----------------------------------------------------------------')
+        print(f'{dados_tabuleiro["jogador_1"]} - VIDA DA TORRE: {dados_tabuleiro["vida_torre_t1"]}')
+        print()
+        print('MONSTROS NO TABULEIRO: ', end='')
+        posicao = 0
+        for monstro in dados_tabuleiro['monstros_tabuleiro_1']:
+            posicao += 1
+            atributos = [atributo.efeito for atributo in monstro.atributos]
+
+            if atributos:
+                atributos_str = ", ".join(atributos)
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+            else:
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
+
+            print(mensagem, end=' ')
+            print()
+
+        print()
+        print('\nMONSTROS EM BATALHA: ', end='')
+        posicao = 0
+        for monstro in dados_tabuleiro['monstros_em_batalha_1']:
+            posicao += 1
+            if monstro is not None:
+                atributos = [atributo.efeito for atributo in monstro.atributos]
+
+                if atributos:
+                    atributos_str = ", ".join(atributos)
+                else:
+                    atributos_str = "||"
+
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+                print(mensagem, end=' ')
+        print('\n-----------------------------------------------------------------')
+        print('-----------------------------------------------------------------')
+        print(f'{dados_tabuleiro["jogador_2"]} - VIDA DA TORRE:{dados_tabuleiro["vida_torre_t2"]} ')
+        print()
+        print('MONSTROS NO TABULEIRO: ', end='')
+        posicao = 0
+        for monstro in dados_tabuleiro['monstros_tabuleiro_2']:
+            posicao += 1
+            atributos = [atributo.efeito for atributo in monstro.atributos]
+
+            if atributos:
+                atributos_str = ", ".join(atributos)
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+            else:
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: || '
+
+            print(mensagem, end=' ')
+            print()
+        print()
+        print('\nMONSTROS EM BATALHA: ', end='')
+        posicao = 0
+        for monstro in dados_tabuleiro['monstros_em_batalha_2']:
+            posicao += 1
+            if monstro is not None:
+                atributos = [atributo.efeito for atributo in monstro.atributos]
+
+                if atributos:
+                    atributos_str = ", ".join(atributos)
+                else:
+                    atributos_str = "||"
+
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+                print(mensagem, end=' ')
+        print('\n-----------------------------------------------------------------')
+
+
     def mostrar_dados_jogador_rodada(self, dados_jogador):
         print('\n---')
         print(f'JOGADOR: {dados_jogador["nome"]}')
@@ -31,10 +101,6 @@ class TelaJogo:
         print(f'MANA DE FEITICO:{dados_jogador["spellmana"]}')
         print('MONSTROS NO TABULEIRO: ', end='')
         posicao = 0
-        #for monstro in dados_jogador['monstros_tabuleiro']:
-            #posicao += 1
-            #print(
-                #f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {" || ".join([atributo.efeito for atributo in monstro.atributos])}', end=' || ')
         for monstro in dados_jogador['monstros_tabuleiro']:
             posicao += 1
             atributos = [atributo.efeito for atributo in monstro.atributos]
@@ -48,10 +114,25 @@ class TelaJogo:
             print(mensagem, end=' ')
 
         print('\nMONSTROS EM BATALHA: ', end='')
+        posicao = 0
+        #for monstro in dados_jogador['monstros_em_batalha']:
+            #posicao += 1
+            #if (monstro is not None):
+                #print(
+                    #f'{monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida}', end=' || ')
+
         for monstro in dados_jogador['monstros_em_batalha']:
-            if (monstro is not None):
-                print(
-                    f'{monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida}', end=' || ')
+            posicao += 1
+            if monstro is not None:
+                atributos = [atributo.efeito for atributo in monstro.atributos]
+
+                if atributos:
+                    atributos_str = ", ".join(atributos)
+                else:
+                    atributos_str = "||"
+
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+                print(mensagem, end=' ')
 
     def mostra_dados_da_rodada(self, dados_rodada):
         print('\n')
@@ -59,6 +140,7 @@ class TelaJogo:
             '---------------------------------------------------------'
             f'RODADA {dados_rodada["rodada"]}--------------------------'
             '-------------------------------')
+        print(f'VEZ DO(A) JOGADOR(A): {dados_rodada["tabuleiro_turno"]}')
         print(
             f'ATACANTE DA RODADA: {dados_rodada["atacante_rodada"].jogador.nome}')
         print(f'ATAQUE JÁ REALIZADO: {dados_rodada["ataque_realizado"]}')
