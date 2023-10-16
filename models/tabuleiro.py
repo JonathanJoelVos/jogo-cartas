@@ -54,7 +54,10 @@ class Tabuleiro:
         return self.__cartas_na_mao
 
     def comprar_carta(self):
-        self.__cartas_na_mao.append(self.__baralho.cartas.pop(0))
+        carta = self.__baralho.cartas.pop(0)
+        if len(self.__cartas_na_mao) <= 9:
+            self.__cartas_na_mao.append(carta)
+
 
     @property
     def monstros(self):
@@ -84,8 +87,6 @@ class Tabuleiro:
                 tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha -
                                                        1].vida -= feitico.valor
                 if tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1].vida <= 0:
-                    tabuleiro_aplicado.monstros.remove(
-                        tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1])
                     tabuleiro_aplicado.monstros_em_batalha[posicao_em_batalha - 1] = None
 
     def eliminar_monstro(self, monstro):
@@ -126,7 +127,6 @@ class Tabuleiro:
     def atacar(self, monstros):
         for monstro in monstros:
             self.__monstros_em_batalha.append(monstro)
-            self.__monstros.remove(monstro)
 
     # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
     def definir_bloqueador(self, posicao):
