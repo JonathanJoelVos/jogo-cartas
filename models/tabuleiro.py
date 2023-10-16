@@ -129,11 +129,4 @@ class Tabuleiro:
             self.__monstros_em_batalha.append(monstro)
 
     # o controlador vai ver se a posição pode ser passada ou nao (se ja tem monstro ou maior q 6)
-    def definir_bloqueador(self, posicao):
-        if posicao == 0:
-            self.__monstros_em_batalha.append(None)
-        else:
-            self.__monstros_em_batalha.append(self.__monstros[posicao - 1])
-            self.__monstros.remove(self.__monstros[posicao - 1])
 
-            return self.__monstros[posicao - 1]

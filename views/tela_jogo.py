@@ -159,19 +159,19 @@ class TelaJogo:
     def opcoes_tela(self):
         print('\n')
         print('-------- OPÇÕES DE JOGO --------')
-        valores = [0, 1, 2]
+        valores = ['0', '1', '2']
         while True:
             print('1 - Iniciar partida')
             print('2 - Histórico de partidas jogadas')
             print('0 - Voltar')
             try:
-                opcao = int(input('Escolha a opção: '))
+                opcao = input('Escolha a opção: ')
                 if opcao not in valores:
                     raise ValueError
                 break
             except ValueError:
                 print('Digite uma opção válida!')
-        return opcao
+        return opcao.strip()
 
     def opcoes_turno(self, em_batalha: bool, nome_jogador):
         print('\n')
@@ -288,6 +288,4 @@ class TelaJogo:
 
     def pega_string(self):
         string = input()
-        if string.lower() == 'v':
-            raise Voltar
         return string
