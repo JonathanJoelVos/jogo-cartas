@@ -59,8 +59,21 @@ class TelaJogo:
                 print(mensagem, end=' ')
         print('\n-----------------------------------------------------------------')
         print('-----------------------------------------------------------------')
-        print(f'{dados_tabuleiro["jogador_2"]} - VIDA DA TORRE:{dados_tabuleiro["vida_torre_t2"]} ')
-        print()
+        print('MONSTROS EM BATALHA: ', end='')
+        posicao = 0
+        for monstro in dados_tabuleiro['monstros_em_batalha_2']:
+            posicao += 1
+            if monstro is not None:
+                atributos = [atributo.efeito for atributo in monstro.atributos]
+
+                if atributos:
+                    atributos_str = ", ".join(atributos)
+                else:
+                    atributos_str = "||"
+
+                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
+                print(mensagem, end=' ')
+        print('\n')
         print('MONSTROS NO TABULEIRO: ', end='')
         posicao = 0
         for monstro in dados_tabuleiro['monstros_tabuleiro_2']:
@@ -76,20 +89,7 @@ class TelaJogo:
             print(mensagem, end=' ')
             print()
         print()
-        print('\nMONSTROS EM BATALHA: ', end='')
-        posicao = 0
-        for monstro in dados_tabuleiro['monstros_em_batalha_2']:
-            posicao += 1
-            if monstro is not None:
-                atributos = [atributo.efeito for atributo in monstro.atributos]
-
-                if atributos:
-                    atributos_str = ", ".join(atributos)
-                else:
-                    atributos_str = "||"
-
-                mensagem = f'||POS: {posicao} - {monstro.nome} - ATK: {monstro.ataque} - VIDA: {monstro.vida} - ATR: {atributos_str} || '
-                print(mensagem, end=' ')
+        print(f'{dados_tabuleiro["jogador_2"]} - VIDA DA TORRE:{dados_tabuleiro["vida_torre_t2"]} ')
         print('\n-----------------------------------------------------------------')
 
 
@@ -274,9 +274,7 @@ class TelaJogo:
 
         return string.lower()
 
-
-
-    def tela_tabuleiro_cheio(self,monstros):
+    def tela_tabuleiro_cheio(self, dados_tabuleiro):
         print('Tabuleiro cheio. Digite "v" para voltar para a tela de opções ou '
               'outra tecla para escolher um monstro aliado para ser'
               ' eliminado.')
@@ -285,10 +283,8 @@ class TelaJogo:
         if string.lower() == 'v':
             raise Voltar
 
-        print('Selecione um monstro aliado para ser substituido'
-                                    ' pela carta escolhida:')
-
-        self.mostra_dados_em_lista_de_cartas(monstros)
+        self.mostrar_tabuleiros(dados_tabuleiro)
+        print('Selecione um monstro aliado para ser substituído pela carta escolhida:')
 
     def pega_string(self):
         string = input()

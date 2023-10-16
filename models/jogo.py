@@ -118,10 +118,8 @@ class Jogo:
                 self.__tabuleiro_do_turno = tabuleiro
                 break
 
-        sobra_de_manat1 = max(self.__t1.mana_atual, 3)
-        sobra_de_manat2 = max(self.__t2.mana_atual, 3)
-        self.__t1.spellmana = min(self.__t1.spellmana + sobra_de_manat1, 3)
-        self.__t2.spellmana = min(self.__t2.spellmana + sobra_de_manat2, 3)
+        self.__t1.spellmana = min(self.__t1.spellmana + self.__t1.mana_atual, 3)
+        self.__t2.spellmana = min(self.__t2.spellmana + self.__t2.mana_atual, 3)
 
         self.__t1.comprar_carta()
         self.__t2.comprar_carta()
@@ -177,7 +175,7 @@ class Jogo:
                 if defensor.monstros_em_batalha[i] is not None:
 
                     for atributo in atacante.monstros_em_batalha[i].atributos:
-                        if atributo.efeito == 'sobrepujar':
+                        if atributo.efeito == 'Sobrepujar':
                             sobrepujar = True
 
                     if sobrepujar:
@@ -250,19 +248,24 @@ class Jogo:
         voar = False
         atacante_com_voar = False
         for atributo in monstro.atributos:
-            if atributo.efeito == 'voar':
+            if atributo.efeito == 'Voar':
                 voar = True
         if voar:
+            tabuleiro.monstros.remove(monstro)
             tabuleiro.monstros_em_batalha[posicao-1] = monstro
         else:
             for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
-                if atributo == voar:
+                if atributo.efeito == 'Voar':
                     atacante_com_voar = True
             if atacante_com_voar:
                 raise MonstroSemVoar
 
             else:
+                tabuleiro.monstros.remove(monstro)
                 tabuleiro.monstros_em_batalha[posicao-1] = monstro
+
+        self.__contador_de_passes = 0
+        self.mudar_turno()
 
     def jogar_feitico(self, tabuleiro, feitico, tabuleiro_aplicado, posicao_em_batalha):
         if feitico.custo_mana > (tabuleiro.mana_atual + tabuleiro.spellmana):

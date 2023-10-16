@@ -54,7 +54,10 @@ class Tabuleiro:
         return self.__cartas_na_mao
 
     def comprar_carta(self):
-        self.__cartas_na_mao.append(self.__baralho.cartas.pop(0))
+        carta = self.__baralho.cartas.pop(0)
+        if len(self.__cartas_na_mao) <= 9:
+            self.__cartas_na_mao.append(carta)
+
 
     @property
     def monstros(self):
