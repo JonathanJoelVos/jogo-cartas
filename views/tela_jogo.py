@@ -15,7 +15,7 @@ class TelaJogo:
         print('Jogadores:')
         for tabuleiro in jogo.tabuleiros:
             print(
-                f'{tabuleiro.jogador.nome}. Baralho utilizado: {tabuleiro.baralho.nome}')
+                f'{tabuleiro.jogador.nome} - Baralho utilizado: {tabuleiro.baralho.nome}')
         print()
         if jogo.empate:
             print('Jogo empatado.')

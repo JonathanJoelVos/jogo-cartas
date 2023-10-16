@@ -72,8 +72,8 @@ class ControladorJogo:
             else:
                 while True:
                     self.__tela_jogo.mostra_msg("Digite '1' para voltar para a"
-                                                " tela inicial ou outra"
-                                                " tecla para"
+                                                " tela inicial ou 0"
+                                                " para"
                                                 " continuar.")
                     escolha = self.__tela_jogo.pega_inteiro()
                     if escolha == 1:
