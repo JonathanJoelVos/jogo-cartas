@@ -1,0 +1,21 @@
+
+?
+models/carta.py,b\7\b7f6fbf96a79b12efef97c3a0d45b8b5cb551037
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+>
+models/jogo.py,4\7\47aaba352749c948137824163f55fd6943ab6093
+O
+controllers/controlador_jogo.py,b\f\bf46422c84c068268148f272bb391908b3178b11
+B
+views/tela_jogo.py,7\1\711fd21be85eef0c4fb7281391f981d3f215bc2b
+7
+main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
+G
+errors/baralho_vazio.py,f\3\f39d1d3dbf86859bd7ab0dd19e4d2017eba1d1c4
+@
+errors/voltar.py,4\c\4cef02efb238bba879441ff790848d25efaf223a
+C
+models/tabuleiro.py,9\6\9641b22948f9720ad3b01c50db0e114334cd53c7
+A
+models/baralho.py,e\e\ee0a630bf548fd934583abb82b546f4ce7771f60

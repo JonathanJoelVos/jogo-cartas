@@ -9,19 +9,18 @@ class TelaJogo:
     def mostra_msg(self, mensagem):
         print(mensagem)
 
-    def mostra_dados_jogo(self, jogo):
-        print(f'Codigo do jogo: {jogo.codigo}')
+    def mostra_dados_jogo(self, dados_jogo):
+        print(f'Codigo do jogo: {dados_jogo["codigo"]}')
         print()
         print('Jogadores:')
-        for tabuleiro in jogo.tabuleiros:
-            print(
-                f'{tabuleiro.jogador.nome} - Baralho utilizado: {tabuleiro.baralho.nome}')
+        print(f'{dados_jogo["j1"]} - Baralho utilizado: {dados_jogo["b1"]}')
+        print(f'{dados_jogo["j2"]} - Baralho utilizado: {dados_jogo["b2"]}')
         print()
-        if jogo.empate:
+        if dados_jogo["empate"]:
             print('Jogo empatado.')
         else:
-            print(f'Vencedor: {jogo.vencedor.nome}')
-            print(f'Perdedor: {jogo.perdedor.nome}')
+            print(f'Vencedor: {dados_jogo["vencedor"]}')
+            print(f'Perdedor: {dados_jogo["perdedor"]}')
 
     def mostrar_tabuleiros(self, dados_tabuleiro):
         print('-----------------------------------------------------------------')
@@ -208,34 +207,6 @@ class TelaJogo:
                 print(f'{nome_jogador} escolheu REALIZAR BLOQUEIO')
 
         return opcao
-
-    def mostra_dados_em_lista_de_cartas(self, lista_cartas):
-        posicao = 0
-        for carta in lista_cartas:
-            if carta is not None:
-                posicao += 1
-                print(f'POSIÇÃO: {posicao}: ')
-                if isinstance(carta, Monstro):
-                    print('TIPO: Monstro')
-                    print(f'CUSTO MANA: {carta.custo_mana}')
-                    print(f'CÓDIGO: {carta.codigo}')
-                    print(f'NOME: {carta.nome}')
-                    print(f'ATAQUE: {carta.ataque}')
-                    print(f'VIDA: {carta.vida}')
-                    if carta.atributos:
-                        print('ATRIBUTOS:', end=' ')
-                        for atributo in carta.atributos:
-                            print(atributo.efeito, end=' ')
-                        print('', end='\n')
-                else:
-                    print('TIPO: Feitiço')
-                    print(f'CUSTO MANA: {carta.custo_mana}')
-                    print(f'CÓDIGO: {carta.codigo}')
-                    print(f'NOME: {carta.nome}')
-                    print(f'MODIFICAÇÃO: {carta.modificacao}')
-                    print(f'ATRIBUTO: {carta.atributo_modificado}')
-                    print(f'VALOR: {carta.valor}')
-                print()
 
     def pega_posicao_carta_em_lista(self, posicoes_disponiveis):
         while True:

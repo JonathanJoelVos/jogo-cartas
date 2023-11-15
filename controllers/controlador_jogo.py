@@ -140,7 +140,15 @@ class ControladorJogo:
         for jogo in self.__jogos:
             for jogador in jogo.jogadores:
                 if jogador is jogador_selecionado:
-                    self.__tela_jogo.mostra_dados_jogo(jogo)
+                    self.__tela_jogo.mostra_dados_jogo({'codigo': jogo.codigo,
+                                                        'j1': jogo.jogadores[0].nome,
+                                                        'j2': jogo.jogadores[1].nome,
+                                                        'b1': jogo.t1.baralho.nome,
+                                                        'b2': jogo.t2.baralho.nome,
+                                                        'vencedor': jogo.vencedor.nome,
+                                                        'perdedor': jogo.perdedor.nome,
+                                                        'empate': jogo.empate
+                                                        })
 
     def realizar_turno(self, jogo: Jogo):
         em_batalha = jogo.em_batalha
@@ -409,9 +417,8 @@ class ControladorJogo:
             except ManaInsuficiente as e:
                 self.__tela_jogo.mostra_msg(e)
 
-            except Voltar:
-                self.__tela_jogo.mostra_msg(
-                    'Voltando para a tela de opções do turno:')
+            except Voltar as e:
+                self.__tela_jogo.mostra_msg(e)
 
             except AtaqueJaRealizado as e:
                 self.__tela_jogo.mostra_msg(e)
