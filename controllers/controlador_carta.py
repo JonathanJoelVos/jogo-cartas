@@ -6,20 +6,17 @@ from models.atributo_especial import AtributoEspecial
 from errors.carta_ja_existe import CartaJaExiste
 from errors.carta_nao_encontrada import CartaNaoEncontrada
 from errors.opcao_invalida import OpcaoInvalida
+from DAOs.cartas_dao import CartaDAO
 
 
 class ControladorCarta():
     def __init__(self, controlador_sistema):
+        self.__cartas_dao = CartaDAO()
         self.__controlador_sistema = controlador_sistema
         self.__tela_carta = TelaCarta()
-        self.__cartas: list[Carta] = []
-
-    @property
-    def cartas(self):
-        return self.__cartas
 
     def pegar_carta_pelo_codigo(self, codigo):
-        for carta in self.__cartas:
+        for carta in self.__cartas_dao.get_all():
             if (carta.codigo == codigo):
                 return carta
         return None
@@ -40,7 +37,7 @@ class ControladorCarta():
         carta = self.pegar_carta_pelo_codigo(dados_carta['codigo'])
         if (carta is None):
             if (dados_carta['tipo'] == 'Monstro'):
-                self.__cartas.append(
+                self.__cartas_dao.add(
                     Monstro(
                         dados_carta['nome'],
                         dados_carta['custo_mana'],
@@ -51,7 +48,7 @@ class ControladorCarta():
                     )
                 )
             else:
-                self.__cartas.append(
+                self.__cartas_dao.add(
                     Feitico(
                         dados_carta['nome'],
                         dados_carta['custo_mana'],
@@ -85,13 +82,13 @@ class ControladorCarta():
             })
 
     def lista_cartas(self):
-        for carta in self.__cartas:
+        for carta in self.__cartas_dao.get_all():
             self.lista_carta(carta)
 
     def exclui_carta(self):
         self.lista_cartas()
         carta = self.seleciona_carta()
-        self.__cartas.remove(carta)
+        self.__cartas_dao.remove(carta.codigo)
 
     def altera_carta(self):
         self.lista_cartas()
@@ -100,18 +97,20 @@ class ControladorCarta():
         carta_eh_feitico = isinstance(carta, Feitico)
         if (carta_eh_mostro):
             dados_monstro = self.__tela_carta.pega_dados_monstro()
-            carta.codigo = dados_monstro['codigo']
             carta.custo_mana = dados_monstro['custo_mana']
             carta.ataque = dados_monstro['ataque']
-            carta.atributos = dados_monstro['atributos']
+            carta.atributos = [AtributoEspecial(dados_monstro['atributos'])]
+            carta.nome = dados_monstro['nome']
+            carta.vida = dados_monstro['vida']
         elif (carta_eh_feitico):
             dados_feitico = self.__tela_carta.pega_dados_feitico()
-            carta.codigo = dados_feitico['codigo']
             carta.custo_mana = dados_feitico['custo_mana']
             carta.atributo_modificado = \
-                dados_feitico['atributo_modificado']
+                [AtributoEspecial(dados_feitico['atributo_modificado'])]
             carta.modificacao = dados_feitico['modificacao']
             carta.valor = dados_feitico['valor']
+            carta.nome = dados_feitico['nome']
+        self.__cartas_dao.update(carta)
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
