@@ -22,8 +22,7 @@ class TelaCarta():
         print('ATAQUE:', dados_carta['ataque'])
         print('VIDA:', dados_carta['vida'])
         print('ATRIBUTOS:', end=' ')
-        for atributo in dados_carta['atributos']:
-            print(atributo.efeito, end=' ')
+        print(dados_carta['atributos'][0].efeito, end=' ')
         print("\n")
 
     def mostra_feitico(self, dados_carta):
