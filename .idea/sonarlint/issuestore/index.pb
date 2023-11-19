@@ -19,3 +19,17 @@ C
 models/tabuleiro.py,9\6\9641b22948f9720ad3b01c50db0e114334cd53c7
 A
 models/baralho.py,e\e\ee0a630bf548fd934583abb82b546f4ce7771f60
+J
+errors/carta_nao_existe.py,7\e\7e9159122912e9c4710a7636e46e16288ef3d4b0
+T
+$errors/numero_de_copias_excedidos.py,6\0\60ede18c061dd5b3d54e05f07b5440d647362e3d
+P
+ controllers/controlador_carta.py,9\3\93a97c29f2e872753681d076176153b11824b280
+A
+models/feitico.py,e\c\ecec3953ab3c13b65693dea61ea60434facc2872
+A
+models/monstro.py,e\9\e93c16e986fc0c6de25cd300032a09f92826e508
+C
+views/tela_carta.py,e\1\e1ff58bfd47b38e83d1c136baa2801d458beb650
+G
+views/tela_carta_gui.py,4\b\4bc769be9257a49d3ad607cbd357083d0b896753

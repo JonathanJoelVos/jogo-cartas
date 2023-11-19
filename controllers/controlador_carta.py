@@ -1,4 +1,4 @@
-from views.tela_carta import TelaCarta
+from views.tela_carta_gui import TelaCarta
 from models.carta import Carta
 from models.monstro import Monstro
 from models.feitico import Feitico
