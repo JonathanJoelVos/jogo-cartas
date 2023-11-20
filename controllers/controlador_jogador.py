@@ -35,14 +35,16 @@ class ControladorJogador():
             raise JogadorNaoEncontrado()
 
     def lista_jogadores(self):
+        dados = []
         for jogador in self.__jogadores:
-            self.__tela_jogador.mostra_jogador({
-                'nome': jogador.nome,
-                'partidas_jogadas': jogador.partidas_jogadas,
-                'vitorias': jogador.vitorias,
-                'derrotas': jogador.derrotas,
-                'pontos': jogador.pontos
-            })
+            dados.append([
+                jogador.nome,
+                jogador.partidas_jogadas,
+                jogador.vitorias,
+                jogador.derrotas,
+                jogador.pontos
+            ])
+        self.__tela_jogador.mostra_jogador(dados)
 
     def incluir_jogador(self):
         dados_jogador = self.__tela_jogador.pega_dados_jogador()
