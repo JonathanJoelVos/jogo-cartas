@@ -33,3 +33,9 @@ C
 views/tela_carta.py,e\1\e1ff58bfd47b38e83d1c136baa2801d458beb650
 G
 views/tela_carta_gui.py,4\b\4bc769be9257a49d3ad607cbd357083d0b896753
+E
+views/tela_sistema.py,c\5\c5a531b59414d163c6ad153586c16d9fd71e4690
+A
+views/__init__.py,5\1\518305201254de34e0c338ffb0db63bd54b11891
+E
+views/tela_jogador.py,0\9\098c108ca6744ec2b0cfc7f94896fc6dd737345a

@@ -1,4 +1,4 @@
-from views.tela_carta_gui import TelaCarta
+from views.tela_carta import TelaCarta
 from models.carta import Carta
 from models.monstro import Monstro
 from models.feitico import Feitico
@@ -86,7 +86,7 @@ class ControladorCarta():
             self.lista_carta(carta)
 
     def exclui_carta(self):
-        self.lista_cartas()
+        #self.lista_cartas()
         carta = self.seleciona_carta()
         self.__cartas_dao.remove(carta.codigo)
 

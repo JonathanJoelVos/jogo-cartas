@@ -1,4 +1,4 @@
-'''
+
 class TelaCarta():
     def tela_opcoes(self):
         print('-------- OPÇÕES DE CARTA --------')
@@ -90,4 +90,5 @@ class TelaCarta():
             return self.pega_dados_monstro()
         else:
             return self.pega_dados_feitico()
-'''
+
+
