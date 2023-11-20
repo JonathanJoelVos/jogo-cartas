@@ -46,6 +46,7 @@ class TelaCarta:
         while True:
             eventos, valores = window.read()
             if eventos == sg.WIN_CLOSED:
+                retornar = None
                 break
 
             if eventos == 'Submeter':
@@ -133,7 +134,8 @@ class TelaCarta:
         layout = [
             [sg.Text('Ataque:'), sg.InputText(key='ataque')],
             [sg.Text('Vida:'), sg.InputText(key='vida')],
-            [sg.Text('Atributos:'), sg.InputText(key='atributos')],
+            [sg.Text('Atributos:')],
+            [sg.Radio('Voar', 'atributos', key='voar'), sg.Radio('Sobrepujar', 'atributos', key='sobrepujar', default=True), sg.Radio('Nenhum', 'atributos', key='nenhum')],
             [sg.Button('OK'), sg.Button('Cancelar')],
         ]
 
@@ -150,8 +152,11 @@ class TelaCarta:
                 return None
 
             if evento == 'OK':
-                # Verifique se todos os campos foram preenchidos
-                if all(valores.values()):
+                # Verifique se todos os campos necessários foram preenchidos
+                if valores['ataque'] and valores['vida'] and (valores['voar'] or valores['sobrepujar'] or valores['nenhum']):
+                    # Determine o valor de 'atributos' com base nos botões de rádio
+                    atributos = 'voar' if valores['voar'] else 'sobrepujar' if valores['sobrepujar'] else ''
+
                     # Adicione os campos específicos para monstros aos dados da carta
                     dados_monstro = {
                         'nome': dados_carta['nome'],
@@ -159,14 +164,15 @@ class TelaCarta:
                         'codigo': dados_carta['codigo'],
                         'ataque': int(valores['ataque']),
                         'vida': int(valores['vida']),
-                        'atributos': valores['atributos'],
+                        'atributos': atributos,
                         'tipo': 'Monstro'
                     }
                     janela.close()
                     return dados_monstro
                 else:
                     # Se algum campo estiver vazio, exiba uma mensagem de erro
-                    sg.popup_error('Todos os campos devem ser preenchidos.')
+                    sg.popup_error('Todos os campos necessários devem ser preenchidos.')
+
 
     def pega_dados_feitico(self):
         # Obtenha os dados da carta usando a função anterior
@@ -174,8 +180,10 @@ class TelaCarta:
 
         # Adicione campos específicos para feitiços
         layout = [
-            [sg.Text('Modificação:'), sg.InputText(key='modificacao')],
-            [sg.Text('Atributo modificado:'), sg.InputText(key='atributo_modificado')],
+            [sg.Text('Modificação:')],
+            [sg.Radio('Aumentar', 'modificacao', key='aumentar'), sg.Radio('Diminuir', 'modificacao', key='diminuir', default=True)],
+            [sg.Text('Atributo modificado:')],
+            [sg.Radio('Ataque', 'atributo_modificado', key='ataque'), sg.Radio('Vida', 'atributo_modificado', key='vida')],
             [sg.Text('Valor:'), sg.InputText(key='valor')],
             [sg.Button('OK'), sg.Button('Cancelar')],
         ]
@@ -194,14 +202,20 @@ class TelaCarta:
 
             if evento == 'OK':
                 # Verifique se todos os campos foram preenchidos
-                if all(valores.values()):
+                if (valores['aumentar'] or valores['diminuir']) and (valores['ataque'] or valores['vida']) and valores['valor']:
+                    # Determine o valor de 'modificacao' com base nos botões de rádio
+                    modificacao = 'aumentar' if valores['aumentar'] else 'diminuir'
+
+                    # Determine o valor de 'atributo_modificado' com base nos botões de rádio
+                    atributo_modificado = 'ataque' if valores['ataque'] else 'vida'
+
                     # Adicione os campos específicos para feitiços aos dados da carta
                     dados_feitico = {
                         'nome': dados_carta['nome'],
                         'custo_mana': dados_carta['custo_mana'],
                         'codigo': dados_carta['codigo'],
-                        'modificacao': valores['modificacao'],
-                        'atributo_modificado': valores['atributo_modificado'],
+                        'modificacao': modificacao,
+                        'atributo_modificado': atributo_modificado,
                         'valor': int(valores['valor']),
                         'tipo': 'Feitiço'
                     }
@@ -209,4 +223,4 @@ class TelaCarta:
                     return dados_feitico
                 else:
                     # Se algum campo estiver vazio, exiba uma mensagem de erro
-                    sg.popup_error('Todos os campos devem ser preenchidos.')
+                    sg.popup_error('Todos os campos necessários devem ser preenchidos.')
