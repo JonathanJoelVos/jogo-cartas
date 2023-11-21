@@ -4,9 +4,9 @@ import PySimpleGUI as sg
 class TelaJogador():
     def __init__(self):
         self.__window = None
-        self.init_opcoes()
+        self.init_opcoes_jogador()
 
-    def init_opcoes(self):
+    def init_opcoes_jogador(self):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
@@ -22,6 +22,24 @@ class TelaJogador():
         ]
         self.__window = sg.Window('Sistema de jogador').Layout(layout)
 
+    def init_opcoes_baralho(self):
+        # sg.theme_previewer()
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- Baralhos ----------', font=("Helvica", 25))],
+            [sg.Text('Escolha uma opção:', font=("Helvica", 15))],
+            [sg.Radio('Listar baralhos', "RD1", key='1')],
+            [sg.Radio('Incluir baralho', "RD1", key='2')],
+            [sg.Radio('Alterar baralho', "RD1", key='3')],
+            [sg.Radio('Excluir baralho', "RD1", key='4')],
+            [sg.Radio('Adicionar carta ao baralho', "RD1", key='5')],
+            [sg.Radio('Remover carta do baralho', "RD1", key='6')],
+            [sg.Radio('Listar cartas do baralho', "RD1", key='7')],
+            [sg.Radio('Voltar', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Baralhos').Layout(layout)
+
     def open(self):
         button, values = self.__window.Read()
         return button, values
@@ -30,7 +48,7 @@ class TelaJogador():
         self.__window.Close()
 
     def tela_opcoes(self):
-        self.init_opcoes()
+        self.init_opcoes_jogador()
         button, values = self.open()
         print(values, 'values')
         if values['1']:
@@ -62,30 +80,7 @@ class TelaJogador():
         button, values = self.open()
         self.close()
 
-        # string_info_jogador += "NOME: " + dados_jogador["nome"] + '\n'
-        # string_info_jogador += "PARTIDAS JOGADAS: " +
-        # str(dados_jogador["partidas_jogadas"]) + '\n'
-        # string_info_jogador += "VITÓRIAS: " +
-        # str(dados_jogador["vitorias"]) + '\n'
-        # string_info_jogador += "DERROTAS: " +
-        # str(dados_jogador["derrotas"]) + '\n'
-        # string_info_jogador += "PONTOS: " +
-        # str(dados_jogador["pontos"]) + '\n\n'
-
-        # sg.Popup('-------- INFORMAÇÕES DO JOGADOR ----------',
-        #          string_info_jogador)
-
-        # sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_amigos)
-        # print("\n")
-        # print('NOME: ', dados_jogador["nome"])
-        # print('PARTIDAS JOGADAS: ', dados_jogador["partidas_jogadas"])
-        # print('VITÓRIAS: ', dados_jogador["vitorias"])
-        # print('DERROTAS: ', dados_jogador["derrotas"])
-        # print('PONTOS: ', dados_jogador["pontos"])
-        # print('\n')
-
     def pega_nome_jogador(self):
-        print('chamou2')
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
             [sg.Text('-------- JOGADOR ----------',
@@ -103,10 +98,7 @@ class TelaJogador():
         return nome
 
     def seleciona_jogador(self):
-        print('chamou1')
         nome = self.pega_nome_jogador()
-        return nome
-        nome = str(input('Nome do jogador: '))
         return nome
 
     def pega_dados_jogador(self):
@@ -121,50 +113,82 @@ class TelaJogador():
         }
 
     def tela_opcoes_baralho(self):
-        print('\n')
-        print('---------Baralho---------')
-        print('1 - Listar baralhos')
-        print('2 - Incluir baralho')
-        print('3 - Alterar baralho')
-        print('4 - Excluir baralho')
-        print('5 - Adicionar carta ao baralho')
-        print('6 - Remover carta do baralho')
-        print('7 - Listar cartas do baralho')
-        print('0 - Voltar')
-        print('\n')
+        self.init_opcoes_baralho()
+        button, values = self.open()
+        print(values, 'values')
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        if values['4']:
+            opcao = 4
+        if values['5']:
+            opcao = 5
+        if values['6']:
+            opcao = 6
+        if values['7']:
+            opcao = 7
 
-        opcao = int(input('Escolha a opção: '))
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
 
+    def pega_nome_baralho(self):
+        sg.ChangeLookAndFeel('DarkTeal4')
+        layout = [
+            [sg.Text('-------- Baralho ----------',
+                     font=("Helvica", 25))],
+            [sg.Text('Digite o nome do baralho:',
+                     font=("Helvica", 15))],
+            [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleciona baralho').Layout(layout)
+
+        button, values = self.open()
+        nome = values['nome']
+        self.close()
+        return nome
+
     def seleciona_baralho(self):
-        nome = str(input('Nome do baralho: '))
+        nome = self.pega_nome_baralho()
         return nome
 
     def mostra_baralho(self, dados_baralho):
-        print('\n')
-        print('---------Dados Baralho---------')
-        print('NOME: ', dados_baralho["nome"])
-        print('\n')
+        print(dados_baralho, 'baralhos')
+        layout = [
+            [sg.Table(values=dados_baralho, headings=['Baralhos'],
+                      auto_size_columns=True)],
+            [sg.Button('Ok')]
+        ]
+
+        self.__window = sg.Window('Cartas').Layout(layout)
+        button, values = self.open()
+        self.close()
 
     def pega_dados_baralho(self):
-        nome = str(input('Nome: '))
+        nome = self.pega_nome_baralho()
 
         return {
             'nome': nome,
             'cartas': []
         }
 
-    def mostra_ranking(self, dados_jogador, posicao):
-        print('\n')
-        print(f'----- Posiçao {posicao} ------')
-        print('NOME: ', dados_jogador["nome"])
-        print('PARTIDAS JOGADAS: ', dados_jogador["partidas_jogadas"])
-        print('VITÓRIAS: ', dados_jogador["vitorias"])
-        print('DERROTAS: ', dados_jogador["derrotas"])
-        print('PONTOS: ', dados_jogador["pontos"])
-        print('\n')
+    def mostra_ranking(self, dados_jogador):
+        print(dados_jogador, 'dados')
+        layout = [
+            [sg.Table(values=dados_jogador, headings=['Nome', 'Partidas',
+                      'Vitórias', 'Derrotas', 'Pontos', 'Posição'],
+                      auto_size_columns=True)],
+            [sg.Button('Ok')]
+        ]
+
+        self.__window = sg.Window('Ranking').Layout(layout)
+        button, values = self.open()
+        self.close()
 
     def mostra_msg(self, msg):
-        print('\n')
-        print(msg)
-        print('\n')
+        sg.popup("", msg)
