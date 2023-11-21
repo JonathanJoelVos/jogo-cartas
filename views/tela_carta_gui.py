@@ -2,6 +2,8 @@ import PySimpleGUI as sg
 
 
 class TelaCarta:
+    def __int__(self):
+        self.__window 
     def tela_opcoes(self):
         layout = [
             [sg.Text("Escolha uma opção:", justification='center')],
@@ -224,3 +226,23 @@ class TelaCarta:
                 else:
                     # Se algum campo estiver vazio, exiba uma mensagem de erro
                     sg.popup_error('Todos os campos necessários devem ser preenchidos.')
+
+    def mostra_carta(self, dados_layout):
+        if dados_layout[-1] == 'monstro':
+            layout = [
+                [sg.Table(values=dados_layout, headings=['Nome', 'Codigo',
+                          'Custo', 'Ataque', 'Vida', 'Atributos', 'Tipo'],
+                          auto_size_columns=True)],
+                [sg.Button('Ok')]
+            ]
+        else:
+            layout = [
+                [sg.Table(values=dados_layout, headings=['Nome', 'Codigo',
+                                                         'Custo', 'Modificaçao', 'Atributo Modificado', 'Quantidade', 'Tipo'],
+                          auto_size_columns=True)],
+                [sg.Button('Ok')]
+            ]
+
+        self.__window = sg.Window('Jogadores').Layout(layout)
+        button, values = self.open()
+        self.close()

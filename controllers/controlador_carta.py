@@ -1,4 +1,4 @@
-from views.tela_carta import TelaCarta
+from views.tela_carta_gui import TelaCarta
 from models.carta import Carta
 from models.monstro import Monstro
 from models.feitico import Feitico
@@ -82,8 +82,23 @@ class ControladorCarta():
             })
 
     def lista_cartas(self):
+        dados = []
         for carta in self.__cartas_dao.get_all():
-            self.lista_carta(carta)
+            dados.append([carta.nome,
+                          carta.codigo,
+                          carta.custo_mana])
+            if isinstance(carta,Monstro):
+                dados.append([carta.ataque,
+                              carta.vida,
+                              carta.atributos,
+                              'Monstro'])
+            else:
+                dados.append([carta.modificacao,
+                              carta.atributo_modificado,
+                              carta.valor,
+                              'Feitiço'])
+
+        self.__tela_carta.mostra_carta(dados)
 
     def exclui_carta(self):
         #self.lista_cartas()
