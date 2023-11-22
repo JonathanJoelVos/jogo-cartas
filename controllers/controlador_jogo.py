@@ -16,7 +16,7 @@ from models.feitico import Feitico
 from models.jogo import Jogo
 from models.monstro import Monstro
 from views.tela_jogo import TelaJogo
-from DAOs.jogo_dao import JogosDAO
+from DAOs.jogos_dao import JogosDAO
 import random
 
 
@@ -141,7 +141,6 @@ class ControladorJogo:
             raise JogadorNaoExiste()
 
         for jogo in self.__jogos.get_all():
-            print(jogo)
             for jogador in jogo.jogadores:
                 if jogador is jogador_selecionado:
                     self.__tela_jogo.mostra_dados_jogo({'codigo': jogo.codigo,

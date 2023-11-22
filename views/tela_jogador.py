@@ -114,7 +114,6 @@ class TelaJogador():
     def tela_opcoes_baralho(self):
         self.init_opcoes_baralho()
         button, values = self.open()
-        print(values, 'values')
         if values['1']:
             opcao = 1
         if values['2']:
@@ -157,7 +156,6 @@ class TelaJogador():
         return nome
 
     def mostra_baralho(self, dados_baralho):
-        print(dados_baralho, 'baralhos')
         layout = [
             [sg.Table(values=dados_baralho, headings=['Baralhos'],
                       auto_size_columns=True)],
@@ -177,7 +175,6 @@ class TelaJogador():
         }
 
     def mostra_ranking(self, dados_jogador):
-        print(dados_jogador, 'dados')
         layout = [
             [sg.Table(values=dados_jogador, headings=['Nome', 'Partidas',
                       'Vitórias', 'Derrotas', 'Pontos', 'Posição'],
