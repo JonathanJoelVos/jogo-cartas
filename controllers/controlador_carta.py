@@ -64,7 +64,7 @@ class ControladorCarta():
         else:
             raise CartaJaExiste()
 
-    def lista_carta(self, carta: Carta): #controlador de jogo usa
+    def lista_carta(self, carta: Carta):  # controlador de jogo usa
         if (isinstance(carta, Monstro)):
             self.__tela_carta.mostra_monstro({
                 'nome': carta.nome,
@@ -84,9 +84,11 @@ class ControladorCarta():
                 'valor': carta.valor
             })
 
-    def lista_cartas(self):
+    def lista_cartas(self, lista_cartas=[]):
         dados = []
-        for carta in self.__cartas_dao.get_all():
+        if (len(lista_cartas) == 0):
+            lista_cartas = self.__cartas_dao.get_all()
+        for carta in lista_cartas:
             if isinstance(carta, Monstro):
                 dados.append('Monstro')
                 dados.append(carta.nome)
