@@ -16,12 +16,7 @@ class TelaCarta:
             [sg.Button("Submeter", size=(20, 1), pad=((10, 10), 3))]
         ]
 
-        # Centralizando o conteúdo usando sg.Column
-        column_layout = [
-            [sg.Column(layout, element_justification='center')]
-        ]
-
-        window = sg.Window("Opções de Cartas", column_layout, resizable=True, finalize=True)
+        window = sg.Window("Opções de Cartas", layout)
 
         opcao_selecionada = 0
 
@@ -59,12 +54,12 @@ class TelaCarta:
 
     def mostra_msg(self, mensagem):
         layout = [[sg.Text(mensagem)],
-                  [sg.Button('Voltar')]]
+                  [sg.Button('Continuar')]]
         window = sg.Window(mensagem, layout)
         while True:
             event, values = window.read()
 
-            if event == sg.WIN_CLOSED or event == "Voltar":
+            if event == sg.WIN_CLOSED or event == "Continuar":
                 break
 
         window.close()

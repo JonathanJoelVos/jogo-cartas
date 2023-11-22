@@ -15,7 +15,7 @@ from errors.posicao_ocupada import PosicaoOcupada
 from models.feitico import Feitico
 from models.jogo import Jogo
 from models.monstro import Monstro
-from views.tela_jogo import TelaJogo
+from views.tela_jogo_gui import TelaJogo
 from DAOs.jogos_dao import JogosDAO
 from DAOs.jogador_dao import JogadorDAO
 import random
@@ -188,11 +188,12 @@ class ControladorJogo:
                 self.__tela_jogo.mostra_msg(
                     '\n --------- CARTAS NA MÃO:  -----------\n')
                 posicao = 0
+                cartas = []
                 for carta in jogo.tabuleiro_do_turno.cartas_na_mao:
                     posicao += 1
                     self.__tela_jogo.mostra_msg(f'POSICAO: {posicao}')
-                    self.__controlador_sistema.controlador_carta.lista_carta(
-                        carta)
+                    cartas.append(carta)
+                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
 
                 self.__tela_jogo.mostra_dados_do_turno({
                     'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
@@ -221,8 +222,8 @@ class ControladorJogo:
                                                            })
                     self.__tela_jogo.mostra_msg(
                         f'----- MONSTRO SELECIONADO: {monstro.nome.upper()} -----')
-                    self.__controlador_sistema.controlador_carta.lista_carta(
-                        monstro)
+                    self.__controlador_sistema.controlador_carta.lista_cartas(
+                        [monstro])
                     eliminado = jogo.tabuleiro_do_turno.monstros[(self.__tela_jogo.pega_posicao_carta_em_lista
                                                                   (len(jogo.tabuleiro_do_turno.monstros))) - 1]
 
@@ -280,11 +281,12 @@ class ControladorJogo:
                 self.__tela_jogo.mostra_msg(
                     '\n --------- CARTAS NA MÃO:  -----------\n')
                 posicao = 0
+                cartas = []
                 for carta in jogo.tabuleiro_do_turno.cartas_na_mao:
                     posicao += 1
                     self.__tela_jogo.mostra_msg(f'POSICAO: {posicao}')
-                    self.__controlador_sistema.controlador_carta.lista_carta(
-                        carta)
+                    cartas.append(carta)
+                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
                 self.__tela_jogo.mostra_dados_do_turno({
                     'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
                     'mana': jogo.tabuleiro_do_turno.mana_atual,
@@ -327,8 +329,8 @@ class ControladorJogo:
 
                 self.__tela_jogo.mostra_msg(
                     F'\n ---------- FEITICO ESCOLHIDO: {feitico.nome.upper()} ----------\n')
-                self.__controlador_sistema.controlador_carta.lista_carta(
-                    feitico)
+                self.__controlador_sistema.controlador_carta.lista_cartas(
+                    [feitico])
                 self.__tela_jogo.mostra_msg(
                     f'Tabuleiro aplicado: {tabuleiro_aplicado.jogador.nome}')
 
