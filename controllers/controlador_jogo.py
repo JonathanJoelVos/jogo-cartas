@@ -16,19 +16,20 @@ from models.feitico import Feitico
 from models.jogo import Jogo
 from models.monstro import Monstro
 from views.tela_jogo import TelaJogo
+from DAOs.jogo_dao import JogosDAO
 import random
 
 
 class ControladorJogo:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
-        self.__jogos = []
+        self.__jogos = JogosDAO()
         self.__tela_jogo = TelaJogo()
         self.__codigo_atual = 0
 
     @property
     def jogos(self):
-        return self.__jogos
+        return self.__jogos.get_all()
 
     @property
     def tela_jogo(self):
@@ -137,7 +138,7 @@ class ControladorJogo:
         if jogador_selecionado is None:
             raise JogadorNaoExiste()
 
-        for jogo in self.__jogos:
+        for jogo in self.__jogos.get_all():
             for jogador in jogo.jogadores:
                 if jogador is jogador_selecionado:
                     self.__tela_jogo.mostra_dados_jogo({'codigo': jogo.codigo,
@@ -377,7 +378,7 @@ class ControladorJogo:
         self.__codigo_atual += 1
 
         jogo = Jogo(self.__codigo_atual, j1, j2, b1, b2)
-        self.__jogos.append(jogo)
+        self.__jogos.add(jogo)
 
         j1.partidas_jogadas += 1
         j2.partidas_jogadas += 1

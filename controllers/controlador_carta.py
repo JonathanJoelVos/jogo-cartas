@@ -7,6 +7,7 @@ from errors.carta_ja_existe import CartaJaExiste
 from errors.carta_nao_encontrada import CartaNaoEncontrada
 from errors.opcao_invalida import OpcaoInvalida
 from DAOs.cartas_dao import CartaDAO
+from errors.voltar import Voltar
 
 
 class ControladorCarta():
@@ -31,7 +32,8 @@ class ControladorCarta():
 
     def incluir_carta(self):
         dados_carta = self.__tela_carta.pega_dados_iniciais_carta()
-        print(dados_carta)
+        if dados_carta is None:
+            raise Voltar()
         if (dados_carta['codigo'] == 0):
             self.__tela_carta.mostra_msg('Código inválido')
             return
@@ -157,4 +159,6 @@ class ControladorCarta():
             except CartaNaoEncontrada as e:
                 self.__tela_carta.mostra_msg(e)
             except OpcaoInvalida as e:
+                self.__tela_carta.mostra_msg(e)
+            except Voltar as e:
                 self.__tela_carta.mostra_msg(e)
