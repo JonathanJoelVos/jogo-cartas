@@ -1,5 +1,4 @@
 from errors.voltar import Voltar
-from models.monstro import Monstro
 
 
 class TelaJogo:
