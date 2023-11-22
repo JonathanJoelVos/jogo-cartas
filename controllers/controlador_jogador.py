@@ -7,20 +7,17 @@ from errors.baralho_ja_cadastrado import BaralhoJaCadastrado
 from errors.jogador_ja_cadastrado import JogadorJaCadastrado
 from errors.numero_de_copias_excedidos import NumeroDeCopiasExcedidas
 from errors.carta_nao_encontrada import CartaNaoEncontrada
+from DAOs.jogador_dao import JogadorDAO
 
 
 class ControladorJogador():
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__tela_jogador = TelaJogador()
-        self.__jogadores: list[Jogador] = []
-
-    @ property
-    def jogadores(self):
-        return self.__jogadores
+        self.__jogadores_dao = JogadorDAO()
 
     def pega_jogador_pelo_nome(self, nome):
-        for jogador in self.__jogadores:
+        for jogador in self.__jogadores_dao.get_all():
             if (jogador.nome == nome):
                 return jogador
         return None
@@ -29,29 +26,35 @@ class ControladorJogador():
         self.lista_jogadores()
         nome_jogador = self.__tela_jogador.seleciona_jogador()
         jogador = self.pega_jogador_pelo_nome(nome_jogador)
-        if (jogador is not None):
+        if (nome_jogador == ''):
+            self.__tela_jogador.mostra_msg('✅Cancelado com sucesso')
+        elif (jogador is not None):
             return jogador
         else:
             raise JogadorNaoEncontrado()
 
     def lista_jogadores(self):
-        for jogador in self.__jogadores:
-            self.__tela_jogador.mostra_jogador({
-                'nome': jogador.nome,
-                'partidas_jogadas': jogador.partidas_jogadas,
-                'vitorias': jogador.vitorias,
-                'derrotas': jogador.derrotas,
-                'pontos': jogador.pontos
-            })
+        dados = []
+        for jogador in self.__jogadores_dao.get_all():
+            dados.append([
+                jogador.nome,
+                jogador.partidas_jogadas,
+                jogador.vitorias,
+                jogador.derrotas,
+                jogador.pontos
+            ])
+        self.__tela_jogador.mostra_jogador(dados)
 
     def incluir_jogador(self):
         dados_jogador = self.__tela_jogador.pega_dados_jogador()
         jogador = self.pega_jogador_pelo_nome(dados_jogador['nome'])
-        if (jogador is None):
+        if (dados_jogador['nome'] == ''):
+            self.__tela_jogador.mostra_msg('✅Cancelado com sucesso')
+        elif (jogador is None):
             jogador = Jogador(
                 dados_jogador['nome']
             )
-            self.__jogadores.append(jogador)
+            self.__jogadores_dao.add(jogador)
             self.__tela_jogador.mostra_msg('✅ Jogador cadastrado com sucesso')
         else:
             raise JogadorJaCadastrado()
@@ -59,31 +62,37 @@ class ControladorJogador():
     def exclui_jogador(self):
         jogador = self.seleciona_jogador()
         if (jogador is not None):
-            self.__jogadores.remove(jogador)
+            self.__jogadores_dao.remove(jogador.nome)
             self.__tela_jogador.mostra_msg('✅ Jogador removido com sucesso')
 
     def altera_jogador(self):
         jogador = self.seleciona_jogador()
         if (jogador is not None):
             dados_jogador = self.__tela_jogador.pega_dados_jogador()
+            self.__jogadores_dao.remove(jogador.nome)
             jogador.nome = dados_jogador['nome']
+            self.__jogadores_dao.add(jogador)
             self.__tela_jogador.mostra_msg('✅ Jogador alterado com sucesso')
 
     def rank_jogadores(self):
-        self.__jogadores.sort(key=lambda jogador: jogador.pontos, reverse=True)
+        self.__jogadores_dao.get_all().sort(
+            key=lambda jogador: jogador.pontos, reverse=True)
         posicao = 1
-        for jogador in self.__jogadores:
-            self.__tela_jogador.mostra_ranking({
-                'nome': jogador.nome,
-                'partidas_jogadas': jogador.partidas_jogadas,
-                'vitorias': jogador.vitorias,
-                'derrotas': jogador.derrotas,
-                'pontos': jogador.pontos
-            }, posicao)
+        dados = []
+        for jogador in self.__jogadores_dao.get_all():
+            dados.append([
+                jogador.nome,
+                jogador.partidas_jogadas,
+                jogador.vitorias,
+                jogador.derrotas,
+                jogador.pontos,
+                posicao
+            ])
             posicao += 1
+        self.__tela_jogador.mostra_ranking(dados)
 
     def pega_baralho_jogador_pelo_nome(self, jogador: Jogador, nome):
-        for baralho in jogador.baralhos:
+        for baralho in self.__jogadores_dao.get(jogador.nome).baralhos:
             if (baralho.nome == nome):
                 return baralho
         return None
@@ -91,27 +100,34 @@ class ControladorJogador():
     def seleciona_baralho_do_jogador(self, jogador: Jogador):
         nome_baralho = self.__tela_jogador.seleciona_baralho()
         baralho = self.pega_baralho_jogador_pelo_nome(jogador, nome_baralho)
-        if (baralho is not None):
+        if (nome_baralho == ''):
+            self.__tela_jogador.mostra_msg('✅Cancelado com sucesso')
+        elif (baralho is not None):
             return baralho
         else:
             raise BaralhoNaoExiste()
 
     def lista_baralhos_jogador(self, jogador: Jogador):
+        dados = []
         if (jogador is not None):
             for baralho in jogador.baralhos:
-                self.__tela_jogador.mostra_baralho({
-                    'nome': baralho.nome,
-                    'cartas': baralho.cartas
-                })
+                print(baralho.nome, ' ---')
+                dados.append([
+                    baralho.nome,
+                ])
+        self.__tela_jogador.mostra_baralho(dados)
 
     def incluir_baralho_jogador(self, jogador: Jogador):
         if (jogador is not None):
             dados_baralho = self.__tela_jogador.pega_dados_baralho()
-            if (self
+            if (dados_baralho['nome'] == ''):
+                self.__tela_jogador.mostra_msg('✅Cancelado com sucesso')
+            elif (self
                     .pega_baralho_jogador_pelo_nome(jogador,
                                                     dados_baralho['nome'])
                     is None):
                 jogador.cria_baralho(dados_baralho['nome'])
+                self.__jogadores_dao.update(jogador)
                 self.__tela_jogador.mostra_msg(
                     '✅ Baralho cadastrado com sucesso')
             else:
@@ -124,6 +140,7 @@ class ControladorJogador():
             if (baralho is not None):
                 dados_baralho = self.__tela_jogador.pega_dados_baralho()
                 jogador.altera_baralho(baralho.nome, dados_baralho['nome'])
+                self.__jogadores_dao.update(jogador)
                 self.__tela_jogador.mostra_msg(
                     '✅ Baralho alterado com sucesso')
 
@@ -133,6 +150,7 @@ class ControladorJogador():
             baralho = self.seleciona_baralho_do_jogador(jogador)
             if (baralho is not None):
                 jogador.remove_baralho(baralho.nome)
+                self.__jogadores_dao.update(jogador)
                 self.__tela_jogador.mostra_msg(
                     '✅ Baralho removido com sucesso')
 
@@ -148,6 +166,7 @@ class ControladorJogador():
                     .seleciona_carta()
                 if (carta is not None):
                     jogador.add_carta_ao_baralho(baralho.nome, carta)
+                    self.__jogadores_dao.update(jogador)
                     self.__tela_jogador.mostra_msg(
                         '✅ Carta adicionada com sucesso')
                 else:
@@ -167,15 +186,13 @@ class ControladorJogador():
             carta = self.__controlador_sistema.controlador_carta \
                 .seleciona_carta()
             jogador.remover_carta_do_baralho(baralho.nome, carta.codigo)
+            self.__jogadores_dao.update(jogador)
             self.__tela_jogador.mostra_msg('✅ Carta removida com sucesso')
 
     def listar_cartas_do_baralho_jogador(self, jogador: Jogador):
         self.lista_baralhos_jogador(jogador)
         baralho = self.seleciona_baralho_do_jogador(jogador)
         if (jogador is not None and baralho is not None):
-            self.__tela_jogador.mostra_baralho({
-                'nome': baralho.nome
-            })
             self.lista_cartas_do_baralho(baralho)
 
     def retornar(self):
