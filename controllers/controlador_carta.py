@@ -1,4 +1,4 @@
-from views.tela_carta_gui import TelaCarta
+from views.tela_carta import TelaCarta
 from models.carta import Carta
 from models.monstro import Monstro
 from models.feitico import Feitico
@@ -31,6 +31,7 @@ class ControladorCarta():
 
     def incluir_carta(self):
         dados_carta = self.__tela_carta.pega_dados_iniciais_carta()
+        print(dados_carta)
         if (dados_carta['codigo'] == 0):
             self.__tela_carta.mostra_msg('Código inválido')
             return
@@ -44,7 +45,7 @@ class ControladorCarta():
                         dados_carta['codigo'],
                         dados_carta['ataque'],
                         dados_carta['vida'],
-                        [AtributoEspecial([dados_carta['atributos']])]
+                        [AtributoEspecial(dados_carta['atributos'])]
                     )
                 )
             else:
@@ -61,7 +62,7 @@ class ControladorCarta():
         else:
             raise CartaJaExiste()
 
-    def lista_carta(self, carta: Carta):
+    def lista_carta(self, carta: Carta): #controlador de jogo usa
         if (isinstance(carta, Monstro)):
             self.__tela_carta.mostra_monstro({
                 'nome': carta.nome,
@@ -84,24 +85,30 @@ class ControladorCarta():
     def lista_cartas(self):
         dados = []
         for carta in self.__cartas_dao.get_all():
-            dados.append([carta.nome,
-                          carta.codigo,
-                          carta.custo_mana])
-            if isinstance(carta,Monstro):
-                dados.append([carta.ataque,
-                              carta.vida,
-                              carta.atributos,
-                              'Monstro'])
+            if isinstance(carta, Monstro):
+                dados.append('Monstro')
+                dados.append(carta.nome)
+                dados.append(carta.codigo)
+                dados.append(carta.custo_mana)
+                dados.append(carta.ataque)
+                dados.append(carta.vida)
+                if carta.atributos:
+                    dados.append(carta.atributos[0].efeito)
+                else:
+                    dados.append('')
             else:
-                dados.append([carta.modificacao,
-                              carta.atributo_modificado,
-                              carta.valor,
-                              'Feitiço'])
+                dados.append('Feitiço')
+                dados.append(carta.nome)
+                dados.append(carta.codigo)
+                dados.append(carta.custo_mana)
+                dados.append(carta.modificacao)
+                dados.append(carta.atributo_modificado)
+                dados.append(carta.valor)
 
         self.__tela_carta.mostra_carta(dados)
 
     def exclui_carta(self):
-        #self.lista_cartas()
+        self.lista_cartas()
         carta = self.seleciona_carta()
         self.__cartas_dao.remove(carta.codigo)
 
@@ -120,8 +127,7 @@ class ControladorCarta():
         elif (carta_eh_feitico):
             dados_feitico = self.__tela_carta.pega_dados_feitico()
             carta.custo_mana = dados_feitico['custo_mana']
-            carta.atributo_modificado = \
-                [AtributoEspecial(dados_feitico['atributo_modificado'])]
+            carta.atributo_modificado = dados_feitico['atributo_modificado']
             carta.modificacao = dados_feitico['modificacao']
             carta.valor = dados_feitico['valor']
             carta.nome = dados_feitico['nome']

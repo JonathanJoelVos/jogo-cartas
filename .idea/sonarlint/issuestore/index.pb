@@ -39,3 +39,9 @@ A
 views/__init__.py,5\1\518305201254de34e0c338ffb0db63bd54b11891
 E
 views/tela_jogador.py,0\9\098c108ca6744ec2b0cfc7f94896fc6dd737345a
+>
+views/teste.py,c\9\c9052e7813d81c617f4826782fa22a5a8f561e87
+K
+models/atributo_especial.py,0\1\0105db3533355f9a0b0ba05e37af8e360405522c
+I
+errors/carta_ja_existe.py,0\4\046e25f87459ec685d399636f1223eefe8a792ed
