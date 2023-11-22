@@ -1,0 +1,47 @@
+
+?
+models/carta.py,b\7\b7f6fbf96a79b12efef97c3a0d45b8b5cb551037
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+>
+models/jogo.py,4\7\47aaba352749c948137824163f55fd6943ab6093
+O
+controllers/controlador_jogo.py,b\f\bf46422c84c068268148f272bb391908b3178b11
+B
+views/tela_jogo.py,7\1\711fd21be85eef0c4fb7281391f981d3f215bc2b
+7
+main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
+G
+errors/baralho_vazio.py,f\3\f39d1d3dbf86859bd7ab0dd19e4d2017eba1d1c4
+@
+errors/voltar.py,4\c\4cef02efb238bba879441ff790848d25efaf223a
+C
+models/tabuleiro.py,9\6\9641b22948f9720ad3b01c50db0e114334cd53c7
+A
+models/baralho.py,e\e\ee0a630bf548fd934583abb82b546f4ce7771f60
+J
+errors/carta_nao_existe.py,7\e\7e9159122912e9c4710a7636e46e16288ef3d4b0
+T
+$errors/numero_de_copias_excedidos.py,6\0\60ede18c061dd5b3d54e05f07b5440d647362e3d
+P
+ controllers/controlador_carta.py,9\3\93a97c29f2e872753681d076176153b11824b280
+A
+models/feitico.py,e\c\ecec3953ab3c13b65693dea61ea60434facc2872
+A
+models/monstro.py,e\9\e93c16e986fc0c6de25cd300032a09f92826e508
+C
+views/tela_carta.py,e\1\e1ff58bfd47b38e83d1c136baa2801d458beb650
+G
+views/tela_carta_gui.py,4\b\4bc769be9257a49d3ad607cbd357083d0b896753
+E
+views/tela_sistema.py,c\5\c5a531b59414d163c6ad153586c16d9fd71e4690
+A
+views/__init__.py,5\1\518305201254de34e0c338ffb0db63bd54b11891
+E
+views/tela_jogador.py,0\9\098c108ca6744ec2b0cfc7f94896fc6dd737345a
+>
+views/teste.py,c\9\c9052e7813d81c617f4826782fa22a5a8f561e87
+K
+models/atributo_especial.py,0\1\0105db3533355f9a0b0ba05e37af8e360405522c
+I
+errors/carta_ja_existe.py,0\4\046e25f87459ec685d399636f1223eefe8a792ed
