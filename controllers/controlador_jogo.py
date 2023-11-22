@@ -193,7 +193,8 @@ class ControladorJogo:
                     posicao += 1
                     self.__tela_jogo.mostra_msg(f'POSICAO: {posicao}')
                     cartas.append(carta)
-                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
+                self.__controlador_sistema.controlador_carta.lista_cartas(
+                    cartas)
 
                 self.__tela_jogo.mostra_dados_do_turno({
                     'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
@@ -286,7 +287,8 @@ class ControladorJogo:
                     posicao += 1
                     self.__tela_jogo.mostra_msg(f'POSICAO: {posicao}')
                     cartas.append(carta)
-                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
+                self.__controlador_sistema.controlador_carta.lista_cartas(
+                    cartas)
                 self.__tela_jogo.mostra_dados_do_turno({
                     'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
                     'mana': jogo.tabuleiro_do_turno.mana_atual,
@@ -396,7 +398,6 @@ class ControladorJogo:
                 'ataque_realizado': jogo.ataque_ja_realizado,
                 'em_batalha': jogo.em_batalha,
                 'contador_de_passes': jogo.contador_de_passes
-
             })
             self.__tela_jogo.mostrar_dados_jogador_rodada({
                 'nome': j1.nome,
