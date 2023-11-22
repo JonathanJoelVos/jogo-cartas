@@ -17,6 +17,7 @@ from models.jogo import Jogo
 from models.monstro import Monstro
 from views.tela_jogo import TelaJogo
 from DAOs.jogos_dao import JogosDAO
+from DAOs.jogador_dao import JogadorDAO
 import random
 
 
@@ -24,6 +25,7 @@ class ControladorJogo:
     def __init__(self, controlador_sistema):
         self.__controlador_sistema = controlador_sistema
         self.__jogos = JogosDAO()
+        self.__jogador_dao = JogadorDAO()
         self.__tela_jogo = TelaJogo()
         self.__codigo_atual = 0
 
@@ -139,10 +141,9 @@ class ControladorJogo:
 
         if jogador_selecionado is None:
             raise JogadorNaoExiste()
-
         for jogo in self.__jogos.get_all():
             for jogador in jogo.jogadores:
-                if jogador is jogador_selecionado:
+                if jogador.nome == jogador_selecionado.nome:
                     self.__tela_jogo.mostra_dados_jogo({'codigo': jogo.codigo,
                                                         'j1': jogo.jogadores[0].nome,
                                                         'j2': jogo.jogadores[1].nome,
@@ -262,7 +263,8 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg(
                         f'{carta.nome.upper()} será movido para o campo de batalha ao iniciar ataque')
                     if (len(jogo.tabuleiro_do_turno.monstros) == 0):
-                        self.__tela_jogo.mostra_msg('Tabuleiro vazio. O ataque será iniciado')
+                        self.__tela_jogo.mostra_msg(
+                            'Tabuleiro vazio. O ataque será iniciado')
                         jogo.iniciar_ataque(monstros)
                         confirmar_ataque = True
                     else:
@@ -377,10 +379,9 @@ class ControladorJogo:
                     jogo.tabuleiro_do_turno, posicao_defesa, monstro)
 
     def jogar(self, j1, j2, b1, b2):
-        self.__codigo_atual += 1
+        self.__codigo_atual = len(self.__jogos.get_all()) + 1
 
         jogo = Jogo(self.__codigo_atual, j1, j2, b1, b2)
-        self.__jogos.add(jogo)
 
         j1.partidas_jogadas += 1
         j2.partidas_jogadas += 1
@@ -500,3 +501,6 @@ class ControladorJogo:
                     f'Vitória do(a) {jogo.vencedor.nome} ')
                 self.__tela_jogo.mostra_msg('')
                 break
+        self.__jogador_dao.update(jogo.vencedor)
+        self.__jogador_dao.update(jogo.perdedor)
+        self.__jogos.add(jogo)

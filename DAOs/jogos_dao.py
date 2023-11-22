@@ -8,6 +8,7 @@ class JogosDAO(DAO):
 
     def add(self, jogo: Jogo):
         if jogo is not None and isinstance(jogo, Jogo) and isinstance(jogo.codigo, int):
+            print(jogo.vencedor.pontos, jogo.perdedor.pontos)
             super().add(jogo.codigo, jogo)
 
     def update(self, jogo: Jogo):
