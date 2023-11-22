@@ -15,7 +15,7 @@ from errors.posicao_ocupada import PosicaoOcupada
 from models.feitico import Feitico
 from models.jogo import Jogo
 from models.monstro import Monstro
-from views.tela_jogo import TelaJogo
+from views.tela_jogo_gui import TelaJogo
 from DAOs.jogos_dao import JogosDAO
 import random
 
