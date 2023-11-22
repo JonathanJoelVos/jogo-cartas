@@ -105,6 +105,7 @@ class ControladorJogo:
         if b1 is None:
             raise BaralhoNaoExiste
         if len(b1.cartas) < 20:
+            print(len(b1.cartas))
             raise BaralhoIncompleto
 
         self.__tela_jogo.mostra_msg('Selecione o segundo jogador:')
@@ -122,6 +123,7 @@ class ControladorJogo:
         if b2 is None:
             raise BaralhoNaoExiste
         if len(b2.cartas) < 20:
+            print(len(b2.cartas))
             raise BaralhoIncompleto
 
         random.shuffle(b1.cartas)
@@ -139,6 +141,7 @@ class ControladorJogo:
             raise JogadorNaoExiste()
 
         for jogo in self.__jogos.get_all():
+            print(jogo)
             for jogador in jogo.jogadores:
                 if jogador is jogador_selecionado:
                     self.__tela_jogo.mostra_dados_jogo({'codigo': jogo.codigo,

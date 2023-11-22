@@ -31,7 +31,6 @@ class TelaSistema():
     def tela_opcoes(self):
         self.init_opcoes()
         button, values = self.open()
-        print(values, 'values')
         if values['1']:
             opcao = 1
         if values['2']:

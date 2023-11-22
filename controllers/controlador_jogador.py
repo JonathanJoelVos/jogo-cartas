@@ -111,7 +111,6 @@ class ControladorJogador():
         dados = []
         if (jogador is not None):
             for baralho in jogador.baralhos:
-                print(baralho.nome, ' ---')
                 dados.append([
                     baralho.nome,
                 ])

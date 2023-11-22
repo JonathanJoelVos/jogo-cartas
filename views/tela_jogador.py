@@ -50,7 +50,6 @@ class TelaJogador():
     def tela_opcoes(self):
         self.init_opcoes_jogador()
         button, values = self.open()
-        print(values, 'values')
         if values['1']:
             opcao = 1
         if values['2']:
