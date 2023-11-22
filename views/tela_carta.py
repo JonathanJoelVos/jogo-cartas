@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from errors.voltar import Voltar
 
 
 class TelaCarta:
@@ -75,6 +76,7 @@ class TelaCarta:
                   [sg.Button("Submeter", size=(20, 1), pad=((10, 10), 3))]
                   ]
 
+        tipo = 'voltar'
         window = sg.Window("Tipo da carta", layout)
         while True:
             event, values = window.read()
@@ -87,7 +89,9 @@ class TelaCarta:
 
         window.close()
 
-        if tipo == 1:
+        if tipo == 'voltar':
+            return None
+        elif tipo == 1:
             return self.pega_dados_monstro()
         else:
             return self.pega_dados_feitico()
@@ -130,6 +134,8 @@ class TelaCarta:
     def pega_dados_monstro(self):
         # Obtenha os dados da carta usando a função anterior
         dados_carta = self.pega_dados_carta()
+        if dados_carta is None:
+            raise Voltar()
 
         # Adicione campos específicos para monstros
         layout = [
@@ -178,6 +184,8 @@ class TelaCarta:
     def pega_dados_feitico(self):
         # Obtenha os dados da carta usando a função anterior
         dados_carta = self.pega_dados_carta()
+        if dados_carta is None:
+            raise Voltar()
 
         # Adicione campos específicos para feitiços
         layout = [
