@@ -75,11 +75,12 @@ class ControladorJogador():
             self.__tela_jogador.mostra_msg('✅ Jogador alterado com sucesso')
 
     def rank_jogadores(self):
-        self.__jogadores_dao.get_all().sort(
-            key=lambda jogador: jogador.pontos, reverse=True)
+        jogadores = self.__jogadores_dao.get_all()
+        ranking = sorted(
+            jogadores, key=lambda jogador: jogador.pontos,     reverse=True)
         posicao = 1
         dados = []
-        for jogador in self.__jogadores_dao.get_all():
+        for jogador in ranking:
             dados.append([
                 jogador.nome,
                 jogador.partidas_jogadas,
