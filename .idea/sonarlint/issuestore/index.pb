@@ -52,7 +52,5 @@ H
 DAOs/dao.py,4\4\4481bc0fd1644c4a38df4ff020da4d1d8a75f34c
 B
 DAOs/cartas_dao.py,8\9\8926807852384e4b13456835171bbd11a0f028cc
-@
-DAOs/jogo_dao.py,8\0\80e8acf76991445241f9044d5a16ede7fb202f0f
 A
 models/jogador.py,0\9\0962d1ac90d29dcb1b948f6a5a1bb739ecd2a7d7
