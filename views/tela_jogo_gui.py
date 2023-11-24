@@ -46,9 +46,20 @@ class TelaJogo:
 
         window.close()
 
-    def mostra_dados_da_rodada(self, dados_rodada):
-        layout = [
-            [sg.Text(f'RODADA {dados_rodada["rodada"]}', font=('Helvetica', 16), justification='center')],
-            [sg.Text('Conteúdo da janela')],
-            [sg.Button('OK')]
-        ]
+    def mostra_dados_do_turno(self, dados_turno):
+
+        layout = [[sg.Text(f'RODADA {dados_turno['rodada']}',  size=(20, 1), font=('Helvetica', 20))],
+                  [sg.Text(f'ATACANTE DA RODADA: {dados_turno['atacante']}'), sg.Text(f'CONTADOR DE PASSES: {dados_turno['contador_de_passes']}'), sg.Text(f'EM BATALHA: {dados_turno['em_batalha']}')],
+                  [sg.Text(f'VEZ DE {dados_turno['turno']}')]
+                  [sg.Column([
+                      [sg.Text(f'JOGADOR: {dados_turno['j1']}')],
+                      [sg.Text(f'VIDA DA TORRE: {dados_turno['vida_j1']}')],
+                      [sg.Text(f'MANA: {dados_turno['mana_j1']}')],
+                      [sg.Text(f'MANA DE FEITIÇO: {dados_turno['spellmana_j1']}')]
+                  ]), #talvez adicionar size
+                  [sg.Column([
+
+                  ])]
+                  ]
+                  ]
+

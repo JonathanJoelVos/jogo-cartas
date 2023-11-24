@@ -154,13 +154,69 @@ class ControladorJogo:
                                                         'empate': jogo.empate
                                                         })
 
+    def pegar_dados_monstros_turno(self, jogo):
+        dados_passar = []
+        dados_t1_monstros = []
+        dados_t1_monstros.append(len(jogo.t1.monstros))
+        dados_t1_monstros_batalha = []
+        dados_t1_monstros_batalha.append(len(jogo.t1.monstros_em_batalha))
+        dados_t2_monstros = []
+        dados_t2_monstros.append(len(jogo.t2.monstros))
+        dados_t2_monstros_batalha = []
+        dados_t2_monstros_batalha.append(len(jogo.t2.monstros_em_batalha))
+        for monstro in jogo.t1.monstros:
+            dados_t1_monstros.append(monstro.nome)
+            dados_t1_monstros.append(monstro.ataque)
+            dados_t1_monstros.append(monstro.vida)
+            dados_t1_monstros.append(monstro.atributos[0])
+        for monstro in jogo.t1.monstros_em_batalha:
+            if monstro is not None:
+                dados_t1_monstros_batalha.append(monstro.nome)
+                dados_t1_monstros_batalha.append(monstro.ataque)
+                dados_t1_monstros_batalha.append(monstro.vida)
+                dados_t1_monstros_batalha.append(monstro.atributos[0])
+            else:
+                dados_t1_monstros_batalha.append(None)
+        for monstro in jogo.t2.monstros:
+            dados_t2_monstros.append(monstro.nome)
+            dados_t2_monstros.append(monstro.ataque)
+            dados_t2_monstros.append(monstro.vida)
+            dados_t2_monstros.append(monstro.atributos[0])
+        for monstro in jogo.t2.monstros_em_batalha:
+            if monstro is not None:
+                dados_t2_monstros_batalha.append(monstro.nome)
+                dados_t2_monstros_batalha.append(monstro.ataque)
+                dados_t2_monstros_batalha.append(monstro.vida)
+                dados_t2_monstros_batalha.append(monstro.atributos[0])
+            else:
+                dados_t1_monstros_batalha.append(None)
+
+        dados_passar.append(dados_t1_monstros)
+        dados_passar.append(dados_t1_monstros_batalha)
+        dados_passar.append(dados_t2_monstros)
+        dados_passar.append(dados_t2_monstros_batalha)
+        return dados_passar #4 listas de (len(lista)-1) informações
+
     def realizar_turno(self, jogo: Jogo):
         em_batalha = jogo.em_batalha
 
+        #ESSA função vai retornar uma das opcoes do turno
         self.__tela_jogo.mostra_dados_do_turno({
-            'jogador_atual': jogo.tabuleiro_do_turno.jogador.nome,
-            'mana': jogo.tabuleiro_do_turno.mana_atual,
-            'spellmana': jogo.tabuleiro_do_turno.spellmana,
+            'rodada': jogo.rodada,
+            'j1': jogo.t1.jogador.nome,
+            'j2': jogo.t2.jogador.nome,
+            'atacante': jogo.atacante_rodada.jogador.nome,
+            'atacou': jogo.ataque_ja_realizado,
+            'turno': jogo.tabuleiro_do_turno.jogador.nome,
+            'vida_j1': jogo.t1.vida_torre,
+            'vida_j2': jogo.t2.vida_torre,
+            'mana_j1': jogo.t1.mana_atual,
+            'mana_j2': jogo.t2.mana_atual,
+            'spellmana_j1': jogo.t1.spellmana,
+            'spellmana_j2': jogo.t2.spellmana,
+            'contador_de_passes': jogo.contador_de_passes,
+            'em_batalha': em_batalha,
+            'dados_monstros': self.pegar_dados_monstros_turno(jogo)
         })
 
         while True:
@@ -389,6 +445,7 @@ class ControladorJogo:
         j2.partidas_jogadas += 1
 
         while True:
+            '''
             self.__tela_jogo.mostra_dados_da_rodada({
                 'rodada': jogo.rodada,
                 'tabuleiro_turno': jogo.tabuleiro_do_turno.jogador.nome,
@@ -414,6 +471,7 @@ class ControladorJogo:
                 'monstros_tabuleiro': jogo.t2.monstros,
                 'monstros_em_batalha': jogo.t2.monstros_em_batalha,
             })
+            '''
             try:
                 self.realizar_turno(jogo)
 
@@ -444,9 +502,11 @@ class ControladorJogo:
             except PosicaoOcupada as e:
                 self.__tela_jogo.mostra_msg(e)
             if jogo.rodada == 16:
+                '''
                 self.__tela_jogo.mostra_msg('')
                 self.__tela_jogo.mostra_msg('Rodada 16: Fim de jogo!')
                 self.__tela_jogo.mostra_msg('')
+                '''
 
                 v1 = jogo.t1.vida_torre
                 v2 = jogo.t2.vida_torre
@@ -469,9 +529,11 @@ class ControladorJogo:
                     jogo.perdedor.derrotas += 1
                     jogo.perdedor.pontos -= 1
 
+                    '''
                     self.__tela_jogo.mostra_msg(
                         f'Vitória do(a) {jogo.vencedor} ')
                     self.__tela_jogo.mostra_msg('')
+                    '''
 
                 else:
                     jogo.vencedor = jogo.t2.jogador
@@ -498,10 +560,13 @@ class ControladorJogo:
                         jogo.vencedor = tabuleiro.jogador
                         jogo.vencedor.vitorias += 1
                         jogo.vencedor.pontos += 3
+
+                '''
                 self.__tela_jogo.mostra_msg('Jogo Encerrado.')
                 self.__tela_jogo.mostra_msg(
                     f'Vitória do(a) {jogo.vencedor.nome} ')
                 self.__tela_jogo.mostra_msg('')
+                '''
                 break
         self.__jogador_dao.update(jogo.vencedor)
         self.__jogador_dao.update(jogo.perdedor)
