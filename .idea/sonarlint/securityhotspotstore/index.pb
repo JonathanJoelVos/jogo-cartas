@@ -70,3 +70,9 @@ R
 "controllers/controlador_jogador.py,d\f\df9580f9d519d3693d980c172a2bb87adb36205d
 R
 "controllers/controlador_sistema.py,9\b\9b29f54aad0569626f16843755d2f22e21fe2586
+N
+errors/tipo_de_carta_errado.py,c\3\c31da857b969165bd4fbbafa4fcf4b3a22c40a07
+K
+errors/mana_insuficiente.py,1\e\1e7df6d1bd18a065d90eaec014cc4e02da03813c
+G
+errors/mesmo_jogador.py,8\a\8aafe28f05c11209d176835ea74f652c8bf5d937

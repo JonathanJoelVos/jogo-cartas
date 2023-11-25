@@ -1,15 +1,15 @@
 
-python:S1192’"ZDefine a constant instead of duplicating this literal 'CARTA 2                  ' 8 times.(¯„–úÿÿÿÿ8®Ï“¶À1
-tpython:S1192„"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 26 times.(¥âÛõıÿÿÿÿ8®Ï“¶À1
-python:S1192Š"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 6 times.(Ôğ£¸şÿÿÿÿ8®Ï“¶À1
-{python:S1192¥"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 12 times.(é¥èó8®Ï“¶À1
-}python:S1186	"YAdd a nested comment explaining why this method is empty, or complete the implementation.(Áû¹Çûÿÿÿÿ8®Ï“¶À1
-Opython:S1481-"0Replace unused local variable "values" with "_".(İçÿÒ8®Ï“¶À1
-kpython:S1763}"GDelete this unreachable code or refactor the code to make it reachable.(˜µÎÊûÿÿÿÿ8®Ï“¶À1
-Epython:S1481ƒ"%Remove the unused local variable "i".(¹½ğ8®Ï“¶À1
-Epython:S1481·"%Remove the unused local variable "i".(¹½ğ8¯Ï“¶À1
-tpython:S3776²"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(Ì¬ï§8¯Ï“¶À1
-Epython:S1481Ç"%Remove the unused local variable "i".(¹½ğ8¯Ï“¶À1
-Epython:S1481"%Remove the unused local variable "i".(¹½ğ8¯Ï“¶À1
-tpython:S3776ú"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(Â˜Î‚8¯Ï“¶À1
-epython:S3457£"EAdd replacement fields or use a normal string instead of an f-string.(™ıŒÒ8¯Ï“¶À1
+tpython:S1192‚"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 26 times.(¥âÛõıÿÿÿÿ8¥àºÀ1
+python:S1192"ZDefine a constant instead of duplicating this literal 'CARTA 2                  ' 8 times.(¯„–úÿÿÿÿ8¥àºÀ1
+python:S1192ˆ"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 6 times.(Ôğ£¸şÿÿÿÿ8¥àºÀ1
+{python:S1192£"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 12 times.(é¥èó8¥àºÀ1
+}python:S1186	"YAdd a nested comment explaining why this method is empty, or complete the implementation.(Áû¹Çûÿÿÿÿ8¥àºÀ1
+Opython:S1481-"0Replace unused local variable "values" with "_".(İçÿÒ8¥àºÀ1
+Epython:S1481"%Remove the unused local variable "i".(¹½ğ8¥àºÀ1
+Epython:S1481µ"%Remove the unused local variable "i".(¹½ğ8¥àºÀ1
+tpython:S3776°"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(Ì¬ï§8¥àºÀ1
+Epython:S1481Å"%Remove the unused local variable "i".(¹½ğ8¥àºÀ1
+Epython:S1481ÿ"%Remove the unused local variable "i".(¹½ğ8¥àºÀ1
+tpython:S3776ø"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(Â˜Î‚8¥àºÀ1
+epython:S3457¡"EAdd replacement fields or use a normal string instead of an f-string.(™ıŒÒ8¥àºÀ1
+Vpython:S1481Ó"1Replace unused local variable "valores" with "_".(¿³ÓŸøÿÿÿÿ8¥àºÀ1

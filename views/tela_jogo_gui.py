@@ -120,9 +120,7 @@ class TelaJogo:
         if opcao_selecionada is None:
             raise ValueError
 
-        return (opcao_selecionada)  # será um return
-
-        window.close()
+        return (int(opcao_selecionada), window)  # será um return
 
     def criar_layout_monstros_j1(self, dados_monstros, nome_jogador, jogador_turno, em_batalha, atacou, contador_de_passes):
         layout_monstros_j1 = []
@@ -554,3 +552,73 @@ class TelaJogo:
             [sg.Button('Confirmar')]
         ]
         return sg.Frame('Opções', layout_opcoes, background_color=cor)
+
+    def fechar_janela(self, janela):
+        janela.close()
+
+    def pega_posicao_carta_em_lista(self, posicoes_disponiveis):
+        layout = [
+            [sg.Text('Escolha a POSIÇÃO da carta'), sg.InputText(key='posicao')],
+            [sg.Button('OK'), sg.Button('Cancelar')]
+        ]
+
+        janela = sg.Window('Pegar posição da Carta', layout)
+
+        while True:
+            evento, valores = janela.read()
+
+            if evento in (sg.WIN_CLOSED, 'Cancelar'):
+                janela.close()
+                raise Voltar
+
+            if evento == 'OK':
+                if all(valores.values()):
+                    if int(valores['posicao']) < 1 or int(valores['posicao']) > posicoes_disponiveis:
+                        sg.popup_error('Posição inválida!')
+                        raise Voltar
+                    janela.close()
+
+                    return int(valores['posicao'])
+
+                else:
+                    sg.popup_error('Escolha a posição ou cancele')
+
+    def tela_tabuleiro_cheio(self, dados_monstro):
+        layout = [
+            [sg.Text('O Tabuleiro está cheio. Avance para substituir um monstro ou cancele para voltar')],
+            [sg.Button('Avançar'), sg.Button('Cancelar')]
+        ]
+
+        janela = sg.Window('Substituir monstro?', layout)
+
+        while True:
+            evento, valores = janela.read()
+
+            if evento in (sg.WIN_CLOSED, 'Cancelar'):
+                janela.close()
+                raise Voltar
+
+            if evento == 'Avançar':
+                janela.close()
+
+                layout = [
+                    [sg.Text('MONSTRO SELECIONADO:')],
+                    [sg.Frame('',[[sg.Text(f'Nome: {dados_monstro["nome"]}')],
+                                 [sg.Text(f'Atributo: {dados_monstro["atributo"]}')],
+                                 [sg.Text(f'Ataque: {dados_monstro["ataque"]}'),sg.Text(f'Vida: {dados_monstro["vida"]}')]
+                                 ]
+                             )],
+                    [sg.Button('Continuar')]
+
+                ]
+
+                janela = sg.Window('Monstro selecionado',layout)
+
+                while True:
+                    evento, valores = janela.read()
+
+                    if evento in (sg.WIN_CLOSED, 'Continuar'):
+                        janela.close()
+                        break
+
+                return janela
