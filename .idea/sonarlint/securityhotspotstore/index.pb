@@ -64,3 +64,9 @@ F
 views/teste2.py,4\1\416e398b563291ed29137df5e2dbd1099ae06fd3
 ?
 views/teste3.py,d\8\d8e39368e781d23a5765b57cb17cf9d72631d800
+3
+asa,6\5\65417b70a1a7bd08a6189f4d309d90979cbe7b56
+R
+"controllers/controlador_jogador.py,d\f\df9580f9d519d3693d980c172a2bb87adb36205d
+R
+"controllers/controlador_sistema.py,9\b\9b29f54aad0569626f16843755d2f22e21fe2586

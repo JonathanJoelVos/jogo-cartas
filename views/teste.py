@@ -1,38 +1,33 @@
 import PySimpleGUI as sg
 
-# Defina o layout do frame interno
-inner_frame_layout = [
-    [sg.Text('Informações destacadas', justification='center')],
-    [sg.Text('Detalhe 1')],
-    [sg.Text('Detalhe 2')],
-    [sg.Frame('Detalhe Destacado', [[sg.Text('Detalhe 1 Destacado')]]), sg.Frame("CARTA 2",
-                                      [
-                                          [sg.Text(f'Nome: leo')],
-                                          [sg.Text(f'Atributos: voar')],
-                                          [sg.Text(f'Ataque: 5'),
-                                           sg.Text(f'Vida: 10')]
-                                      ])]  # Novo Frame para destacar Detalhe 1
-]
-
-# Crie o frame interno
-inner_frame = sg.Frame('Destaque', inner_frame_layout)
-
-# Defina o layout geral
+# Layout da janela com um frame e um texto ao lado
 layout = [
-    [sg.Text('Conteúdo fora do frame interno')],
-    [inner_frame],
-    [sg.Button('OK')]
+    [
+        sg.Frame(
+            layout=[
+                [sg.Button('Botão 1')],
+                [sg.Button('Botão 2')],
+                [sg.Button('Botão 3')],
+            ],
+            title='Frame',
+            relief=sg.RELIEF_SUNKEN,
+            tooltip='Este é um tooltip para o frame',
+        ),
+        sg.Text('Texto ao Lado do Frame')
+    ],
+    [sg.Button('Sair')]
 ]
 
-# Crie a janela
-window = sg.Window('Exemplo de Destaque com Frame Interno', layout)
+# Criação da janela
+window = sg.Window('Exemplo de Frame com Texto', layout)
 
 # Loop de eventos
 while True:
     event, values = window.read()
 
-    if event == sg.WINDOW_CLOSED or event == 'OK':
+    # Tratamento de eventos
+    if event == sg.WINDOW_CLOSED or event == 'Sair':
         break
 
-# Feche a janela
+# Fechamento da janela
 window.close()

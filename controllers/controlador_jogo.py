@@ -221,11 +221,26 @@ class ControladorJogo:
 
         while True:
             try:
-                opcao = self.__tela_jogo.opcoes_turno(
-                    em_batalha, jogo.tabuleiro_do_turno.jogador.nome)
+                opcao = self.__tela_jogo.mostra_dados_do_turno({
+            'rodada': jogo.rodada,
+            'j1': jogo.t1.jogador.nome,
+            'j2': jogo.t2.jogador.nome,
+            'atacante': jogo.atacante_rodada.jogador.nome,
+            'atacou': jogo.ataque_ja_realizado,
+            'turno': jogo.tabuleiro_do_turno.jogador.nome,
+            'vida_j1': jogo.t1.vida_torre,
+            'vida_j2': jogo.t2.vida_torre,
+            'mana_j1': jogo.t1.mana_atual,
+            'mana_j2': jogo.t2.mana_atual,
+            'spellmana_j1': jogo.t1.spellmana,
+            'spellmana_j2': jogo.t2.spellmana,
+            'contador_de_passes': jogo.contador_de_passes,
+            'em_batalha': em_batalha,
+            'dados_monstros': self.pegar_dados_monstros_turno(jogo)
+        })
                 break  # Sai do loop se a entrada for válida
             except ValueError:
-                self.__tela_jogo.mostra_msg('Digite um número válido')
+                self.__tela_jogo.mostra_msg('Escolha uma opção válida')
 
         if opcao == -1:
             self.__tela_jogo.mostra_msg(
@@ -235,7 +250,7 @@ class ControladorJogo:
             return
 
         if opcao == 0:
-            jogo.passar_a_vez()
+            jogo.passar_a_vez() ##EXCLUIR CARTAS PKL
             return
 
         if not em_batalha:
