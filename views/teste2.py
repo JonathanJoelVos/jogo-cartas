@@ -346,40 +346,132 @@ def criar_layout_monstros_j1(dados_monstros, nome_jogador, jogador_turno, em_bat
 
     if dados_monstros[0] == 0:
         for i in range(3):
-            layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO', [[sg.Text('                               ')],[sg.Text('')],[sg.Text('')],]))
+            layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                              [[sg.Text('                               ')], [sg.Text('')],
+                                               [sg.Text('')], ]))
 
-    if dados_monstros[0] >= 1:
+    if dados_monstros[0] >= 1 and (not defendendo):
         layout_monstros_j1.append(sg.Frame("",
-                                           [   [sg.Text('CARTA 1                  ')],
-                                               [sg.Text(f'Nome: {dados_monstros[1]}')],
-                                               [sg.Text(f'Atributos: {dados_monstros[4]}')],
-                                               [sg.Text(f'Ataque: {dados_monstros[2]}'), sg.Text(f'Vida: {dados_monstros[3]}')]
+                                          [[sg.Text('CARTA 1                  ')],
+                                           [sg.Text(f'Nome: {dados_monstros[1]}')],
+                                           [sg.Text(f'Atributos: {dados_monstros[4]}')],
+                                           [sg.Text(f'Ataque: {dados_monstros[2]}'),
+                                            sg.Text(f'Vida: {dados_monstros[3]}')]
                                            ]))
-    if dados_monstros[0] >= 2:
+    if dados_monstros[0] >= 2 and (not defendendo):
         layout_monstros_j1.append(sg.Frame("",
-                                           [   [sg.Text('CARTA 2                  ')],
-                                               [sg.Text(f'Nome: {dados_monstros[5]}')],
-                                               [sg.Text(f'Atributos: {dados_monstros[8]}')],
-                                               [sg.Text(f'Ataque: {dados_monstros[6]}'), sg.Text(f'Vida: {dados_monstros[7]}')]
+                                          [[sg.Text('CARTA 2                  ')],
+                                           [sg.Text(f'Nome: {dados_monstros[5]}')],
+                                           [sg.Text(f'Atributos: {dados_monstros[8]}')],
+                                           [sg.Text(f'Ataque: {dados_monstros[6]}'),
+                                            sg.Text(f'Vida: {dados_monstros[7]}')]
                                            ]))
     if dados_monstros[0] == 1:
         for i in range(2):
             layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
-                                               [[sg.Text('                               ')], [sg.Text('')],
-                                                [sg.Text('')], ]))
+                                              [[sg.Text('                               ')], [sg.Text('')],
+                                               [sg.Text('')], ]))
 
     if dados_monstros[0] == 2:
         layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
-                                           [[sg.Text('                               ')], [sg.Text('')],
-                                            [sg.Text('')], ]))
+                                          [[sg.Text('                               ')], [sg.Text('')],
+                                           [sg.Text('')], ]))
 
-    if dados_monstros[0] == 3:
-        layout_monstros_j1.append(sg.Frame("",
-                                           [   [sg.Text('CARTA 3                  ')],
+    if dados_monstros[0] == 3:  # pode ser defesa
+        if defendendo:
+            if dados_monstros[1] is None:  # [3, 'olaf', 8, 8, 'Sobrepujar', None, None]
+                layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                  [[sg.Text('                               ')], [sg.Text('')],
+                                                   [sg.Text('')], ]))
+                if dados_monstros[2] is None:
+                    layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                      [[sg.Text('                               ')], [sg.Text('')],
+                                                       [sg.Text('')], ]))
+                    if dados_monstros[3] is None:
+                        layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                          [[sg.Text('                               ')], [sg.Text('')],
+                                                           [sg.Text('')], ]))
+                    else:
+                        layout_monstros_j1.append(sg.Frame("",
+                                                          [[sg.Text('CARTA 3                  ')],
+                                                           [sg.Text(f'Nome: {dados_monstros[3]}')],
+                                                           [sg.Text(f'Atributos: {dados_monstros[6]}')],
+                                                           [sg.Text(f'Ataque: {dados_monstros[4]}'),
+                                                            sg.Text(f'Vida: {dados_monstros[5]}')]
+                                                           ]))
+
+                else:
+                    layout_monstros_j1.append(sg.Frame("",
+                                                      [[sg.Text('CARTA 2                  ')],
+                                                       [sg.Text(f'Nome: {dados_monstros[2]}')],
+                                                       [sg.Text(f'Atributos: {dados_monstros[5]}')],
+                                                       [sg.Text(f'Ataque: {dados_monstros[3]}'),
+                                                        sg.Text(f'Vida: {dados_monstros[4]}')]
+                                                       ]))
+                    if dados_monstros[6] is None:
+                        layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                          [[sg.Text('                               ')], [sg.Text('')],
+                                                           [sg.Text('')], ]))
+                    else:
+                        layout_monstros_j1.append(sg.Frame("",
+                                                          [[sg.Text('CARTA 3                  ')],
+                                                           [sg.Text(f'Nome: {dados_monstros[6]}')],
+                                                           [sg.Text(f'Atributos: {dados_monstros[9]}')],
+                                                           [sg.Text(f'Ataque: {dados_monstros[7]}'),
+                                                            sg.Text(f'Vida: {dados_monstros[8]}')]
+                                                           ]))
+            else:
+                layout_monstros_j1.append(sg.Frame("",
+                                                  [[sg.Text('CARTA 1                  ')],
+                                                   [sg.Text(f'Nome: {dados_monstros[1]}')],
+                                                   [sg.Text(f'Atributos: {dados_monstros[4]}')],
+                                                   [sg.Text(f'Ataque: {dados_monstros[2]}'),
+                                                    sg.Text(f'Vida: {dados_monstros[3]}')]
+                                                   ]))
+                if dados_monstros[5] is None:
+                    layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                      [[sg.Text('                               ')], [sg.Text('')],
+                                                       [sg.Text('')], ]))
+                    if dados_monstros[6] is None:
+                        layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                          [[sg.Text('                               ')], [sg.Text('')],
+                                                           [sg.Text('')], ]))
+                    else:
+                        layout_monstros_j1.append(sg.Frame("",
+                                                          [[sg.Text('CARTA 3                  ')],
+                                                           [sg.Text(f'Nome: {dados_monstros[6]}')],
+                                                           [sg.Text(f'Atributos: {dados_monstros[9]}')],
+                                                           [sg.Text(f'Ataque: {dados_monstros[7]}'),
+                                                            sg.Text(f'Vida: {dados_monstros[8]}')]
+                                                           ]))
+                else:
+                    layout_monstros_j1.append(sg.Frame("",
+                                                      [[sg.Text('CARTA 2                  ')],
+                                                       [sg.Text(f'Nome: {dados_monstros[5]}')],
+                                                       [sg.Text(f'Atributos: {dados_monstros[8]}')],
+                                                       [sg.Text(f'Ataque: {dados_monstros[6]}'),
+                                                        sg.Text(f'Vida: {dados_monstros[7]}')]
+                                                       ]))
+                    if dados_monstros[9] is None:
+                        layout_monstros_j1.append(sg.Frame('ESPAÇO VAZIO',
+                                                          [[sg.Text('                               ')], [sg.Text('')],
+                                                           [sg.Text('')], ]))
+                    else:
+                        layout_monstros_j1.append(sg.Frame("",
+                                                          [[sg.Text('CARTA 3                  ')],
+                                                           [sg.Text(f'Nome: {dados_monstros[9]}')],
+                                                           [sg.Text(f'Atributos: {dados_monstros[12]}')],
+                                                           [sg.Text(f'Ataque: {dados_monstros[10]}'),
+                                                            sg.Text(f'Vida: {dados_monstros[11]}')]
+                                                           ]))
+        else:
+            layout_monstros_j1.append(sg.Frame("",
+                                              [[sg.Text('CARTA 3                  ')],
                                                [sg.Text(f'Nome: {dados_monstros[9]}')],
                                                [sg.Text(f'Atributos: {dados_monstros[12]}')],
-                                               [sg.Text(f'Ataque: {dados_monstros[10]}'), sg.Text(f'Vida: {dados_monstros[11]}')]
-                                           ]))
+                                               [sg.Text(f'Ataque: {dados_monstros[10]}'),
+                                                sg.Text(f'Vida: {dados_monstros[11]}')]
+                                               ]))
     if jogador_turno == nome_jogador:
         layout_inicial = criar_layout_de_opcoes(em_batalha, atacou, contador_de_passes, '#284d78' )
     else:

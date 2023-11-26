@@ -163,13 +163,11 @@ class TelaJogo:
             print('1 - Iniciar partida')
             print('2 - Histórico de partidas jogadas')
             print('0 - Voltar')
-            try:
-                opcao = input('Escolha a opção: ')
-                if opcao not in valores:
-                    raise ValueError
-                break
-            except ValueError:
+            opcao = input('Escolha a opção: ')
+            if opcao not in valores:
                 print('Digite uma opção válida!')
+            else:
+                break
         return opcao.strip()
 
     def opcoes_turno(self, em_batalha: bool, nome_jogador):

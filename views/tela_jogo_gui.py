@@ -113,14 +113,16 @@ class TelaJogo:
             event, values = window.read()
 
             if event == sg.WIN_CLOSED:
-                break
+                return ('GAME OVER', window)
+
             elif event == "Confirmar":
                 opcao_selecionada = next((key for key, value in values.items() if value), None)
                 break
-        if opcao_selecionada is None:
-            raise ValueError
 
-        return (int(opcao_selecionada), window)  # será um return
+        if opcao_selecionada is not None:
+            opcao_selecionada = (int(opcao_selecionada))
+
+        return (opcao_selecionada, window)  # será um return
 
     def criar_layout_monstros_j1(self, dados_monstros, nome_jogador, jogador_turno, em_batalha, atacou, contador_de_passes):
         layout_monstros_j1 = []
@@ -416,6 +418,9 @@ class TelaJogo:
 
         if dados_monstros[0] == 3:  # pode ser defesa
             if defendendo:
+                print('oi')
+                print(dados_monstros)
+                print('oi')
                 if dados_monstros[1] is None:  # [3, 'olaf', 8, 8, 'Sobrepujar', None, None]
                     layout_batalha_j2.append(sg.Frame('ESPAÇO VAZIO',
                                                       [[sg.Text('                               ')], [sg.Text('')],
@@ -556,7 +561,7 @@ class TelaJogo:
     def fechar_janela(self, janela):
         janela.close()
 
-    def pega_posicao_carta_em_lista(self, posicoes_disponiveis):
+    def pega_posicao_carta_em_lista(self, posicoes_disponiveis, janela_turno):
         layout = [
             [sg.Text('Escolha a POSIÇÃO da carta'), sg.InputText(key='posicao')],
             [sg.Button('OK'), sg.Button('Cancelar')]
@@ -569,12 +574,21 @@ class TelaJogo:
 
             if evento in (sg.WIN_CLOSED, 'Cancelar'):
                 janela.close()
-                raise Voltar
+                return None
 
             if evento == 'OK':
                 if all(valores.values()):
-                    if int(valores['posicao']) < 1 or int(valores['posicao']) > posicoes_disponiveis:
+                    try:
+                        valores['posicao'] = int(valores['posicao'])
+                    except ValueError:
                         sg.popup_error('Posição inválida!')
+                        janela.close()
+                        janela_turno.close()
+                        raise Voltar
+                    if (int(valores['posicao']) > posicoes_disponiveis) or (int(valores['posicao']) < 1):
+                        sg.popup_error('Posição inválida!')
+                        janela.close()
+                        janela_turno.close()
                         raise Voltar
                     janela.close()
 
@@ -583,7 +597,7 @@ class TelaJogo:
                 else:
                     sg.popup_error('Escolha a posição ou cancele')
 
-    def tela_tabuleiro_cheio(self, dados_monstro):
+    def tela_tabuleiro_cheio(self, dados_monstro, janela_turno): #exclui a carta certa, joga tudo pra esquerda e inclui
         layout = [
             [sg.Text('O Tabuleiro está cheio. Avance para substituir um monstro ou cancele para voltar')],
             [sg.Button('Avançar'), sg.Button('Cancelar')]
@@ -596,6 +610,7 @@ class TelaJogo:
 
             if evento in (sg.WIN_CLOSED, 'Cancelar'):
                 janela.close()
+                janela_turno.close()
                 raise Voltar
 
             if evento == 'Avançar':
@@ -622,3 +637,30 @@ class TelaJogo:
                         break
 
                 return janela
+
+    def tela_confirmar_ataque(self, janela_turno):
+        layout = [
+            [sg.Button('Adicionar mais monstros para a batalha')],
+            [sg.Button('Confirmar ataque ✅')],
+            [sg.Button("Cancelar ataque ❌")]
+        ]
+
+        window = sg.Window("OPÇÕES DE ATAQUE", layout)
+
+        cancelou = False
+
+        while True:
+            event, values = window.read()
+
+            if event in [sg.WIN_CLOSED, "Cancelar ataque ❌"]:
+                cancelou = True
+                window.close()
+                janela_turno.close()
+                return ('0', cancelou)
+            if event == 'Confirmar ataque ✅':
+                window.close()
+                return ('1', cancelou)
+
+            if event == 'Adicionar mais monstros para a batalha':
+                window.close()
+                return ('2', cancelou)

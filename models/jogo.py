@@ -145,14 +145,14 @@ class Jogo:
     def em_batalha(self):
         return self.__em_batalha
 
-    def realizar_batalha(self):
+    def realizar_batalha(self): #utilizar os argumentos para retirar o monstro Espaço vazio
         for tabuleiro in self.__tabuleiros:
             if tabuleiro.codigo == self.__atacante_rodada.codigo:
                 atacante = tabuleiro
             else:
                 defensor = tabuleiro
 
-        for i in range(len(atacante.monstros_em_batalha)):
+        for i in range(len(atacante.monstros_em_batalha)): ####Criar lógica para incluir o monstro em lugares de monstros de codigo 0 ou se a lista estiver incompleta
             sobrepujar = False
             if atacante.monstros_em_batalha[i] is not None:
                 if defensor.monstros_em_batalha[i] is not None:
@@ -194,7 +194,7 @@ class Jogo:
         if defensor.vida_torre <= 0:
             self.__ambos_vivos = False
 
-    def passar_a_vez(self):
+    def passar_a_vez(self, ):
         self.__contador_de_passes += 1
         self.mudar_turno()
         if self.__contador_de_passes == 2:
