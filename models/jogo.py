@@ -145,7 +145,7 @@ class Jogo:
     def em_batalha(self):
         return self.__em_batalha
 
-    def realizar_batalha(self): #utilizar os argumentos para retirar o monstro Espaço vazio
+    def realizar_batalha(self): #Quando o monstro atacante morre, o monstro espaço vazio continua
         for tabuleiro in self.__tabuleiros:
             if tabuleiro.codigo == self.__atacante_rodada.codigo:
                 atacante = tabuleiro
@@ -157,7 +157,8 @@ class Jogo:
             if atacante.monstros_em_batalha[i] is not None:
                 if defensor.monstros_em_batalha[i] is not None:
                     for atributo in atacante.monstros_em_batalha[i].atributos:
-                        if atributo.efeito == 'Sobrepujar':
+                        print(atributo.efeito[0])
+                        if atributo.efeito[0] == 'Sobrepujar':
                             sobrepujar = True
 
                     if sobrepujar:
@@ -170,18 +171,51 @@ class Jogo:
                     defensor.monstros_em_batalha[i].vida -= atacante.monstros_em_batalha[i].ataque
                     if atacante.monstros_em_batalha[i].vida <= 0:
                         atacante.monstros_em_batalha[i] = None
-                    else:
-                        atacante.monstros.append(
-                            atacante.monstros_em_batalha[i])
+                        del (atacante.monstros[i])
+                    else: #atacante sobreviveu. Esse codigo funciona para atacante. sera que funciona para defensor?
+                        if atacante.monstros[i].codigo == '0':
+                            print("atacante.monstros[i].codigo == '0':")
+                            atacante.monstros[i] = atacante.monstros_em_batalha[i]
+                        elif i + 1 <= len(atacante.monstros):
+                            print('ELIF I+1 <= LEN(ATACANTE.MONSTROS')
+                            if atacante.monstros[i+1].codigo == '0':
+                                print("if atacante.monstros[i].codigo == '0':")
+                                atacante.monstros[i+1] = atacante.monstros_em_batalha[i]
+                            elif i + 2 <= len(atacante.monstros):
+                                print("i + 2 <= len(atacante.monstros):")
+                                if atacante.monstros[i+2].codigo == '0':
+                                    print("atacante.monstros[i].codigo == '0':")
+                                    atacante.monstros[i + 2] = atacante.monstros_em_batalha[i]
+
 
                     if defensor.monstros_em_batalha[i].vida <= 0:
                         defensor.monstros_em_batalha[i] = None
-                    else:
-                        defensor.monstros.append(
-                            defensor.monstros_em_batalha[i])
+                    else: #defensor sobreviveu. implementar codigo novo
+                        if defensor.monstros: #Esse codigo funciona para atacante. sera que funciona para defensor?
+                            if defensor.monstros[i].codigo == '0':
+                                defensor.monstros.append(
+                                    defensor.monstros_em_batalha[i])
+                        elif i+1 < len(defensor.monstros):
+                            if defensor.monstros[i].codigo == '0':
+                                defensor.monstros.append(
+                                    defensor.monstros_em_batalha[i])
+                        else:
+                            defensor.monstros.append(defensor.monstros_em_batalha[i])
                 else:
                     defensor.vida_torre -= atacante.monstros_em_batalha[i].ataque
-                    atacante.monstros.append(atacante.monstros_em_batalha[i])
+                    if atacante.monstros[i].codigo == '0':
+                        print("atacante.monstros[i].codigo == '0':")
+                        atacante.monstros[i] = atacante.monstros_em_batalha[i]
+                    elif i + 1 <= len(atacante.monstros):
+                        print('ELIF I+1 <= LEN(ATACANTE.MONSTROS)')
+                        if atacante.monstros[i+1].codigo == '0':
+                            print("if atacante.monstros[i].codigo == '0':")
+                            atacante.monstros[i + 1] = atacante.monstros_em_batalha[i]
+                        elif i + 2 <= len(atacante.monstros):
+                            print("i + 2 <= len(atacante.monstros):")
+                            if atacante.monstros[i+2].codigo == '0':
+                                print("atacante.monstros[i].codigo == '0':")
+                                atacante.monstros[i + 2] = atacante.monstros_em_batalha[i]
 
             elif defensor.monstros_em_batalha[i] is not None:
                 defensor.monstros.append(defensor.monstros_em_batalha[i])
@@ -230,7 +264,8 @@ class Jogo:
             voar = False
             atacante_com_voar = False
             for atributo in monstro.atributos:
-                if atributo.efeito == 'Voar':
+                print(atributo.efeito[0])
+                if atributo.efeito[0] == 'Voar':
                     voar = True
             if voar:
                 tabuleiro.monstros.remove(monstro)
@@ -238,7 +273,7 @@ class Jogo:
             else:
                 for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
                     if atributo is not None:
-                        if atributo.efeito == 'Voar':
+                        if atributo.efeito[0] == 'Voar':
                             atacante_com_voar = True
                 if atacante_com_voar:
                     raise MonstroSemVoar

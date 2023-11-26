@@ -418,9 +418,6 @@ class TelaJogo:
 
         if dados_monstros[0] == 3:  # pode ser defesa
             if defendendo:
-                print('oi')
-                print(dados_monstros)
-                print('oi')
                 if dados_monstros[1] is None:  # [3, 'olaf', 8, 8, 'Sobrepujar', None, None]
                     layout_batalha_j2.append(sg.Frame('ESPAÇO VAZIO',
                                                       [[sg.Text('                               ')], [sg.Text('')],
@@ -664,3 +661,6 @@ class TelaJogo:
             if event == 'Adicionar mais monstros para a batalha':
                 window.close()
                 return ('2', cancelou)
+
+    def tela_de_bloqueio(self, janela_turno):
+        pass

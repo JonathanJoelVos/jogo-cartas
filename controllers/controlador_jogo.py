@@ -295,78 +295,76 @@ class ControladorJogo:
                 jafoi = []
                 while not confirmar_ataque:
                     if cancelou:
-                        posicoes_none = []
-                        posicao = -1
-                        for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
+                        posicao = 0
+                        for monstro in monstros: #[Grifo celestial, Esqueleto]
+                            print (monstro.nome)
+                            for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
+                                print(jogo.tabuleiro_do_turno.monstros)
+                                for m in jogo.tabuleiro_do_turno.monstros:
+                                    print(m.nome)
+                                if monstro_tabuleiro.codigo == '0':
+                                    print(jogo.tabuleiro_do_turno.monstros[posicao])
+                                    print(posicao)
+                                    jogo.tabuleiro_do_turno.monstros[posicao] = monstro
                             posicao += 1
-                            if monstro_tabuleiro.codigo == '0':
-                                posicoes_none.append(posicao)
-
-                        for monstro in monstros:
-                            for i in range(3):
-                                if len(monstros) == 0:
-                                    break
-                                if i in posicoes_none:
-                                    jogo.tabuleiro_do_turno.monstros[i] = monstro
 
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     try:
                         pos_carta = ((self.__tela_jogo.pega_posicao_carta_em_lista(len(jogo.tabuleiro_do_turno.monstros), janela_turno)) - 1)
                     except Exception:
-                        posicoes_none = []
-                        posicao = -1
-                        for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
+                        posicao = 0
+                        for monstro in monstros:  # [Grifo celestial, Esqueleto]
+                            print(monstro.nome)
+                            for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
+                                print(jogo.tabuleiro_do_turno.monstros)
+                                for m in jogo.tabuleiro_do_turno.monstros:
+                                    print(m.nome)
+                                if monstro_tabuleiro.codigo == '0':
+                                    print(jogo.tabuleiro_do_turno.monstros[posicao])
+                                    print(posicao)
+                                    jogo.tabuleiro_do_turno.monstros[posicao] = monstro
                             posicao += 1
-                            if monstro_tabuleiro.codigo == '0':
-                                posicoes_none.append(posicao)
-
-                        for monstro in monstros:
-                            for i in range(3):
-                                if len(monstros) == 0:
-                                    break
-                                if i in posicoes_none:
-                                    jogo.tabuleiro_do_turno.monstros[i] = monstro
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     if pos_carta is None:
-                        if monstros:
-                            posicoes_none = []
-                            posicao = -1
+                        posicao = 0
+                        for monstro in monstros:  # [Grifo celestial, Esqueleto]
+                            print(monstro.nome)
                             for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
-                                posicao += 1
+                                print(jogo.tabuleiro_do_turno.monstros)
+                                for m in jogo.tabuleiro_do_turno.monstros:
+                                    print(m.nome)
                                 if monstro_tabuleiro.codigo == '0':
-                                    posicoes_none.append(posicao)
-
-                            for monstro in monstros:
-                                for i in range(3):
-                                    if len(monstros) == 0:
-                                        break
-                                    if i in posicoes_none:
-                                        jogo.tabuleiro_do_turno.monstros[i] = monstro
+                                    print(jogo.tabuleiro_do_turno.monstros[posicao])
+                                    print(posicao)
+                                    jogo.tabuleiro_do_turno.monstros[posicao] = monstro
+                            posicao += 1
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     if pos_carta in jafoi:
                         self.__tela_jogo.mostra_msg('Esse monstro já foi selecionado para batalha')
-                        if monstros:
-                            posicoes_none = []
-                            posicao = -1
+                        posicao = 0
+                        for monstro in monstros:  # [Grifo celestial, Esqueleto]
+                            print(monstro.nome)
                             for monstro_tabuleiro in jogo.tabuleiro_do_turno.monstros:
-                                posicao += 1
+                                print(jogo.tabuleiro_do_turno.monstros)
+                                for m in jogo.tabuleiro_do_turno.monstros:
+                                    print(m.nome)
                                 if monstro_tabuleiro.codigo == '0':
-                                    posicoes_none.append(posicao)
+                                    print(jogo.tabuleiro_do_turno.monstros[posicao])
+                                    print(posicao)
+                                    jogo.tabuleiro_do_turno.monstros[posicao] = monstro
+                            posicao += 1
 
-                            for monstro in monstros:
-                                for i in range(3):
-                                    if len(monstros) == 0:
-                                        break
-                                    if i in posicoes_none:
-                                        jogo.tabuleiro_do_turno.monstros[i] = monstro
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
 
                     carta = jogo.tabuleiro_do_turno.monstros[pos_carta]
                     jafoi.append(pos_carta)
+                    print('jafoi')
+                    print(jafoi)
+                    print('jafoi')
                     monstros.append(carta)
                     jogo.tabuleiro_do_turno.monstros[pos_carta] = Monstro('ESPAÇO VAZIO', 0, '0', 0, 0, [AtributoEspecial([''])])
                     #quando add e da erro o espaço vazio fica no bagui
@@ -377,9 +375,6 @@ class ControladorJogo:
                     if confirmar == '1':
                         confirmar_ataque = True
                         jogo.iniciar_ataque(monstros)
-                    #if confirmar == '0':
-
-
 
             self.__tela_jogo.fechar_janela(janela_turno)
 
@@ -464,30 +459,19 @@ class ControladorJogo:
                 if jogo.tabuleiro_do_turno.codigo == jogo.atacante_rodada.codigo:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise NaoCondiz
-                self.__tela_jogo.mostra_msg(
-                    f'Atacante da rodada: {jogo.atacante_rodada.jogador.nome}')
-                self.__tela_jogo.mostra_msg('')
-                self.__tela_jogo.mostrar_tabuleiros({'monstros_tabuleiro_1': jogo.t1.monstros,
-                                                     'monstros_em_batalha_1': jogo.t1.monstros_em_batalha,
-                                                     'jogador_1': jogo.t1.jogador.nome,
-                                                     'jogador_2': jogo.t2.jogador.nome,
-                                                     'monstros_tabuleiro_2': jogo.t2.monstros,
-                                                     'monstros_em_batalha_2': jogo.t2.monstros_em_batalha,
-                                                     'vida_torre_t1': jogo.t1.vida_torre,
-                                                     'vida_torre_t2': jogo.t2.vida_torre
-                                                     })
-                self.__tela_jogo.mostra_msg('Escolha uma posição do campo de batalha para inserir um monstro aliado'
-                                            '(irá bloquear o atacante dessa posição na batalha)')
-                posicao_defesa = (self.__tela_jogo.pega_posicao_carta_em_lista
-                                  (len(jogo.atacante_rodada.monstros_em_batalha)), janela_turno)
-                self.__tela_jogo.mostra_msg('Agora, selecione a posição de um monstro aliado'
-                                            ' no tabuleiro para envia-lo à batalha na posição escolhida.')
+                self.__tela_jogo.mostra_msg('Escolha um monstro do seu tabuleiro para bloquear um inimigo')
                 pos_monstro = self.__tela_jogo.pega_posicao_carta_em_lista(
                     len(jogo.tabuleiro_do_turno.monstros), janela_turno)
                 monstro = jogo.tabuleiro_do_turno.monstros[pos_monstro - 1]
 
-                jogo.realizar_bloqueio(
-                    jogo.tabuleiro_do_turno, posicao_defesa, monstro)
+                self.__tela_jogo.mostra_msg('Agora, selecione qual em qual posição do campo de batalha ele irá entrar')
+                posicao_defesa = self.__tela_jogo.pega_posicao_carta_em_lista(len(jogo.atacante_rodada.monstros_em_batalha), janela_turno)
+
+                try:
+                    jogo.realizar_bloqueio(jogo.tabuleiro_do_turno, posicao_defesa, monstro)
+                except PosicaoOcupada:
+                    self.__tela_jogo.fechar_janela(janela_turno)
+                    raise PosicaoOcupada
 
         self.__tela_jogo.fechar_janela(janela_turno)
 
