@@ -52,20 +52,10 @@ H
 DAOs/dao.py,4\4\4481bc0fd1644c4a38df4ff020da4d1d8a75f34c
 B
 DAOs/cartas_dao.py,8\9\8926807852384e4b13456835171bbd11a0f028cc
-@
-DAOs/jogo_dao.py,8\0\80e8acf76991445241f9044d5a16ede7fb202f0f
 A
 models/jogador.py,0\9\0962d1ac90d29dcb1b948f6a5a1bb739ecd2a7d7
 F
 views/tela_jogo_gui.py,3\e\3e24ec23d555a456b6c7ef8374ac1cdcad5b9ae4
->
-views/teste.py,c\9\c9052e7813d81c617f4826782fa22a5a8f561e87
-?
-views/teste2.py,4\1\416e398b563291ed29137df5e2dbd1099ae06fd3
-?
-views/teste3.py,d\8\d8e39368e781d23a5765b57cb17cf9d72631d800
-3
-asa,6\5\65417b70a1a7bd08a6189f4d309d90979cbe7b56
 R
 "controllers/controlador_jogador.py,d\f\df9580f9d519d3693d980c172a2bb87adb36205d
 R

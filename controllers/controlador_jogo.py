@@ -289,29 +289,20 @@ class ControladorJogo:
                 jafoi = []
                 while not confirmar_ataque:
                     if cancelou:
-                        for monstro in monstros:
-                            jogo.tabuleiro_do_turno.monstros.append(monstro)
-
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     try:
                         pos_carta = ((self.__tela_jogo.pega_posicao_carta_em_lista(
                             len(jogo.tabuleiro_do_turno.monstros), janela_turno)) - 1)
                     except Exception:
-                        for monstro in monstros:
-                            jogo.tabuleiro_do_turno.monstros.append(monstro)
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     if pos_carta is None:
-                        for monstro in monstros:
-                            jogo.tabuleiro_do_turno.monstros.append(monstro)
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     if pos_carta in jafoi:
                         self.__tela_jogo.mostra_msg(
                             'Esse monstro já foi selecionado para batalha')
-                        for monstro in monstros:
-                            jogo.tabuleiro_do_turno.monstros.append(monstro)
 
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
