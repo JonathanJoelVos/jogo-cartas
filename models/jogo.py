@@ -109,7 +109,6 @@ class Jogo:
         self.__t2.comprar_carta()
 
         self.__ataque_ja_realizado = False
-        self.__bloqueio_ja_realizado = False
 
         if self.__rodada <= 10:
             self.__t1.mana_total = self.__rodada
@@ -157,7 +156,7 @@ class Jogo:
             if atacante.monstros_em_batalha[i] is not None:
                 if defensor.monstros_em_batalha[i] is not None:
                     for atributo in atacante.monstros_em_batalha[i].atributos:
-                        if atributo.efeito == 'Sobrepujar':
+                        if atributo.efeito[0] == 'Sobrepujar':
                             sobrepujar = True
 
                     if sobrepujar:
@@ -168,17 +167,11 @@ class Jogo:
 
                     atacante.monstros_em_batalha[i].vida -= defensor.monstros_em_batalha[i].ataque
                     defensor.monstros_em_batalha[i].vida -= atacante.monstros_em_batalha[i].ataque
-                    if atacante.monstros_em_batalha[i].vida <= 0:
-                        atacante.monstros_em_batalha[i] = None
-                    else:
-                        atacante.monstros.append(
-                            atacante.monstros_em_batalha[i])
+                    if atacante.monstros_em_batalha[i].vida > 0:
+                        atacante.monstros.append(atacante.monstros_em_batalha[i])
 
-                    if defensor.monstros_em_batalha[i].vida <= 0:
-                        defensor.monstros_em_batalha[i] = None
-                    else:
-                        defensor.monstros.append(
-                            defensor.monstros_em_batalha[i])
+                    if defensor.monstros_em_batalha[i].vida > 0:
+                        defensor.monstros.append(defensor.monstros_em_batalha[i])
                 else:
                     defensor.vida_torre -= atacante.monstros_em_batalha[i].ataque
                     atacante.monstros.append(atacante.monstros_em_batalha[i])
@@ -194,7 +187,7 @@ class Jogo:
         if defensor.vida_torre <= 0:
             self.__ambos_vivos = False
 
-    def passar_a_vez(self):
+    def passar_a_vez(self, ):
         self.__contador_de_passes += 1
         self.mudar_turno()
         if self.__contador_de_passes == 2:
@@ -230,7 +223,7 @@ class Jogo:
             voar = False
             atacante_com_voar = False
             for atributo in monstro.atributos:
-                if atributo.efeito == 'Voar':
+                if atributo.efeito[0] == 'Voar':
                     voar = True
             if voar:
                 tabuleiro.monstros.remove(monstro)
@@ -238,7 +231,7 @@ class Jogo:
             else:
                 for atributo in self.__atacante_rodada.monstros_em_batalha[posicao-1].atributos:
                     if atributo is not None:
-                        if atributo.efeito == 'Voar':
+                        if atributo.efeito[0] == 'Voar':
                             atacante_com_voar = True
                 if atacante_com_voar:
                     raise MonstroSemVoar
@@ -253,8 +246,8 @@ class Jogo:
         if feitico.custo_mana > (tabuleiro.mana_atual + tabuleiro.spellmana):
             raise ManaInsuficiente
         custoinicial = feitico.custo_mana
-        feitico.custo_mana -= tabuleiro.spellmana
-        tabuleiro.spellmana -= min(custoinicial, 3)
+        feitico.custo_mana = max(0, feitico.custo_mana - tabuleiro.spellmana)
+        tabuleiro.spellmana = max(tabuleiro.spellmana - min(custoinicial, 3), 0)
         tabuleiro.mana_atual -= feitico.custo_mana
         tabuleiro.jogar_feitico(
             feitico, tabuleiro_aplicado, posicao_em_batalha)

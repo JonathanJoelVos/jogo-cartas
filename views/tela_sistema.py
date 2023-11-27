@@ -10,16 +10,16 @@ class TelaSistema():
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
-            [sg.Text('-------- Sistemas ----------', font=("Helvica", 25))],
+            [sg.Text('Magia Medieval: Confronto dos Reinos', font=("Helvica", 25), text_color='#f0ad8b')],
             [sg.Text('Escolha uma opção:', font=("Helvica", 15))],
-            [sg.Radio('Acessar jogadores', "RD1", key='1')],
+            [sg.Radio('Acessar jogadores', "RD1", key='1', default=True)],
             [sg.Radio('Opções de jogo', "RD1", key='2')],
             [sg.Radio('Ranking de jogadores', "RD1", key='3')],
             [sg.Radio('Opções de cartas', "RD1", key='4')],
-            [sg.Radio('Voltar', "RD1", key='0')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar', button_color=('white', 'green')),
+             sg.Cancel('Sair do Jogo', button_color=('white', 'red'))]
         ]
-        self.__window = sg.Window('Sistemas').Layout(layout)
+        self.__window = sg.Window('Jogo').Layout(layout)
 
     def open(self):
         button, values = self.__window.Read()
@@ -40,7 +40,7 @@ class TelaSistema():
         if values['4']:
             opcao = 4
 
-        if values['0'] or button in (None, 'Cancelar'):
+        if button in (None, 'Sair do Jogo'):
             opcao = 0
         self.close()
         return opcao

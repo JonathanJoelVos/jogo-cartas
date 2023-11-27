@@ -64,7 +64,7 @@ class ControladorCarta():
         else:
             raise CartaJaExiste()
 
-    def lista_carta(self, carta: Carta):  # controlador de jogo usa
+    def lista_carta(self, carta: Carta):
         if (isinstance(carta, Monstro)):
             self.__tela_carta.mostra_monstro({
                 'nome': carta.nome,
