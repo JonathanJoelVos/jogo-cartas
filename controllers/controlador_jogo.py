@@ -445,11 +445,8 @@ class ControladorJogo:
             except PosicaoOcupada as e:
                 self.__tela_jogo.mostra_msg(e)
             if jogo.rodada == 16:
-                '''
-                self.__tela_jogo.mostra_msg('')
+
                 self.__tela_jogo.mostra_msg('Rodada 16: Fim de jogo!')
-                self.__tela_jogo.mostra_msg('')
-                '''
 
                 v1 = jogo.t1.vida_torre
                 v2 = jogo.t2.vida_torre
@@ -472,11 +469,8 @@ class ControladorJogo:
                     jogo.perdedor.derrotas += 1
                     jogo.perdedor.pontos -= 1
 
-                    '''
                     self.__tela_jogo.mostra_msg(
                         f'Vitória do(a) {jogo.vencedor} ')
-                    self.__tela_jogo.mostra_msg('')
-                    '''
 
                 else:
                     jogo.vencedor = jogo.t2.jogador
@@ -489,11 +483,11 @@ class ControladorJogo:
 
                     self.__tela_jogo.mostra_msg(
                         f'Vitória do(a) {jogo.vencedor.nome} ')
-                    self.__tela_jogo.mostra_msg('')
 
                 break
 
             if not jogo.ambos_vivos:
+                self.__tela_jogo.mostra_msg('Fim de jogo!')
                 for tabuleiro in jogo.tabuleiros:
                     if tabuleiro.vida_torre <= 0:
                         jogo.perdedor = tabuleiro.jogador
@@ -504,12 +498,9 @@ class ControladorJogo:
                         jogo.vencedor.vitorias += 1
                         jogo.vencedor.pontos += 3
 
-                '''
-                self.__tela_jogo.mostra_msg('Jogo Encerrado.')
                 self.__tela_jogo.mostra_msg(
                     f'Vitória do(a) {jogo.vencedor.nome} ')
-                self.__tela_jogo.mostra_msg('')
-                '''
+
                 break
         self.__jogador_dao.update(jogo.vencedor)
         self.__jogador_dao.update(jogo.perdedor)

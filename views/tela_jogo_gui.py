@@ -483,7 +483,7 @@ class TelaJogo:
                                                     sg.Text(f'Vida: {dados_monstros[3]}')]
                                                    ]))
                 for i in range(2):
-                    layout_batalha_j1.append(sg.Frame('ESPAÇO VAZIO',
+                    layout_batalha_j2.append(sg.Frame('ESPAÇO VAZIO',
                                                       [[sg.Text('                               ')], [sg.Text('')],
                                                        [sg.Text('')], ]))
 

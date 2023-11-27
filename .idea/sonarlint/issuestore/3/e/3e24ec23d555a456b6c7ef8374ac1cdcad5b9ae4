@@ -1,17 +1,17 @@
 
-tpython:S1192‚"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 36 times.(¥âÛõıÿÿÿÿ8ı›Á1
-€python:S1192"[Define a constant instead of duplicating this literal 'CARTA 2                  ' 10 times.(¯„–úÿÿÿÿ8ı›Á1
-python:S1192ˆ"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 8 times.(Ôğ£¸şÿÿÿÿ8ı›Á1
-{python:S1192£"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 10 times.(é¥èó8ı›Á1
+tpython:S1192"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 36 times.(¥âÛõıÿÿÿÿ8ı›Á1
+€python:S1192"[Define a constant instead of duplicating this literal 'CARTA 2                  ' 10 times.(¯„–úÿÿÿÿ8ı›Á1
+python:S1192”"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 8 times.(Ôğ£¸şÿÿÿÿ8ı›Á1
+{python:S1192³"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 10 times.(é¥èó8ı›Á1
 }python:S1186"YAdd a nested comment explaining why this method is empty, or complete the implementation.(Áû¹Çûÿÿÿÿ8ı›Á1
-Opython:S1481+"0Replace unused local variable "values" with "_".(İçÿÒ8ı›Á1
-Epython:S1481"%Remove the unused local variable "i".(¹½ğ8ı›Á1
-Epython:S1481´"%Remove the unused local variable "i".(¹½ğ8ı›Á1
-ypython:S3776°"TRefactor this function to reduce its Cognitive Complexity from 65 to the 15 allowed.(Œìüÿÿÿÿ8ı›Á1
-Epython:S1481á"%Remove the unused local variable "i".(¹½ğ8ı›Á1
-Epython:S1481™"%Remove the unused local variable "i".(¹½ğ8èƒÁ1
-ypython:S3776”"TRefactor this function to reduce its Cognitive Complexity from 65 to the 15 allowed.(ùŠ×øÿÿÿÿ8èƒÁ1
-tpython:S3776Û"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÿ‚×²8èƒÁ1
-Vpython:S1481Š"1Replace unused local variable "valores" with "_".(¿³ÓŸøÿÿÿÿ8èƒÁ1
-Ppython:S1481·"0Replace unused local variable "values" with "_".(İçÿÒ8èƒÁ1
-Ppython:S1481Ñ"0Replace unused local variable "values" with "_".(İçÿÒ8èƒÁ1
+Opython:S1481."0Replace unused local variable "values" with "_".(İçÿÒ8ı›Á1
+Epython:S1481"%Remove the unused local variable "i".(¹½ğ8ı›Á1
+Epython:S1481È"%Remove the unused local variable "i".(¹½ğ8ı›Á1
+ypython:S3776Ä"TRefactor this function to reduce its Cognitive Complexity from 65 to the 15 allowed.(Œìüÿÿÿÿ8ı›Á1
+Epython:S1481Œ"%Remove the unused local variable "i".(¹½ğ8ı›Á1
+Epython:S1481Ï"%Remove the unused local variable "i".(¹½ğ8èƒÁ1
+ypython:S3776Ê"TRefactor this function to reduce its Cognitive Complexity from 65 to the 15 allowed.(ùŠ×øÿÿÿÿ8èƒÁ1
+tpython:S3776¨"TRefactor this function to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÿ‚×²8èƒÁ1
+Vpython:S1481Ú"1Replace unused local variable "valores" with "_".(¿³ÓŸøÿÿÿÿ8èƒÁ1
+Ppython:S1481‰"0Replace unused local variable "values" with "_".(İçÿÒ8èƒÁ1
+Ppython:S1481£"0Replace unused local variable "values" with "_".(İçÿÒ8èƒÁ1

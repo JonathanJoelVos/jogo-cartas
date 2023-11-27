@@ -7,8 +7,6 @@
 models/jogo.py,4\7\47aaba352749c948137824163f55fd6943ab6093
 O
 controllers/controlador_jogo.py,b\f\bf46422c84c068268148f272bb391908b3178b11
-B
-views/tela_jogo.py,7\1\711fd21be85eef0c4fb7281391f981d3f215bc2b
 7
 main.py,f\1\f1bdda93d9a278e358509d498e17d97764c1fb29
 G
@@ -70,8 +68,6 @@ A
 DAOs/jogos_dao.py,a\2\a289d970afe0425e318eba0573f60dc03906cdd8
 P
  errors/jogador_nao_encontrado.py,2\3\234ea75b8632ca7249a70c3c346cecb50833f978
-L
-errors/jogador_nao_existe.py,a\4\a4da440e4afb5d4a4730f705bfc2434db28d2b69
 C
 DAOs/jogador_dao.py,6\b\6bd045231f637d51367707f3359a2be951d56644
 B
