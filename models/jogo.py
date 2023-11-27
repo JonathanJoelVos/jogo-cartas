@@ -109,7 +109,6 @@ class Jogo:
         self.__t2.comprar_carta()
 
         self.__ataque_ja_realizado = False
-        self.__bloqueio_ja_realizado = False
 
         if self.__rodada <= 10:
             self.__t1.mana_total = self.__rodada
@@ -145,19 +144,18 @@ class Jogo:
     def em_batalha(self):
         return self.__em_batalha
 
-    def realizar_batalha(self): #Quando o monstro atacante morre, o monstro espaço vazio continua
+    def realizar_batalha(self):
         for tabuleiro in self.__tabuleiros:
             if tabuleiro.codigo == self.__atacante_rodada.codigo:
                 atacante = tabuleiro
             else:
                 defensor = tabuleiro
 
-        for i in range(len(atacante.monstros_em_batalha)): ####Criar lógica para incluir o monstro em lugares de monstros de codigo 0 ou se a lista estiver incompleta
+        for i in range(len(atacante.monstros_em_batalha)):
             sobrepujar = False
             if atacante.monstros_em_batalha[i] is not None:
                 if defensor.monstros_em_batalha[i] is not None:
                     for atributo in atacante.monstros_em_batalha[i].atributos:
-                        print(atributo.efeito[0])
                         if atributo.efeito[0] == 'Sobrepujar':
                             sobrepujar = True
 
@@ -169,53 +167,14 @@ class Jogo:
 
                     atacante.monstros_em_batalha[i].vida -= defensor.monstros_em_batalha[i].ataque
                     defensor.monstros_em_batalha[i].vida -= atacante.monstros_em_batalha[i].ataque
-                    if atacante.monstros_em_batalha[i].vida <= 0:
-                        atacante.monstros_em_batalha[i] = None
-                        del (atacante.monstros[i])
-                    else: #atacante sobreviveu. Esse codigo funciona para atacante. sera que funciona para defensor?
-                        if atacante.monstros[i].codigo == '0':
-                            print("atacante.monstros[i].codigo == '0':")
-                            atacante.monstros[i] = atacante.monstros_em_batalha[i]
-                        elif i + 1 <= len(atacante.monstros):
-                            print('ELIF I+1 <= LEN(ATACANTE.MONSTROS')
-                            if atacante.monstros[i+1].codigo == '0':
-                                print("if atacante.monstros[i].codigo == '0':")
-                                atacante.monstros[i+1] = atacante.monstros_em_batalha[i]
-                            elif i + 2 <= len(atacante.monstros):
-                                print("i + 2 <= len(atacante.monstros):")
-                                if atacante.monstros[i+2].codigo == '0':
-                                    print("atacante.monstros[i].codigo == '0':")
-                                    atacante.monstros[i + 2] = atacante.monstros_em_batalha[i]
+                    if atacante.monstros_em_batalha[i].vida > 0:
+                        atacante.monstros.append(atacante.monstros_em_batalha[i])
 
-
-                    if defensor.monstros_em_batalha[i].vida <= 0:
-                        defensor.monstros_em_batalha[i] = None
-                    else: #defensor sobreviveu. implementar codigo novo
-                        if defensor.monstros: #Esse codigo funciona para atacante. sera que funciona para defensor?
-                            if defensor.monstros[i].codigo == '0':
-                                defensor.monstros.append(
-                                    defensor.monstros_em_batalha[i])
-                        elif i+1 < len(defensor.monstros):
-                            if defensor.monstros[i].codigo == '0':
-                                defensor.monstros.append(
-                                    defensor.monstros_em_batalha[i])
-                        else:
-                            defensor.monstros.append(defensor.monstros_em_batalha[i])
+                    if defensor.monstros_em_batalha[i].vida > 0:
+                        defensor.monstros.append(defensor.monstros_em_batalha[i])
                 else:
                     defensor.vida_torre -= atacante.monstros_em_batalha[i].ataque
-                    if atacante.monstros[i].codigo == '0':
-                        print("atacante.monstros[i].codigo == '0':")
-                        atacante.monstros[i] = atacante.monstros_em_batalha[i]
-                    elif i + 1 <= len(atacante.monstros):
-                        print('ELIF I+1 <= LEN(ATACANTE.MONSTROS)')
-                        if atacante.monstros[i+1].codigo == '0':
-                            print("if atacante.monstros[i].codigo == '0':")
-                            atacante.monstros[i + 1] = atacante.monstros_em_batalha[i]
-                        elif i + 2 <= len(atacante.monstros):
-                            print("i + 2 <= len(atacante.monstros):")
-                            if atacante.monstros[i+2].codigo == '0':
-                                print("atacante.monstros[i].codigo == '0':")
-                                atacante.monstros[i + 2] = atacante.monstros_em_batalha[i]
+                    atacante.monstros.append(atacante.monstros_em_batalha[i])
 
             elif defensor.monstros_em_batalha[i] is not None:
                 defensor.monstros.append(defensor.monstros_em_batalha[i])
@@ -264,7 +223,6 @@ class Jogo:
             voar = False
             atacante_com_voar = False
             for atributo in monstro.atributos:
-                print(atributo.efeito[0])
                 if atributo.efeito[0] == 'Voar':
                     voar = True
             if voar:
@@ -288,8 +246,8 @@ class Jogo:
         if feitico.custo_mana > (tabuleiro.mana_atual + tabuleiro.spellmana):
             raise ManaInsuficiente
         custoinicial = feitico.custo_mana
-        feitico.custo_mana -= tabuleiro.spellmana
-        tabuleiro.spellmana -= min(custoinicial, 3)
+        feitico.custo_mana = max(0, feitico.custo_mana - tabuleiro.spellmana)
+        tabuleiro.spellmana = max(tabuleiro.spellmana - min(custoinicial, 3), 0)
         tabuleiro.mana_atual -= feitico.custo_mana
         tabuleiro.jogar_feitico(
             feitico, tabuleiro_aplicado, posicao_em_batalha)

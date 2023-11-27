@@ -1,2 +1,9 @@
 
-dpython:S1192"GDefine a constant instead of duplicating this literal 'NOME: ' 3 times.(ĞÀ†šûÿÿÿÿ
+Tpython:S1481Q"0Replace unused local variable "button" with "_".(»àÌÿÿÿÿÿ8¿´–‡Á1
+Tpython:S1481Q"0Replace unused local variable "values" with "_".(»àÌÿÿÿÿÿ8¿´–‡Á1
+Tpython:S1481_"0Replace unused local variable "button" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1
+Upython:S1481•"0Replace unused local variable "button" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1
+Upython:S1481¦"0Replace unused local variable "values" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1
+Upython:S1481¦"0Replace unused local variable "button" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1
+Upython:S1481º"0Replace unused local variable "values" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1
+Upython:S1481º"0Replace unused local variable "button" with "_".(»àÌÿÿÿÿÿ8À´–‡Á1

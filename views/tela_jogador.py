@@ -10,7 +10,7 @@ class TelaJogador():
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
-            [sg.Text('-------- Jogador ----------', font=("Helvica", 25))],
+            [sg.Text('-------- Jogador ----------', font=("Helvica", 25), text_color='#f0ad8b')],
             [sg.Text('Escolha uma opção:', font=("Helvica", 15))],
             [sg.Radio('Incluir jogador', "RD1", key='1')],
             [sg.Radio('Alterar jogador', "RD1", key='2')],
@@ -18,7 +18,8 @@ class TelaJogador():
             [sg.Radio('Listar jogadores', "RD1", key='4')],
             [sg.Radio('Opções de baralho', "RD1", key='5')],
             [sg.Radio('Voltar', "RD1", key='0')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar', button_color=('white', 'green')),
+             sg.Cancel('Cancelar', button_color=('white', 'red'))]
         ]
         self.__window = sg.Window('Sistema de jogador').Layout(layout)
 
@@ -36,7 +37,8 @@ class TelaJogador():
             [sg.Radio('Remover carta do baralho', "RD1", key='6')],
             [sg.Radio('Listar cartas do baralho', "RD1", key='7')],
             [sg.Radio('Voltar', "RD1", key='0')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar', button_color=('white', 'green')),
+             sg.Cancel('Cancelar', button_color=('white', 'red'))]
         ]
         self.__window = sg.Window('Baralhos').Layout(layout)
 
@@ -72,7 +74,7 @@ class TelaJogador():
             [sg.Table(values=dados_layout, headings=['Nome', 'Partidas',
                       'Vitórias', 'Derrotas', 'Pontos'],
                       auto_size_columns=True)],
-            [sg.Button('Ok')]
+            [sg.Button('Ok', button_color=('white', 'green'))]
         ]
 
         self.__window = sg.Window('Jogadores').Layout(layout)
@@ -82,12 +84,11 @@ class TelaJogador():
     def pega_nome_jogador(self):
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
-            [sg.Text('-------- JOGADOR ----------',
-                     font=("Helvica", 25))],
             [sg.Text('Digite o nome do jogador:',
                      font=("Helvica", 15))],
             [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar', button_color=('white', 'green')),
+             sg.Cancel('Cancelar', button_color=('white', 'red'))]
         ]
         self.__window = sg.Window('Seleciona jogador').Layout(layout)
 
@@ -137,12 +138,11 @@ class TelaJogador():
     def pega_nome_baralho(self):
         sg.ChangeLookAndFeel('DarkTeal4')
         layout = [
-            [sg.Text('-------- Baralho ----------',
-                     font=("Helvica", 25))],
             [sg.Text('Digite o nome do baralho:',
                      font=("Helvica", 15))],
             [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar', button_color=('white', 'green')),
+             sg.Cancel('Cancelar', button_color=('white', 'green'))]
         ]
         self.__window = sg.Window('Seleciona baralho').Layout(layout)
 
@@ -159,7 +159,7 @@ class TelaJogador():
         layout = [
             [sg.Table(values=dados_baralho, headings=['Baralhos'],
                       auto_size_columns=True)],
-            [sg.Button('Ok')]
+            [sg.Button('Ok', button_color=('white', 'green'))]
         ]
 
         self.__window = sg.Window('Cartas').Layout(layout)
@@ -179,7 +179,7 @@ class TelaJogador():
             [sg.Table(values=dados_jogador, headings=['Nome', 'Partidas',
                       'Vitórias', 'Derrotas', 'Pontos', 'Posição'],
                       auto_size_columns=True)],
-            [sg.Button('Ok')]
+            [sg.Button('Ok', button_color=('white', 'green'))]
         ]
 
         self.__window = sg.Window('Ranking').Layout(layout)

@@ -76,3 +76,39 @@ K
 errors/mana_insuficiente.py,1\e\1e7df6d1bd18a065d90eaec014cc4e02da03813c
 G
 errors/mesmo_jogador.py,8\a\8aafe28f05c11209d176835ea74f652c8bf5d937
+A
+DAOs/jogos_dao.py,a\2\a289d970afe0425e318eba0573f60dc03906cdd8
+P
+ errors/jogador_nao_encontrado.py,2\3\234ea75b8632ca7249a70c3c346cecb50833f978
+L
+errors/jogador_nao_existe.py,a\4\a4da440e4afb5d4a4730f705bfc2434db28d2b69
+C
+DAOs/jogador_dao.py,6\b\6bd045231f637d51367707f3359a2be951d56644
+B
+errors/__init__.py,8\6\862881c615a801bc6474c43512bea9891b45b3be
+M
+errors/ataque_ja_realizado.py,c\2\c2fb53a3ffa7a2d31527d47bee295161455838b3
+M
+errors/ataque_sem_monstros.py,7\7\77bd1806f93edc4ac114c63ff679da7464998e63
+L
+errors/baralho_incompleto.py,8\b\8b55ee560e019b0cb7ed4d3da455f160e5ad9b2b
+O
+errors/baralho_ja_cadastrado.py,3\7\372d05bd35945fbf2bb934d4943881e0759af91a
+L
+errors/baralho_nao_existe.py,3\a\3a3dd68cea38be12762c678af03004cd1fa8ef2d
+N
+errors/carta_nao_encontrada.py,7\0\707153c600803a083c134ba0a88766231482a953
+O
+errors/jogador_ja_cadastrado.py,b\f\bf2cfdfe2979d5bad02c49c1af3a996b0c61fdaf
+R
+"errors/limite_de_carta_excedido.py,0\a\0a53a41d64ee4cd5c1721e009dde31de33a47ee7
+J
+errors/monstro_sem_voar.py,c\7\c726df2f3ecbe98c9bd3103c797190739a630bd4
+D
+errors/nao_condiz.py,5\d\5dee7e0bf3a8215528b994d4b738bcb04ec725e3
+I
+errors/posicao_ocupada.py,b\1\b18967236d752e7636bcc7739974043aa9f05e29
+I
+errors/tabuleiro_cheio.py,2\b\2b57ea9d6bd7a3c816ceeabf6ad4f14b229f4774
+B
+models/__init__.py,b\b\bb5e16ac59b350373b55d7ae678133d6e2cfadaa

@@ -1,12 +1,12 @@
 
-~python:S11928"ZDefine a constant instead of duplicating this literal 'CARTA 2                  ' 8 times.(¾€Äüşÿÿÿÿ8Ò—¯£À1
-npython:S1192$"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 26 times.(°÷ñº8Ó—¯£À1
-ypython:S1192/"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 6 times.(ç‚Ö÷8Ó—¯£À1
-zpython:S1192Z"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 12 times.(ôøáğ8Ó—¯£À1
-Dpython:S1481#"%Remove the unused local variable "i".(¹½ğ8Ó—¯£À1
-xpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(ÎŒşïıÿÿÿÿ8Ó—¯£À1
-epython:S3457Á"EAdd replacement fields or use a normal string instead of an f-string.(™ıŒÒ8Ó—¯£À1
-Epython:S1481Ñ"%Remove the unused local variable "i".(¹½ğ8Ó—¯£À1
-ypython:S3776Ì"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(Ã÷æŸşÿÿÿÿ8Ó—¯£À1
-Epython:S1481Ü"%Remove the unused local variable "i".(¹½ğ8Ó—¯£À1
-Epython:S1481Š"%Remove the unused local variable "i".(¹½ğ8Ó—¯£À1
+~python:S11921"ZDefine a constant instead of duplicating this literal 'CARTA 2                  ' 9 times.(¯„–úÿÿÿÿ8ª¤ä‹Á1
+spython:S1192#"ODefine a constant instead of duplicating this literal 'ESPAÃ‡O VAZIO' 30 times.(¥âÛõıÿÿÿÿ8ª¤ä‹Á1
+~python:S1192)"ZDefine a constant instead of duplicating this literal 'CARTA 1                  ' 7 times.(Ôğ£¸şÿÿÿÿ8ª¤ä‹Á1
+zpython:S1192D"[Define a constant instead of duplicating this literal 'CARTA 3                  ' 11 times.(é¥èó8ª¤ä‹Á1
+Dpython:S1481""%Remove the unused local variable "i".(¹½ğ8ª¤ä‹Á1
+Dpython:S1481V"%Remove the unused local variable "i".(¹½ğ8ª¤ä‹Á1
+xpython:S3776R"TRefactor this function to reduce its Cognitive Complexity from 62 to the 15 allowed.(»øü¼øÿÿÿÿ8ª¤ä‹Á1
+Epython:S1481ÿ"%Remove the unused local variable "i".(¹½ğ8ª¤ä‹Á1
+Epython:S1481¹"%Remove the unused local variable "i".(¹½ğ8ª¤ä‹Á1
+ypython:S3776³"TRefactor this function to reduce its Cognitive Complexity from 53 to the 15 allowed.(ÎŒşïıÿÿÿÿ8ª¤ä‹Á1
+epython:S3457Ü"EAdd replacement fields or use a normal string instead of an f-string.(™ıŒÒ8«¤ä‹Á1

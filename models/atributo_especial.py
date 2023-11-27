@@ -9,4 +9,3 @@ class AtributoEspecial:
     @efeito.setter
     def efeito(self, efeito):
         self.__efeito = efeito
-
