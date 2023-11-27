@@ -84,8 +84,10 @@ class ControladorJogo:
         j1 = self.__controlador_sistema.controlador_jogador.seleciona_jogador()
 
         self.__tela_jogo.mostra_msg('Selecione o baralho do primeiro jogador:')
-        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(j1)
-        b1 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j1)
+        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(
+            j1)
+        b1 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(
+            j1)
 
         if len(b1.cartas) < 20:
             raise BaralhoIncompleto
@@ -97,8 +99,10 @@ class ControladorJogo:
             raise MesmoJogador
 
         self.__tela_jogo.mostra_msg('Selecione o baralho do segundo jogador')
-        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(j2)
-        b2 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(j2)
+        self.__controlador_sistema.controlador_jogador.lista_baralhos_jogador(
+            j2)
+        b2 = self.__controlador_sistema.controlador_jogador.seleciona_baralho_do_jogador(
+            j2)
 
         if len(b2.cartas) < 20:
             raise BaralhoIncompleto
@@ -155,7 +159,8 @@ class ControladorJogo:
                 dados_t1_monstros_batalha.append(monstro.nome)
                 dados_t1_monstros_batalha.append(monstro.ataque)
                 dados_t1_monstros_batalha.append(monstro.vida)
-                dados_t1_monstros_batalha.append(monstro.atributos[0].efeito[0])
+                dados_t1_monstros_batalha.append(
+                    monstro.atributos[0].efeito[0])
             else:
                 dados_t1_monstros_batalha.append(None)
         for monstro in jogo.t2.monstros:
@@ -168,7 +173,8 @@ class ControladorJogo:
                 dados_t2_monstros_batalha.append(monstro.nome)
                 dados_t2_monstros_batalha.append(monstro.ataque)
                 dados_t2_monstros_batalha.append(monstro.vida)
-                dados_t2_monstros_batalha.append(monstro.atributos[0].efeito[0])
+                dados_t2_monstros_batalha.append(
+                    monstro.atributos[0].efeito[0])
             else:
                 dados_t2_monstros_batalha.append(None)
 
@@ -213,7 +219,8 @@ class ControladorJogo:
             return
 
         if opcao == 0:
-            self.__tela_jogo.mostra_msg(f'{jogo.tabuleiro_do_turno.jogador.nome} Passou a vez!')
+            self.__tela_jogo.mostra_msg(
+                f'{jogo.tabuleiro_do_turno.jogador.nome} Passou a vez!')
             if jogo.contador_de_passes == 1:
                 if not jogo.em_batalha:
                     self.__tela_jogo.mostra_msg('Nova Rodada!')
@@ -229,7 +236,8 @@ class ControladorJogo:
                 cartas = []
                 for carta in jogo.tabuleiro_do_turno.cartas_na_mao:
                     cartas.append(carta)
-                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
+                self.__controlador_sistema.controlador_carta.lista_cartas(
+                    cartas)
 
                 posicao_escolhida = self.__tela_jogo.pega_posicao_carta_em_lista(
                     len(jogo.tabuleiro_do_turno.cartas_na_mao), janela_turno)
@@ -256,7 +264,8 @@ class ControladorJogo:
                             (len(jogo.tabuleiro_do_turno.monstros)), janela_turno)
                         if pos_eliminado is not None:
                             break
-                        self.__tela_jogo.mostra_msg('Escolha a posição para substituir o monstro')
+                        self.__tela_jogo.mostra_msg(
+                            'Escolha a posição para substituir o monstro')
 
                     pos_eliminado -= 1
 
@@ -272,7 +281,8 @@ class ControladorJogo:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise NaoCondiz
 
-                self.__tela_jogo.mostra_msg('Escolha um monstro do tabuleiro para entrar em batalha')
+                self.__tela_jogo.mostra_msg(
+                    'Escolha um monstro do tabuleiro para entrar em batalha')
                 monstros = []
                 confirmar_ataque = False
                 cancelou = False
@@ -298,7 +308,8 @@ class ControladorJogo:
                         self.__tela_jogo.fechar_janela(janela_turno)
                         raise Voltar
                     if pos_carta in jafoi:
-                        self.__tela_jogo.mostra_msg('Esse monstro já foi selecionado para batalha')
+                        self.__tela_jogo.mostra_msg(
+                            'Esse monstro já foi selecionado para batalha')
                         for monstro in monstros:
                             jogo.tabuleiro_do_turno.monstros.append(monstro)
 
@@ -312,7 +323,8 @@ class ControladorJogo:
                     self.__tela_jogo.mostra_msg(
                         f'{carta.nome.upper()} será movido para o campo de batalha ao iniciar ataque')
 
-                    confirmar, cancelou = self.__tela_jogo.tela_confirmar_ataque(janela_turno)
+                    confirmar, cancelou = self.__tela_jogo.tela_confirmar_ataque(
+                        janela_turno)
                     if confirmar == '1':
                         confirmar_ataque = True
                         for monstro in monstros[::-1]:
@@ -326,8 +338,10 @@ class ControladorJogo:
                 cartas = []
                 for carta in jogo.tabuleiro_do_turno.cartas_na_mao:
                     cartas.append(carta)
-                self.__controlador_sistema.controlador_carta.lista_cartas(cartas)
-                self.__tela_jogo.mostra_msg('Selecione a posição do feitiço aplicado na mão.')
+                self.__controlador_sistema.controlador_carta.lista_cartas(
+                    cartas)
+                self.__tela_jogo.mostra_msg(
+                    'Selecione a posição do feitiço aplicado na mão.')
                 posicao_escolhida = self.__tela_jogo.pega_posicao_carta_em_lista(
                     len(jogo.tabuleiro_do_turno.cartas_na_mao), janela_turno)
                 if posicao_escolhida is None:
@@ -340,7 +354,8 @@ class ControladorJogo:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise TipoDeCartaErrado
 
-                escolha = self.__tela_jogo.tela_escolhe_tabuleiro_feitico(janela_turno)
+                escolha = self.__tela_jogo.tela_escolhe_tabuleiro_feitico(
+                    janela_turno)
                 if escolha is None:
                     raise Voltar
 
@@ -358,7 +373,8 @@ class ControladorJogo:
                     if jogo.tabuleiro_do_turno.codigo == defensor.codigo:
                         tabuleiro_aplicado = jogo.atacante_rodada
 
-                self.__controlador_sistema.controlador_carta.lista_cartas([feitico])
+                self.__controlador_sistema.controlador_carta.lista_cartas([
+                                                                          feitico])
 
                 self.__tela_jogo.mostra_msg(
                     'Escolha a posição do monstro afetado no campo de batalha')
@@ -366,7 +382,8 @@ class ControladorJogo:
                     len(tabuleiro_aplicado.monstros_em_batalha), janela_turno)
 
                 try:
-                    jogo.jogar_feitico(jogo.tabuleiro_do_turno, feitico, tabuleiro_aplicado, posicao_monstro)
+                    jogo.jogar_feitico(
+                        jogo.tabuleiro_do_turno, feitico, tabuleiro_aplicado, posicao_monstro)
                 except ManaInsuficiente:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise ManaInsuficiente
@@ -378,17 +395,20 @@ class ControladorJogo:
                 if jogo.tabuleiro_do_turno.codigo == jogo.atacante_rodada.codigo:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise NaoCondiz
-                self.__tela_jogo.mostra_msg('Escolha um monstro do seu tabuleiro para bloquear um inimigo')
+                self.__tela_jogo.mostra_msg(
+                    'Escolha um monstro do seu tabuleiro para bloquear um inimigo')
                 pos_monstro = self.__tela_jogo.pega_posicao_carta_em_lista(
                     len(jogo.tabuleiro_do_turno.monstros), janela_turno)
                 monstro = jogo.tabuleiro_do_turno.monstros[pos_monstro - 1]
 
-                self.__tela_jogo.mostra_msg('Agora, selecione qual em qual posição do campo de batalha ele irá entrar')
+                self.__tela_jogo.mostra_msg(
+                    'Agora, selecione qual em qual posição do campo de batalha ele irá entrar')
                 posicao_defesa = self.__tela_jogo.pega_posicao_carta_em_lista(
                     len(jogo.atacante_rodada.monstros_em_batalha), janela_turno)
 
                 try:
-                    jogo.realizar_bloqueio(jogo.tabuleiro_do_turno, posicao_defesa, monstro)
+                    jogo.realizar_bloqueio(
+                        jogo.tabuleiro_do_turno, posicao_defesa, monstro)
                 except PosicaoOcupada:
                     self.__tela_jogo.fechar_janela(janela_turno)
                     raise PosicaoOcupada

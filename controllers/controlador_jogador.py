@@ -175,8 +175,10 @@ class ControladorJogador():
     def lista_cartas_do_baralho(self, baralho):
         if (len(baralho.cartas) == 0):
             return self.__tela_jogador.mostra_msg('Baralho vazio')
+        lista_cartas = []
         for carta in baralho.cartas:
-            self.__controlador_sistema.controlador_carta.lista_carta(carta)
+            lista_cartas.append(carta)
+        self.__controlador_sistema.controlador_carta.lista_cartas(lista_cartas)
 
     def remover_carta_do_baralho_jogador(self, jogador: Jogador):
         self.lista_baralhos_jogador(jogador)
